@@ -1,39 +1,85 @@
 body {
-    background-color: #FFFFE0;
+    background-color: #f5f5f5;
     font-family: Arial, sans-serif;
-    color: #000;
     margin: 0;
     padding: 0;
+    color: #333;
 }
 
 /* PROFIL */
 .kartu-profil {
-    width: 320px;
-    margin: 40px auto;
+    max-width: 500px;
+    margin: 30px auto;
     padding: 20px;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    background-color: #ffffff;
+    border-radius: 10px;
     text-align: center;
 }
 
 .kartu-profil img {
-    width: 150px;
+    width: 140px;
     border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.kartu-profil h1 {
+    margin: 10px 0;
+    font-size: 22px;
+}
+
+.kartu-profil p {
+    font-size: 14px;
 }
 
 .link-sosial a {
     display: inline-block;
-    margin: 10px;
+    margin-top: 10px;
     text-decoration: none;
     color: white;
-    background-color: #007BFF;
-    padding: 8px 14px;
-    border-radius: 8px;
-    font-size: 14px;
+    background-color: #007bff;
+    padding: 8px 16px;
+    border-radius: 6px;
 }
 
-.link-sosial a:hover {
+button {
+    display: block;
+    margin: 15px auto 0;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+}
+
+/* KARYA */
+.karya {
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.karya h2 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* SETIAP KARYA URUT KE BAWAH */
+.karya-card {
+    margin-bottom: 25px;
+}
+
+.karya-card h3 {
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.karya-card iframe {
+    width: 100%;
+    height: 260px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+}
     background-color: #0056b3;
 }
 
