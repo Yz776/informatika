@@ -1,3 +1,5 @@
+let activeLink = null; // link yang sedang aktif
+
 // LOADING PROFIL
 window.addEventListener("load", () => {
     anime({
@@ -14,8 +16,11 @@ const cards = document.querySelectorAll(".karya-card");
 
 window.addEventListener("scroll", () => {
     cards.forEach(card => {
+        if (card.dataset.animated) return;
+
         const rect = card.getBoundingClientRect();
-        if (rect.top < window.innerHeight - 100 && card.style.opacity == 0) {
+        if (rect.top < window.innerHeight - 100) {
+            card.dataset.animated = "true";
             anime({
                 targets: card,
                 opacity: [0, 1],
@@ -27,13 +32,43 @@ window.addEventListener("scroll", () => {
     });
 });
 
-// CLICK → TAMPILKAN IFRAME (HANYA 1)
+// CLICK HANDLER (TOGGLE IFRAME)
 document.querySelectorAll(".karya-link").forEach(link => {
     link.addEventListener("click", () => {
 
-        // HAPUS SEMUA IFRAME
+        const container = link.nextElementSibling;
+
+        // JIKA LINK YANG SAMA DIKLIK LAGI → TUTUP
+        if (activeLink === link) {
+            container.innerHTML = "";
+            activeLink = null;
+            return;
+        }
+
+        // HAPUS SEMUA IFRAME LAIN
         document.querySelectorAll(".iframe-container").forEach(c => {
             c.innerHTML = "";
+        });
+
+        // BUAT IFRAME BARU
+        const iframe = document.createElement("iframe");
+        iframe.src = link.dataset.url;
+
+        container.appendChild(iframe);
+
+        anime({
+            targets: iframe,
+            opacity: [0, 1],
+            scale: [0.96, 1],
+            duration: 600,
+            easing: "easeOutExpo"
+        });
+
+        iframe.scrollIntoView({ behavior: "smooth", block: "start" });
+
+        activeLink = link;
+    });
+});
         });
 
         // BUAT IFRAME BARU
