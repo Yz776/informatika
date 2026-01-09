@@ -67,6 +67,6 @@ button {
 
 .karya-card iframe {
     width: 100%;
-    height: 70vh; /* BIAR GEDE */
+    height: 60vw; /* BIAR GEDE */
     border: 1px solid #ccc;
 }
