@@ -37,7 +37,7 @@ window.addEventListener("load", () => {
 
     // TUNGGU SEBENTAR (EFEK LOADING)
     setTimeout(() => {
-
+         playGlassSound();
         // PECAHKAN LOADING
         anime({
             targets: ".loading-glass",
@@ -76,8 +76,6 @@ window.addEventListener("load", () => {
             easing: "easeOutElastic(1, .6)",
             begin: () => {
                 imageAnimated = true;
-                playGlassSound();
-
                 anime({
                     targets: ".kartu-profil img",
                     keyframes: [
