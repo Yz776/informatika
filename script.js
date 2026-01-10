@@ -1,153 +1,145 @@
 // =======================
-// AUDIO KACA PECAH (MOBILE SAFE)
+// AUDIO KACA PECAH (AUTOPLAY ATTEMPT)
 // =======================
 const glassSound = document.getElementById("glassSound");
-let audioUnlocked = true;
 
 function playGlassSound() {
-    if (!audioUnlocked) return;
+    if (!glassSound) return;
     glassSound.currentTime = 0;
     glassSound.volume = 0.7;
-    glassSound.play().catch(() => {});
+    glassSound.play().catch(() => {
+        // Browser block autoplay → DIAM (tidak error)
+        console.warn("Audio autoplay diblokir browser");
+    });
 }
-
-// UNLOCK AUDIO (WAJIB UNTUK HP)
-function unlockAudio() {
-    if (audioUnlocked) return;
-
-    glassSound.play().then(() => {
-        glassSound.pause();
-        glassSound.currentTime = 0;
-        audioUnlocked = true;
-    }).catch(() => {});
-}
-
-document.addEventListener("click", unlockAudio, { once: true });
-document.addEventListener("touchstart", unlockAudio, { once: true });
 
 
 // =======================
-// LOADING + ANIMASI UTAMA
+// LOADING + ANIMASI OTOMATIS
 // =======================
 window.addEventListener("load", () => {
 
     // JEDA LOADING
     setTimeout(() => {
 
-        // 🔊 SUARA KACA PECAH SAAT LOADING
+        // 🔊 COBA PUTAR SUARA (AUTOPLAY)
         playGlassSound();
 
         // ANIMASI PECAH LOADING
         anime({
             targets: ".loading-glass",
-            scale: [1, 2.5],
+            scale: [1, 2.8],
             rotate: [0, 45],
             opacity: [1, 0],
-            duration: 600,
+            duration: 700,
             easing: "easeInExpo",
             complete: () => {
                 const loading = document.getElementById("loading-screen");
                 if (loading) loading.remove();
+                startLandingAnimation();
             }
         });
 
-        // =======================
-        // TIMELINE LANDING PAGE
-        // =======================
-        const tl = anime.timeline({
-            easing: "easeOutExpo",
-            duration: 800
-        });
-
-        // PROFIL CARD
-        tl.add({
-            targets: ".kartu-profil",
-            opacity: [0, 1],
-            translateY: [40, 0]
-        })
-
-        // FOTO PROFIL (TANPA SUARA)
-        .add({
-            targets: ".kartu-profil img",
-            scale: [0.6, 1],
-            rotate: [-12, 0],
-            opacity: [0, 1],
-            duration: 900,
-            easing: "easeOutElastic(1, .6)",
-            begin: () => {
-                // efek shake visual saja
-                anime({
-                    targets: ".kartu-profil img",
-                    keyframes: [
-                        { rotate: -8 },
-                        { rotate: 8 },
-                        { rotate: -4 },
-                        { rotate: 0 }
-                    ],
-                    duration: 350,
-                    easing: "easeOutSine"
-                });
-            }
-        }, "-=400")
-
-        // NAMA
-        .add({
-            targets: ".kartu-profil h1",
-            opacity: [0, 1],
-            translateY: [30, 0]
-        }, "-=300")
-
-        // DESKRIPSI
-        .add({
-            targets: ".kartu-profil p",
-            opacity: [0, 1],
-            filter: ["blur(6px)", "blur(0px)"],
-            duration: 700
-        })
-
-        // SOSIAL
-        .add({
-            targets: ".link-sosial a",
-            opacity: [0, 1],
-            scale: [0.8, 1],
-            delay: anime.stagger(200),
-            easing: "easeOutBack"
-        })
-
-        // JUDUL KARYA
-        .add({
-            targets: ".karya h2",
-            opacity: [0, 1],
-            translateY: [30, 0]
-        })
-
-        // KARYA 1
-        .add({
-            targets: ".anim-1",
-            translateX: [150, 0],
-            opacity: [0, 1]
-        })
-
-        // KARYA 2
-        .add({
-            targets: ".anim-2",
-            translateX: [-150, 0],
-            opacity: [0, 1]
-        }, "+=200")
-
-        // KARYA 3
-        .add({
-            targets: ".anim-3",
-            translateY: [150, 0],
-            opacity: [0, 1]
-        }, "+=200");
-
-    }, 900); // ⏳ DURASI LOADING
+    }, 900); // durasi loading
 });
 
 
 // =======================
-// TOGGLE IFRAME (1 AKTIF)
+// LANDING PAGE ANIMATION
+// =======================
+function startLandingAnimation() {
+
+    const tl = anime.timeline({
+        easing: "easeOutExpo",
+        duration: 800
+    });
+
+    // PROFIL CARD
+    tl.add({
+        targets: ".kartu-profil",
+        opacity: [0, 1],
+        translateY: [40, 0]
+    })
+
+    // FOTO PROFIL (EFEK KACA)
+    .add({
+        targets: ".kartu-profil img",
+        scale: [0.6, 1],
+        rotate: [-12, 0],
+        opacity: [0, 1],
+        duration: 900,
+        easing: "easeOutElastic(1, .6)",
+        begin: () => {
+            anime({
+                targets: ".kartu-profil img",
+                keyframes: [
+                    { rotate: -8 },
+                    { rotate: 8 },
+                    { rotate: -4 },
+                    { rotate: 0 }
+                ],
+                duration: 350,
+                easing: "easeOutSine"
+            });
+        }
+    }, "-=400")
+
+    // NAMA
+    .add({
+        targets: ".kartu-profil h1",
+        opacity: [0, 1],
+        translateY: [30, 0]
+    }, "-=300")
+
+    // DESKRIPSI
+    .add({
+        targets: ".kartu-profil p",
+        opacity: [0, 1],
+        filter: ["blur(6px)", "blur(0px)"],
+        duration: 700
+    })
+
+    // SOSIAL
+    .add({
+        targets: ".link-sosial a",
+        opacity: [0, 1],
+        scale: [0.8, 1],
+        delay: anime.stagger(200),
+        easing: "easeOutBack"
+    })
+
+    // JUDUL KARYA
+    .add({
+        targets: ".karya h2",
+        opacity: [0, 1],
+        translateY: [30, 0]
+    })
+
+    // KARYA 1
+    .add({
+        targets: ".anim-1",
+        translateX: [150, 0],
+        opacity: [0, 1]
+    })
+
+    // KARYA 2
+    .add({
+        targets: ".anim-2",
+        translateX: [-150, 0],
+        opacity: [0, 1]
+    }, "+=200")
+
+    // KARYA 3
+    .add({
+        targets: ".anim-3",
+        translateY: [150, 0],
+        opacity: [0, 1]
+    }, "+=200");
+}
+
+
+// =======================
+// TOGGLE IFRAME (OTOMATIS, TANPA SOUND)
 // =======================
 let activeLink = null;
 
