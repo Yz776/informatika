@@ -46,7 +46,8 @@ window.addEventListener("load", () => {
                     "Saya tertarik dengan <b>TypeScript</b>."
                 ],
                 typeSpeed: 45,
-                backSpeebackSpeed              backDelay: 1200,
+                backSpeebackSpeed,
+                backDelay: 1200,
                 loop: true,
                 smartBackspace: true,
                 showCursor: true
