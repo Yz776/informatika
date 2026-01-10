@@ -72,7 +72,7 @@ window.addEventListener("load", () => {
     }, "+=200")
 
     // KARYA CARD 3
-    add({
+    .add({
         targets: ".anim-3",
         translateY: [120, 0],
         opacity: [0, 1],
