@@ -43,11 +43,10 @@ window.addEventListener("load", () => {
                     "Saya tertarik dengan <b>HTML</b>.",
                     "Saya tertarik dengan <b>Javascript</b>.",
                     "Saya tertarik dengan <b>PHP</b>.",
-                    "Saya tertarik dengan <b>TypeScript</b> 😁"
+                    "Saya tertarik dengan <b>TypeScript</b>."
                 ],
                 typeSpeed: 45,
-                backSpeed: 25,
-                backDelay: 1200,
+                backSpeebackSpeed              backDelay: 1200,
                 loop: true,
                 smartBackspace: true,
                 showCursor: true
