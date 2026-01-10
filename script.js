@@ -33,26 +33,10 @@ window.addEventListener("load", () => {
 
     // DESKRIPSI + BLUR
     .add({
-        targets: "#typed-text",
+        targets: ".kartu-profil p",
         opacity: [0, 1],
-        duration: 300,
-        complete: () => {
-            // TYPED.JS START SETELAH ANIME SELESAI
-            new Typed("#typed-text", {
-                strings: [
-                    "Saya tertarik dengan <b>HTML</b>.",
-                    "Saya tertarik dengan <b>Javascript</b>.",
-                    "Saya tertarik dengan <b>TypeScript</b>.",
-                    "Saya tertarik dengan <b>PHP</b> 😁"
-                ],
-                typeSpeed: 45,
-                backSpeebackSpeed,
-                backDelay: 1200,
-                loop: true,
-                smartBackspace: true,
-                showCursor: true
-            });
-        }
+        filter: ["blur(6px)", "blur(0px)"],
+        duration: 700
     })
 
     // SOSIAL BUTTONS
