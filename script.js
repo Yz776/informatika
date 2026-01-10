@@ -5,7 +5,25 @@
 window.addEventListener("load", () => {
     
 const glassSound = document.getElementById("glassSound");
-    let soundPlayed = false;
+let audioUnlocked = false;
+
+// UNLOCK AUDIO SAAT USER TAP PERTAMA
+function unlockAudio() {
+    if (!audioUnlocked) {
+        glassSound.volume = 0.7;
+        glassSound.play().then(() => {
+            glassSound.pause();
+            glassSound.currentTime = 0;
+            audioUnlocked = true;
+            console.log("Audio unlocked");
+        }).catch(() => {});
+    }
+}
+
+// LISTEN INTERAKSI USER
+document.addEventListener("click", unlockAudio, { once: true });
+document.addEventListener("touchstart", unlockAudio, { once: true });
+
     
     const tl = anime.timeline({
         easing: "easeOutExpo",
@@ -27,13 +45,11 @@ const glassSound = document.getElementById("glassSound");
         duration: 900,
         easing: "easeOutElastic(1, .6)",
         begin: () => {
-            if (!soundPlayed) {
-                glassSound.currentTime = 0;
-                glassSound.volume = 0.7;
-                glassSound.play().catch(() => {});
-                soundPlayed = true;
-            }
-    }
+        if (audioUnlocked) {
+            glassSound.currentTime = 0;
+            glassSound.play().catch(() => {});
+        }
+        }
     }, "-=400")
 
     // NAMA (PER KATA)
