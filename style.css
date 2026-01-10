@@ -114,3 +114,14 @@ body {
     transform: translateY(120px);
     opacity: 0;
 }
+/* CURSOR TYPED */
+.typed-cursor {
+    font-size: 16px;
+    color: #000;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+}
