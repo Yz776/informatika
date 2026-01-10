@@ -1,9 +1,8 @@
 // =======================
-// AUDIO KACA PECAH (SAFE MOBILE)
+// AUDIO KACA PECAH (MOBILE SAFE)
 // =======================
 const glassSound = document.getElementById("glassSound");
 let audioUnlocked = false;
-let imageAnimated = false;
 
 function playGlassSound() {
     if (!audioUnlocked) return;
@@ -12,6 +11,7 @@ function playGlassSound() {
     glassSound.play().catch(() => {});
 }
 
+// UNLOCK AUDIO (WAJIB UNTUK HP)
 function unlockAudio() {
     if (audioUnlocked) return;
 
@@ -19,10 +19,6 @@ function unlockAudio() {
         glassSound.pause();
         glassSound.currentTime = 0;
         audioUnlocked = true;
-
-        if (imageAnimated) {
-            playGlassSound();
-        }
     }).catch(() => {});
 }
 
@@ -31,14 +27,17 @@ document.addEventListener("touchstart", unlockAudio, { once: true });
 
 
 // =======================
-// LOADING + LANDING PAGE
+// LOADING + ANIMASI UTAMA
 // =======================
 window.addEventListener("load", () => {
 
-    // TUNGGU SEBENTAR (EFEK LOADING)
+    // JEDA LOADING
     setTimeout(() => {
-         playGlassSound();
-        // PECAHKAN LOADING
+
+        // 🔊 SUARA KACA PECAH SAAT LOADING
+        playGlassSound();
+
+        // ANIMASI PECAH LOADING
         anime({
             targets: ".loading-glass",
             scale: [1, 2.5],
@@ -47,12 +46,13 @@ window.addEventListener("load", () => {
             duration: 600,
             easing: "easeInExpo",
             complete: () => {
-                document.getElementById("loading-screen").remove();
+                const loading = document.getElementById("loading-screen");
+                if (loading) loading.remove();
             }
         });
 
         // =======================
-        // ANIMASI UTAMA
+        // TIMELINE LANDING PAGE
         // =======================
         const tl = anime.timeline({
             easing: "easeOutExpo",
@@ -66,7 +66,7 @@ window.addEventListener("load", () => {
             translateY: [40, 0]
         })
 
-        // FOTO + SUARA KACA PECAH (BERSAMAAN)
+        // FOTO PROFIL (TANPA SUARA)
         .add({
             targets: ".kartu-profil img",
             scale: [0.6, 1],
@@ -75,7 +75,7 @@ window.addEventListener("load", () => {
             duration: 900,
             easing: "easeOutElastic(1, .6)",
             begin: () => {
-                imageAnimated = true;
+                // efek shake visual saja
                 anime({
                     targets: ".kartu-profil img",
                     keyframes: [
@@ -147,7 +147,7 @@ window.addEventListener("load", () => {
 
 
 // =======================
-// TOGGLE IFRAME (STABIL)
+// TOGGLE IFRAME (1 AKTIF)
 // =======================
 let activeLink = null;
 
