@@ -42,8 +42,8 @@ window.addEventListener("load", () => {
                 strings: [
                     "Saya tertarik dengan <b>HTML</b>.",
                     "Saya tertarik dengan <b>Javascript</b>.",
-                    "Saya tertarik dengan <b>PHP</b>.",
-                    "Saya tertarik dengan <b>TypeScript</b> 😁"
+                    "Saya tertarik dengan <b>TypeScript</b>.",
+                    "Saya tertarik dengan <b>PHP</b> 😁"
                 ],
                 typeSpeed: 45,
                 backSpeebackSpeed,
