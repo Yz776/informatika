@@ -1,97 +1,160 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
-    background-color: #FFFFE0;
-    font-family: Arial, sans-serif;
-    color: #000;
     margin: 0;
-    padding: 0;
+    font-family: Arial, sans-serif;
+    background: #fffde7;
+    color: #000;
+    overflow-x: hidden;
 }
 
 /* PROFIL */
 .kartu-profil {
-    width: 320px;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
     text-align: center;
+    padding: 30px 15px;
 }
 
 .kartu-profil img {
-    width: 150px;
+    width: 120px;
     border-radius: 50%;
+}
+
+.kartu-profil h1 {
+    font-size: 20px;
+    margin: 10px 0;
+}
+
+.kartu-profil p {
+    font-size: 14px;
+    filter: blur(6px);
 }
 
 .link-sosial a {
     display: inline-block;
-    margin: 10px;
-    text-decoration: none;
-    color: white;
-    background-color: #007BFF;
+    margin: 6px;
     padding: 8px 14px;
-    border-radius: 8px;
+    background: #0d6efd;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
     font-size: 14px;
-}
-
-.link-sosial a:hover {
-    background-color: #0056b3;
-}
-
-button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    background-color: #28a745;
-    color: white;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-button:hover {
-    background-color: #1e7e34;
 }
 
 /* KARYA */
 .karya {
-    max-width: 1100px;
-    margin: 60px auto;
-    padding: 0 20px;
-}
-
-.karya h2 {
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.karya-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 25px;
+    padding-bottom: 40px;
 }
 
 .karya-card {
-    background-color: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    overflow: hidden;
-    transition: transform 0.3s;
-}
-
-.karya-card:hover {
-    transform: translateY(-5px);
-}
-
-.karya-card h3 {
+    margin-bottom: 30px;
     text-align: center;
-    padding: 10px;
-    background-color: #007BFF;
-    color: white;
-    margin: 0;
 }
 
-.karya-card iframe {
+.karya-link {
+    display: block;
+    max-width: 420px;
+    margin: 0 auto;
+    padding: 15px;
+    background: #0d6efd;
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.karya-link:hover {
+    background: #084298;
+}
+
+/* IFRAME */
+.iframe-container {
+    margin-top: 15px;
+}
+
+.iframe-container iframe {
     width: 100%;
-    height: 250px;
-    border: none;
+    height: 70vh;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+/* LINK AKTIF */
+.karya-link.active {
+    background: #dc3545;
+}
+
+/* LOADING SPINNER */
+.loader {
+    margin: 20px auto;
+    width: 40px;
+    height: 40px;
+    border: 4px solid #ddd;
+    border-top: 4px solid #0d6efd;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+/* POSISI AWAL (HANYA UNTUK LOAD PERTAMA) */
+/* .anim-1 {
+    transform: translateX(120px);
+    opacity: 0;
+}
+
+.anim-2 {
+    transform: translateX(-120px);
+    opacity: 0;
+}
+
+.anim-3 {
+    transform: translateY(120px);
+    opacity: 0;
+}
+*/
+.anim-1,
+.anim-2,
+.anim-3 {
+    opacity: 1;              /* JANGAN 0 */
+    transform: translate(0); /* default aman */
+}
+
+/* CURSOR TYPED */
+.typed-cursor {
+    font-size: 16px;
+    color: #000;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 50%, 100% { opacity: 1; }
+    25%, 75% { opacity: 0; }
+}
+/* LOADING SCREEN */
+#loading-screen {
+    position: fixed;
+    inset: 0;
+    background: #fffde7;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.loading-glass {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #007bff;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(0.9); opacity: 0.6; }
+    50% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(0.9); opacity: 0.6; }
 }

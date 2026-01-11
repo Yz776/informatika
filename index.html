@@ -2,45 +2,64 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Profil Digital - ahsan</title>
+    <title>Profil Digital - Ahsan & Nabil</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
+    
+    <!-- typed.js -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    
+    <!-- anime.js -->
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 </head>
 <body>
+    <div id="loading-screen">
+    <div class="loading-glass"></div>
+</div>
 
+<audio id="glassSound" preload="auto">
+    <source src="glass.mp3" type="audio/mpeg">
+</audio>
+
+<!-- PROFIL -->
 <div class="kartu-profil">
-    <img src="tes.jpg" alt="Foto Enggar">
-    <h1>mohammad ahsan al ghoni</h1>
-    <p>Saya tertarik dengan HTML, Java, dan Python. Welcome to my website 🚀</p>
-
+    <img src="tes.jpg" alt="Foto">
+    <h1>Mohammad Ahsan Al Ghoni & Moh. Nabilur Ro'yi</h1>
+    <p>Saya tertarik dengan HTML, Javascript, PHP, dan TypeScript 😁</p>
     <div class="link-sosial">
-        <a href="https://www.instagram.com/ahsanazmingasin" target="_blank">Instagram</a>
+        <a href="https://www.instagram.com/ahsanazmingasin" target="_blank">Instagram Ahsan</a>
+        <a href="https://www.tiktok.com/@anonim883197" target="_blank">TikTok Nabil</a>
     </div>
-
-    <button id="sapaButton">test button!</button>
 </div>
 
 <!-- KARYA -->
-<section class="karya">
-    <h2>💼 Karya Saya</h2>
+<section class="karya container">
+    <h2 class="text-center mb-4">💼 Karya Ahsan</h2>
 
-    <div class="karya-grid">
-        <div class="karya-card">
-            <h3>AI Tools</h3>
-            <iframe src="https://ai.kangwifi.eu.org"></iframe>
-        </div>
+    <div class="karya-card anim-1">
+        <a class="karya-link" data-url="https://ai.kangwifi.eu.org">🤖 AI Tools</a>
+        <div class="iframe-container"></div>
+    </div>
 
-        <div class="karya-card">
-            <h3>Al-Qur'an Digital</h3>
-            <iframe src="https://alquran.kangwifi.eu.org"></iframe>
-        </div>
+    <div class="karya-card anim-2">
+        <a class="karya-link" data-url="https://alquran.kangwifi.eu.org">📖 Al-Qur'an Digital</a>
+        <div class="iframe-container"></div>
+    </div>
 
-        <div class="karya-card">
-            <h3>Website Utama</h3>
-            <iframe src="https://kangwifi.eu.org"></iframe>
-        </div>
+    <div class="karya-card anim-3">
+        <a class="karya-link" data-url="https://kangwifi.eu.org">🌐 Website Utama</a>
+        <div class="iframe-container"></div>
     </div>
 </section>
 
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<!-- JS -->
 <script src="script.js"></script>
 </body>
 </html>
