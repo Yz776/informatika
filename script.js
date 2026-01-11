@@ -6,7 +6,7 @@ const glassSound = document.getElementById("glassSound");
 function playGlassSound() {
     if (!glassSound) return;
     glassSound.currentTime = 0;
-    glassSound.volume = 0.7;
+    glassSound.volume = 0.2;
     glassSound.play().catch(() => {
         // Browser block autoplay → DIAM (tidak error)
         console.warn("Audio autoplay diblokir browser");
@@ -179,6 +179,11 @@ document.querySelectorAll(".karya-link").forEach(link => {
         iframe.src = link.dataset.url;
         iframe.style.display = "none";
 
+        iframe.loading = "lazy";
+        iframe.style.width = "100%";
+        iframe.style.height = "60vw";
+        iframe.style.border = "1px solid #ccc";
+        
         iframe.onload = () => {
             loader.remove();
             iframe.style.display = "block";
