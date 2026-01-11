@@ -18,12 +18,10 @@ function playGlassSound() {
 // LOADING + ANIMASI OTOMATIS
 // =======================
 window.addEventListener("load", () => {
-
+// 🔊 COBA PUTAR SUARA (AUTOPLAY)
+        playGlassSound();
     // JEDA LOADING
     setTimeout(() => {
-
-        // 🔊 COBA PUTAR SUARA (AUTOPLAY)
-        playGlassSound();
 
         // ANIMASI PECAH LOADING
         anime({
