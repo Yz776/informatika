@@ -1,10 +1,9 @@
 // ===================================
-// HACKER MODE MODULE
-// Aktif saat nama "Mohammad Ahsan Al Ghoni" diklik
+// HACKER MODE MODULE (NO MATRIX)
+// Aktif saat judul "💼 Karya Ahsan" diklik
 // ===================================
 
 let hackerModeActive = false;
-let matrixInterval = null;
 
 // =======================
 // INJECT STYLE
@@ -23,7 +22,7 @@ body.hacker a {
 
 body.hacker .kartu-profil,
 body.hacker .karya-card {
-    background: rgba(0,0,0,0.85);
+    background: rgba(0,0,0,0.9);
     border: 1px solid #00ff9c;
     box-shadow: 0 0 20px rgba(0,255,156,0.5);
 }
@@ -40,6 +39,7 @@ body.hacker p {
     text-shadow: 0 0 10px rgba(0,255,156,0.7);
 }
 
+/* GLITCH EFFECT */
 @keyframes glitch {
     0% { text-shadow: 2px 0 red; }
     20% { text-shadow: -2px 0 cyan; }
@@ -56,7 +56,7 @@ body.hacker .kartu-profil h1 {
 document.head.appendChild(hackerStyle);
 
 // =======================
-// ACCESS GRANTED
+// ACCESS GRANTED OVERLAY
 // =======================
 function showAccessGranted() {
     const overlay = document.createElement("div");
@@ -73,7 +73,7 @@ function showAccessGranted() {
         color: #00ff9c;
         font-family: monospace;
         z-index: 9999;
-        background: rgba(0,0,0,0.9);
+        background: rgba(0,0,0,0.92);
         text-shadow: 0 0 20px #00ff9c;
     `;
 
@@ -81,55 +81,7 @@ function showAccessGranted() {
 
     setTimeout(() => {
         overlay.remove();
-    }, 1800);
-}
-
-// =======================
-// MATRIX RAIN
-// =======================
-function startMatrixRain() {
-    const canvas = document.createElement("canvas");
-    canvas.id = "matrixCanvas";
-    document.body.appendChild(canvas);
-
-    canvas.style.cssText = `
-        position: fixed;
-        inset: 0;
-        z-index: 0;
-        pointer-events: none;
-    `;
-
-    const ctx = canvas.getContext("2d");
-
-    function resize() {
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-    }
-    resize();
-    window.addEventListener("resize", resize);
-
-    const chars = "01アカサタナABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    const fontSize = 14;
-    let columns = Math.floor(canvas.width / fontSize);
-    let drops = Array(columns).fill(1);
-
-    matrixInterval = setInterval(() => {
-        ctx.fillStyle = "rgba(0,0,0,0.08)";
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-        ctx.fillStyle = "#00ff9c";
-        ctx.font = fontSize + "px monospace";
-
-        for (let i = 0; i < drops.length; i++) {
-            const char = chars[Math.floor(Math.random() * chars.length)];
-            ctx.fillText(char, i * fontSize, drops[i] * fontSize);
-
-            if (drops[i] * fontSize > canvas.height && Math.random() > 0.97) {
-                drops[i] = 0;
-            }
-            drops[i]++;
-        }
-    }, 50);
+    }, 1600);
 }
 
 // =======================
@@ -151,14 +103,14 @@ function enableHackerMode() {
     if (socialEl) socialEl.remove();
     if (karyaTitle) karyaTitle.textContent = "💼 Karya Ahsan";
 
+    // getar HP
     if (navigator.vibrate) {
         navigator.vibrate([120, 60, 120]);
     }
 
     showAccessGranted();
-    startMatrixRain();
 
-    console.log("Hacker mode enabled");
+    console.log("Hacker mode enabled (no matrix)");
 }
 
 // =======================
@@ -166,14 +118,8 @@ function enableHackerMode() {
 // =======================
 window.addEventListener("load", () => {
     const karyaTitle = document.querySelector(".karya h2");
-
     if (!karyaTitle) return;
 
     karyaTitle.style.cursor = "pointer";
-
-    karyaTitle.addEventListener("click", () => {
-        if (typeof enableHackerMode === "function") {
-            enableHackerMode();
-        }
-    });
+    karyaTitle.addEventListener("click", enableHackerMode);
 });
