@@ -4,7 +4,6 @@
 // ===================================
 
 let hackerModeActive = false;
-let activeLink = null;
 
 // =======================
 // INJECT STYLE
@@ -104,13 +103,14 @@ function enableHackerMode() {
     if (socialEl) socialEl.remove();
     if (karyaTitle) karyaTitle.textContent = "💼 Karya Ahsan";
 
+    // getar HP
     if (navigator.vibrate) {
         navigator.vibrate([120, 60, 120]);
     }
 
     showAccessGranted();
 
-    console.log("Hacker mode enabled");
+    console.log("Hacker mode enabled (no matrix)");
 }
 
 // =======================
@@ -122,64 +122,4 @@ window.addEventListener("load", () => {
 
     karyaTitle.style.cursor = "pointer";
     karyaTitle.addEventListener("click", enableHackerMode);
-});
-
-// ==================================================
-// 🔒 SYSTEM HIDDEN IFRAME (TAMBAHAN SAJA)
-// ==================================================
-
-// SEMBUNYIKAN SEMUA IFRAME DI AWAL
-window.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll(".iframe-container").forEach(c => {
-        c.style.display = "none";
-    });
-});
-
-// TOGGLE IFRAME (TAPI TERKUNCI JIKA BELUM HACKER MODE)
-document.querySelectorAll(".karya-link").forEach(link => {
-    const originalText = link.innerHTML;
-    link.dataset.original = originalText;
-
-    link.addEventListener("click", () => {
-        const container = link.nextElementSibling;
-
-        // ⛔ BLOK JIKA HACKER MODE BELUM AKTIF
-        if (!hackerModeActive) {
-            console.warn("Iframe dikunci (Hacker Mode belum aktif)");
-            return;
-        }
-
-        // TOGGLE TUTUP
-        if (activeLink === link) {
-            container.innerHTML = "";
-            container.style.display = "none";
-            link.innerHTML = originalText;
-            activeLink = null;
-            return;
-        }
-
-        // RESET SEMUA
-        document.querySelectorAll(".iframe-container").forEach(c => {
-            c.innerHTML = "";
-            c.style.display = "none";
-        });
-        document.querySelectorAll(".karya-link").forEach(l => {
-            l.innerHTML = l.dataset.original;
-        });
-
-        // BUKA IFRAME
-        link.innerHTML = "❌ Tutup";
-        container.style.display = "block";
-        activeLink = link;
-
-        const iframe = document.createElement("iframe");
-        iframe.src = link.dataset.url;
-        iframe.loading = "lazy";
-        iframe.style.width = "100%";
-        iframe.style.height = "60vh";
-        iframe.style.border = "1px solid #00ff9c";
-
-        container.appendChild(iframe);
-        container.scrollIntoView({ behavior: "smooth" });
-    });
 });
