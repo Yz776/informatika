@@ -159,15 +159,15 @@ body {
     100% { transform: scale(0.9); opacity: 0.6; }
 }
 .sertifikat {
-    margin-top: 10px;
-    margin-bottom: 40px;
+    margin-top: 5px;
+    margin-bottom: 20px;
 }
 
 .sertifikat-card {
     background: rgba(255,255,255,0.08);
     backdrop-filter: blur(10px);
     border-radius: 15px;
-    padding: 10px;
+    padding: 8px;
     text-align: center;
     transition: transform 0.3s;
 }
@@ -199,5 +199,5 @@ body {
 }
 
 .sertifikat h2 {
-    margin-bottom: 5px; /* kurangi jarak judul ke kartu */
+    margin-bottom: 2px; /* kurangi jarak judul ke kartu */
 }
