@@ -215,3 +215,15 @@ document.querySelectorAll(".karya-link").forEach(link => {
         container.scrollIntoView({ behavior: "smooth" });
     });
 });
+new Typed("#typed", {
+    strings: [
+      "BACKEND WEBDEV",
+      "AI Engineer",
+      "Network Administrator",
+      "Cloud Engineer"
+    ],
+    typeSpeed: 60,
+    backSpeed: 40,
+    backDelay: 1200,
+    loop: true
+  });
