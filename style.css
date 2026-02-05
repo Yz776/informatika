@@ -158,3 +158,42 @@ body {
     50% { transform: scale(1); opacity: 1; }
     100% { transform: scale(0.9); opacity: 0.6; }
 }
+.sertifikat {
+    margin-top: 80px;
+}
+
+.sertifikat-card {
+    background: rgba(255,255,255,0.08);
+    backdrop-filter: blur(10px);
+    border-radius: 15px;
+    padding: 15px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.sertifikat-card:hover {
+    transform: translateY(-8px);
+}
+
+.sertifikat-card img {
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.sertifikat-card h5 {
+    color: #fff;
+    margin-bottom: 5px;
+}
+
+.sertifikat-card p {
+    color: #ccc;
+    font-size: 14px;
+}
+
+.sertifikat-card a {
+    display: inline-block;
+    margin-top: 8px;
+    color: #00ffd5;
+    text-decoration: none;
+}
