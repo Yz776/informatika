@@ -164,6 +164,7 @@ function startLandingAnimation() {
         translateY: [150, 0],
         opacity: [0, 1]
     }); 
+    
 }
 // =======================
 // TOGGLE IFRAME (OTOMATIS, TANPA SOUND)
