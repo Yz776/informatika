@@ -159,7 +159,7 @@ body {
     100% { transform: scale(0.9); opacity: 0.6; }
 }
 .sertifikat {
-    margin-top: 40px;
+    margin-top: 10px;
     margin-bottom: 40px;
 }
 
@@ -190,4 +190,8 @@ body {
 .sertifikat-card p {
     color: #ccc;
     font-size: 14px;
+}
+
+.sertifikat .row {
+    gap: 20px; /* jarak antar kartu tetap rapi */
 }
