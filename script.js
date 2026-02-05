@@ -157,7 +157,13 @@ function startLandingAnimation() {
         targets: ".anime-2",
         translateY: [150, 0],
         opacity: [0, 1]
-    }, "+=200"); 
+    }, "+=200")
+
+    .add({
+        targets: ".anime-3",
+        translateY: [150, 0],
+        opacity: [0, 1]
+    }); 
 }
 // =======================
 // TOGGLE IFRAME (OTOMATIS, TANPA SOUND)
