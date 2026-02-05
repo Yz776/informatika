@@ -136,10 +136,29 @@ function startLandingAnimation() {
         targets: ".anim-3",
         translateY: [150, 0],
         opacity: [0, 1]
-    }, "+=200");
+    }, "+=200")
+
+
+
+// sertifikat
+    .add({
+        targets: ".anime-0",
+        translateX: [150, 0],
+        opacity: [0, 1]
+    })
+
+    .add({
+        targets: ".anime-1",
+        translateX: [-150, 0],
+        opacity: [0, 1]
+    }, "+=200")
+        
+   .add({
+        targets: ".anime-2",
+        translateY: [150, 0],
+        opacity: [0, 1]
+    }, "+=200"); 
 }
-
-
 // =======================
 // TOGGLE IFRAME (OTOMATIS, TANPA SOUND)
 // =======================
