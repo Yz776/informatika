@@ -163,7 +163,14 @@ function startLandingAnimation() {
         targets: ".anime-3",
         translateY: [150, 0],
         opacity: [0, 1]
+    })
+        
+  .add({
+        targets: ".anime-4",
+        translateY: [150, 0],
+        opacity: [0, 1]
     }); 
+    
     
 }
 // =======================
