@@ -2,88 +2,164 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <title>Profil Digital - Ahsan </title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="ini adalah web portofolio dari mohammad ahsan al ghoni untuk tugas informatika, saya kelas 11(SMK), pada tahun 2025-2026, saya adalah seorang backend web developer, dan saya sangat suka pada networking dan cloud computing .">
-    <meta name="keywords" content="ahsan, gresik, backed">
-    <meta name="author" content="Mohammad ahsan al ghoni">
-    <link rel="canonical" href="https://www.ahsangresik.me">
+
+    <!-- ===== PRIMARY SEO ===== -->
+    <title>Mohammad Ahsan Al Ghoni – Backend Developer & Network Engineer | Gresik</title>
+    <meta name="description" content="Portofolio Mohammad Ahsan Al Ghoni, siswa SMK kelas 11 dari Gresik yang berpengalaman di backend web development (JavaScript, PHP, TypeScript), networking, dan cloud computing. Lihat karya dan sertifikat lengkapnya di sini.">
+    <meta name="keywords" content="Mohammad Ahsan Al Ghoni, Ahsan Gresik, backend developer Gresik, portofolio SMK informatika, web developer Gresik, network engineer pelajar, cloud computing Indonesia, JavaScript developer, PHP developer, TypeScript">
+    <meta name="author" content="Mohammad Ahsan Al Ghoni">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://www.ahsangresik.me/">
+
+    <!-- ===== OPEN GRAPH (Facebook / WhatsApp) ===== -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://www.ahsangresik.me/">
+    <meta property="og:title" content="Mohammad Ahsan Al Ghoni – Backend Developer & Network Engineer | Gresik">
+    <meta property="og:description" content="Portofolio digital Ahsan – siswa SMK Gresik yang membangun proyek AI Tools, Al-Qur'an Digital, dan berbagai karya web. Berpengalaman di JavaScript, PHP, TypeScript, Mikrotik, Cisco, dan Cloud AWS.">
+    <meta property="og:image" content="https://www.ahsangresik.me/tes.jpg">
+    <meta property="og:locale" content="id_ID">
+    <meta property="og:site_name" content="Portofolio Ahsan Gresik">
+
+    <!-- ===== TWITTER CARD ===== -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Mohammad Ahsan Al Ghoni – Backend Developer & Network Engineer">
+    <meta name="twitter:description" content="Portofolio digital Ahsan dari Gresik – web developer & network enthusiast.">
+    <meta name="twitter:image" content="https://www.ahsangresik.me/tes.jpg">
+
+    <!-- ===== SCHEMA.ORG JSON-LD (Structured Data) ===== -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Mohammad Ahsan Al Ghoni",
+      "url": "https://www.ahsangresik.me",
+      "image": "https://www.ahsangresik.me/tes.jpg",
+      "jobTitle": "Backend Web Developer & Network Engineer",
+      "description": "Siswa SMK kelas 11 dari Gresik yang berpengalaman di backend web development, networking, dan cloud computing.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Gresik",
+        "addressCountry": "ID"
+      },
+      "sameAs": [
+        "https://www.instagram.com/ahsanazmingasin",
+        "https://id.linkedin.com/in/mohammad-ah-san-al-ghoni-1b053a29b"
+      ],
+      "knowsAbout": ["JavaScript", "PHP", "TypeScript", "Networking", "Cloud Computing", "Mikrotik", "Cisco", "Linux", "Cyber Security"]
+    }
+    </script>
+
+    <!-- ===== PERFORMANCE ===== -->
+    <link rel="preconnect" href="https://cdn.jsdelivr.net">
+    <link rel="preconnect" href="https://unpkg.com">
+    <link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- CSS -->
     <link rel="stylesheet" href="style.css">
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <!-- typed.js -->
-    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    
-    <!-- anime.js -->
-    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js"></script>
 
-<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
-    
+    <!-- Scripts (defer agar tidak blokir render) -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" defer></script>
 </head>
 <body>
-    <div id="loading-screen">
-    <div class="loading-glass"></div>
-</div>
 
-<audio id="glassSound" preload="auto">
-    <source src="glass.mp3" type="audio/mpeg">
-</audio>
-
-<!-- PROFIL -->
-<div class="kartu-profil">
-    <img src="tes.jpg" alt="Foto">
-    <h1>Mohammad Ahsan Al Ghoni</h1>
-    <p>Saya tertarik dengan HTML, Javascript, PHP, dan TypeScript 😁</p>
-    <p>Saya <span id="typed"></span></p>
-    <div class="link-sosial">
-       <div data-aos="fade-up">
-           <a href="https://www.instagram.com/ahsanazmingasin" target="_blank">Instagram</a>
-           <a href="https://id.linkedin.com/in/mohammad-ah-san-al-ghoni-1b053a29b" target="_blank">linkedin</a>
-        </div>
-        </div>
-</div>
-
-<!-- KARYA -->
-<section class="karya container">
-    <h2 class="text-center mb-4">💼 Karya</h2>
-
-    <div class="karya-card anim-1" data-aos="fade-left">
-        <a class="karya-link" data-url="https://ai.kangwifi.eu.org">🤖 AI Tools</a>
-        <div class="iframe-container"></div>
+    <!-- LOADING SCREEN -->
+    <div id="loading-screen" aria-hidden="true">
+        <div class="loading-glass"></div>
     </div>
 
-    <div class="karya-card anim-2" data-aos="fade-right">
-        <a class="karya-link" data-url="https://alquran.kangwifi.eu.org">📖 Al-Qur'an Digital</a>
-        <div class="iframe-container"></div>
-    </div>
+    <audio id="glassSound" preload="none">
+        <source src="glass.mp3" type="audio/mpeg">
+    </audio>
 
-    <div class="karya-card anim-3" data-aos="fade-up">
-        <a class="karya-link" data-url="https://yt.kangwifi.eu.org">🌐 youtube tanpa iklan</a>
-        <div class="iframe-container"></div>
-    </div>
-</section>
+    <!-- ===== HEADER / PROFIL ===== -->
+    <header class="kartu-profil" itemscope itemtype="https://schema.org/Person">
+        <img
+            src="tes.jpg"
+            alt="Foto profil Mohammad Ahsan Al Ghoni – backend developer dari Gresik"
+            width="120"
+            height="120"
+            loading="eager"
+            itemprop="image"
+        >
+        <h1 itemprop="name">Mohammad Ahsan Al Ghoni</h1>
+        <p itemprop="description">Saya tertarik dengan HTML, Javascript, PHP, dan TypeScript 😁</p>
+        <p>Saya <span id="typed" aria-label="Deskripsi keahlian"></span></p>
 
-    <!-- LINK KE HALAMAN SERTIFIKAT -->
-<section class="container text-center my-3 anime-1" data-aos="fade-up">
-    <h2 class="mb-2">🏆 Sertifikat</h2>
-    <a href="sertifikat.html" class="btn btn-primary">
-        Lihat Semua Sertifikat
-    </a>
-</section>
+        <nav class="link-sosial" aria-label="Media sosial Ahsan">
+            <div data-aos="fade-up">
+                <a href="https://www.instagram.com/ahsanazmingasin" target="_blank" rel="noopener noreferrer" aria-label="Instagram Mohammad Ahsan Al Ghoni" itemprop="sameAs">Instagram</a>
+                <a href="https://id.linkedin.com/in/mohammad-ah-san-al-ghoni-1b053a29b" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn Mohammad Ahsan Al Ghoni" itemprop="sameAs">LinkedIn</a>
+            </div>
+        </nav>
+    </header>
 
+    <!-- ===== MAIN CONTENT ===== -->
+    <main>
 
+        <!-- KARYA -->
+        <section class="karya container" id="karya" aria-labelledby="karya-heading">
+            <h2 id="karya-heading" class="text-center mb-4">💼 Karya</h2>
 
-<!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+            <article class="karya-card anim-1" data-aos="fade-left">
+                <a class="karya-link" data-url="https://ai.kangwifi.eu.org" href="https://ai.kangwifi.eu.org" target="_blank" rel="noopener noreferrer" aria-label="AI Tools buatan Ahsan">🤖 AI Tools</a>
+                <div class="iframe-container"></div>
+            </article>
 
-<!-- JS -->
+            <article class="karya-card anim-2" data-aos="fade-right">
+                <a class="karya-link" data-url="https://alquran.kangwifi.eu.org" href="https://alquran.kangwifi.eu.org" target="_blank" rel="noopener noreferrer" aria-label="Al-Qur'an Digital buatan Ahsan">📖 Al-Qur'an Digital</a>
+                <div class="iframe-container"></div>
+            </article>
+
+            <article class="karya-card anim-3" data-aos="fade-up">
+                <a class="karya-link" data-url="https://yt.kangwifi.eu.org" href="https://yt.kangwifi.eu.org" target="_blank" rel="noopener noreferrer" aria-label="YouTube tanpa iklan oleh Ahsan">🌐 YouTube Tanpa Iklan</a>
+                <div class="iframe-container"></div>
+            </article>
+        </section>
+
+        <!-- SERTIFIKAT -->
+        <section class="container text-center my-3 anime-1" id="sertifikat" data-aos="fade-up" aria-labelledby="sertifikat-heading">
+            <h2 id="sertifikat-heading" class="mb-2">🏆 Sertifikat</h2>
+            <p class="text-muted mb-3">Dicoding · ID-Networkers · Digitalent Kominfo</p>
+            <a href="sertifikat.html" class="btn btn-primary" aria-label="Lihat semua sertifikat Mohammad Ahsan Al Ghoni">
+                Lihat Semua Sertifikat
+            </a>
+        </section>
+
+        <!-- TENTANG (tambahan SEO – konten tekstual yang diindeks Google) -->
+        <section class="container my-5" id="tentang" aria-labelledby="tentang-heading">
+            <h2 id="tentang-heading" class="text-center mb-3">Tentang Saya</h2>
+            <p class="text-center" style="max-width:650px;margin:0 auto;font-size:15px;line-height:1.8;">
+                Saya adalah siswa SMK kelas 11 dari <strong>Gresik, Jawa Timur</strong>, yang memiliki passion di bidang
+                <strong>backend web development</strong> (JavaScript, PHP, TypeScript), <strong>jaringan komputer</strong>
+                (Mikrotik, Cisco), dan <strong>cloud computing</strong> (AWS). Saya aktif belajar melalui platform
+                Dicoding, ID-Networkers, dan Digitalent Kominfo, serta telah membangun beberapa proyek nyata yang
+                dapat digunakan publik.
+            </p>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="text-center py-4" style="font-size:13px;color:#888;" itemscope itemtype="https://schema.org/WPFooter">
+        <p>© 2025–2026 <a href="https://www.ahsangresik.me" style="color:#0d6efd;">Mohammad Ahsan Al Ghoni</a> · Gresik, Indonesia</p>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" defer></script>
+    <!-- JS -->
     <script>
-  AOS.init();
-</script>
-<script src="script.js"></script>
-    <script src="hacker-mode.js"></script>
+        document.addEventListener('DOMContentLoaded', function () {
+            AOS.init();
+        });
+    </script>
+    <script src="script.js" defer></script>
+    <script src="hacker-mode.js" defer></script>
 </body>
 </html>
