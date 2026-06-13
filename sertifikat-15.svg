@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 1131" width="1600" height="1131" role="img" aria-labelledby="title desc">
+  <title id="title">Sertifikat Mengamankan Diri dari Kejahatan Siber - Digital Talent Scholarship 2026</title>
+  <desc id="desc">Sertifikat pelatihan untuk Mohammad Ahsan Al Ghoni, Mengamankan Diri dari Kejahatan Siber Micro Skill Digital Talent Scholarship 2026.</desc>
+  <defs>
+    <linearGradient id="side" x1="0" x2="0" y1="0" y2="1">
+      <stop offset="0" stop-color="#38e8dc"/>
+      <stop offset="0.5" stop-color="#0c63c7"/>
+      <stop offset="1" stop-color="#041f56"/>
+    </linearGradient>
+    <pattern id="dots" width="28" height="28" patternUnits="userSpaceOnUse">
+      <circle cx="6" cy="6" r="3" fill="#bde9ff" opacity=".55"/>
+    </pattern>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="18" stdDeviation="20" flood-color="#0b1b35" flood-opacity=".16"/>
+    </filter>
+  </defs>
+  <rect width="1600" height="1131" fill="#f8fbff"/>
+  <rect x="0" y="0" width="48" height="1131" fill="url(#side)"/>
+  <rect x="1552" y="0" width="48" height="1131" fill="url(#side)"/>
+  <g opacity=".9">
+    <rect x="8" y="16" width="31" height="31" fill="#1ee7d1"/>
+    <rect x="10" y="62" width="28" height="24" rx="2" fill="none" stroke="#f0b58a" stroke-width="4"/>
+    <path d="M10 118 L24 104 L38 118 L30 118 L30 138 L18 138 L18 118 Z" fill="none" stroke="#0a2d58" stroke-width="4"/>
+    <path d="M8 178 Q24 158 40 178 M14 187 Q24 176 34 187 M22 198 Q24 196 26 198" fill="none" stroke="#d8f8ff" stroke-width="5" stroke-linecap="round"/>
+    <text x="9" y="250" font-size="28" font-family="monospace" font-weight="900" fill="#ffd1c8">&lt;/&gt;</text>
+    <path d="M8 296 L42 274 L28 322 Z" fill="#f5fbff"/>
+  </g>
+  <use href="#sideDecor"/>
+  <g transform="translate(1552 0)" opacity=".9">
+    <rect x="8" y="16" width="31" height="31" fill="#1ee7d1"/>
+    <rect x="10" y="62" width="28" height="24" rx="2" fill="none" stroke="#f0b58a" stroke-width="4"/>
+    <path d="M10 118 L24 104 L38 118 L30 118 L30 138 L18 138 L18 118 Z" fill="none" stroke="#0a2d58" stroke-width="4"/>
+    <path d="M8 178 Q24 158 40 178 M14 187 Q24 176 34 187 M22 198 Q24 196 26 198" fill="none" stroke="#d8f8ff" stroke-width="5" stroke-linecap="round"/>
+    <text x="9" y="250" font-size="28" font-family="monospace" font-weight="900" fill="#ffd1c8">&lt;/&gt;</text>
+    <path d="M8 296 L42 274 L28 322 Z" fill="#f5fbff"/>
+  </g>
+  <g transform="translate(80 55)">
+    <rect x="0" y="0" width="74" height="74" rx="16" fill="#e9fbff"/>
+    <rect x="14" y="14" width="22" height="22" fill="#0574b9"/>
+    <rect x="38" y="14" width="22" height="22" fill="#1fc1e7"/>
+    <rect x="14" y="38" width="22" height="22" fill="#0c8dc3"/>
+    <rect x="38" y="38" width="22" height="22" fill="#fac433"/>
+    <text x="0" y="112" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="800" fill="#444" letter-spacing="7">KOMDIGI</text>
+  </g>
+  <g transform="translate(285 65)">
+    <path d="M0 0 L0 94" stroke="#1183e6" stroke-width="10" stroke-linecap="round"/>
+    <path d="M23 0 L75 47 L23 94" fill="none" stroke="#1183e6" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(1320 20)">
+    <rect width="32" height="26" fill="#2455a5"/><rect x="45" width="32" height="26" fill="#3ccbd6"/><rect x="90" width="32" height="26" fill="#2da8dd"/>
+    <rect x="135" y="1" width="28" height="24" fill="none" stroke="#2455a5" stroke-width="3"/><rect x="180" y="1" width="28" height="24" fill="none" stroke="#3ccbd6" stroke-width="3"/><rect x="225" y="1" width="28" height="24" fill="none" stroke="#2da8dd" stroke-width="3"/>
+  </g>
+  <path d="M205 395 C310 380 382 477 462 556 C545 640 658 660 770 625 C890 587 982 462 1130 492 C1260 520 1310 648 1390 760" fill="none" stroke="url(#dots)" stroke-width="120" opacity=".45"/>
+  <g text-anchor="middle" font-family="Arial, Helvetica, sans-serif" fill="#444">
+    <text x="800" y="255" font-size="46" font-weight="800" letter-spacing="1.5">SERTIFIKAT PELATIHAN</text>
+    <text x="800" y="292" font-size="20">2299777850-3406/MS/BLSDM.Komdigi/2026</text>
+    <text x="800" y="355" font-size="24">Diberikan kepada</text>
+    <text x="800" y="430" font-size="46" font-weight="800">MOHAMMAD AHSAN AL GHONI</text>
+    <text x="800" y="480" font-size="24">telah menyelesaikan pelatihan</text>
+    <text x="800" y="530" font-size="25" font-weight="800">Mengamankan Diri dari Kejahatan Siber</text>
+    <text x="800" y="560" font-size="25" font-weight="800">Micro Skill</text>
+    <text x="800" y="590" font-size="25" font-weight="800">Digital Talent Scholarship 2026</text>
+    <text x="800" y="640" font-size="24">yang diselenggarakan oleh <tspan font-weight="800">Pusat Pengembangan Literasi Digital</tspan></text>
+    <text x="800" y="690" font-size="24">pada tahun <tspan font-weight="800">2026</tspan> selama <tspan font-weight="800">1 Jam Pelatihan</tspan></text>
+    <text x="800" y="785" font-size="18">Jakarta, 19 April 2026</text>
+  </g>
+  <g transform="translate(560 810)" filter="url(#soft)">
+    <rect x="0" y="0" width="480" height="170" fill="#fff" stroke="#111" stroke-width="2"/>
+    <rect x="22" y="20" width="132" height="132" fill="#fff" stroke="#111" stroke-width="1.5"/>
+    <g transform="translate(36 34)" fill="#111">
+      <rect width="18" height="18"/><rect x="22" width="8" height="8"/><rect x="42" width="14" height="14"/><rect x="68" width="26" height="10"/><rect y="22" width="10" height="38"/><rect x="22" y="28" width="20" height="12"/><rect x="54" y="22" width="36" height="18"/><rect x="96" y="24" width="12" height="44"/><rect y="72" width="28" height="10"/><rect x="40" y="64" width="10" height="30"/><rect x="62" y="58" width="22" height="22"/><rect x="92" y="84" width="18" height="18"/><rect y="100" width="18" height="18"/><rect x="28" y="104" width="24" height="10"/><rect x="68" y="104" width="40" height="14"/>
+    </g>
+    <text x="180" y="78" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#444">KEPALA BADAN PENGEMBANGAN</text>
+    <text x="180" y="101" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#444">SDM KOMDIGI</text>
+    <text x="180" y="126" font-family="Arial, Helvetica, sans-serif" font-size="18" fill="#222" font-weight="800">BONIFASIUS W. PUDJIANTO</text>
+  </g>
+  <text x="800" y="1010" font-family="Arial, Helvetica, sans-serif" font-size="15" fill="#555" text-anchor="middle">Scan QR Code untuk validasi sertifikat</text>
+  <g transform="translate(90 1055)">
+    <rect x="0" y="0" width="24" height="24" fill="#36cadd"/><rect x="30" y="0" width="24" height="24" fill="#36cadd"/><rect x="30" y="30" width="24" height="24" fill="#36cadd"/>
+    <text x="65" y="36" font-family="Arial, Helvetica, sans-serif" font-size="36" font-weight="800" fill="#111">sdmdigital.id</text>
+  </g>
+  <text x="1190" y="1048" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="800" fill="#111">Awards</text>
+  <text x="1190" y="1085" font-family="Arial, Helvetica, sans-serif" font-size="25" font-weight="800" fill="#8750c9">Gov<tspan fill="#20b6b9">INSIDER</tspan>  IDC  SINOVIK</text>
+</svg>
