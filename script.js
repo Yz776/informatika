@@ -4,8 +4,9 @@
 
   const currentHost = location.hostname.replace(/^www\./, '');
   const allowedHosts = ['ahsangresik.me', 'ahsanid.dev'];
-  const publicHost = allowedHosts.includes(currentHost) ? currentHost : 'ahsangresik.me';
-  const publicOrigin = `${location.protocol}//${location.hostname}`;
+  const isPublicDomain = allowedHosts.includes(currentHost);
+  const publicHost = isPublicDomain ? currentHost : 'ahsangresik.me';
+  const publicOrigin = isPublicDomain ? `${location.protocol}//${location.hostname}` : 'https://ahsangresik.me';
 
   document.documentElement.dataset.domain = publicHost;
 
