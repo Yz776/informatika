@@ -26,8 +26,8 @@
       key: 'dev', label: isWWW ? 'www.ahsanid.dev' : 'ahsanid.dev', suffix: 'Dev', sibling: 'https://ahsangresik.me', siblingLabel: 'Ahsan Gresik', siteName: 'AhsanID Developer Profile',
       homeTitle: 'AhsanID Dev — Backend API, Automation, KFAI Developer Profile', projectTitle: 'AhsanID Dev Projects — Backend API, KFAI, WhatsApp Automation', certTitle: 'AhsanID Dev Certificates — AI, Cloud, Security, IoT',
       desc: 'Profil developer AhsanID untuk backend API, automation, KFAI, WhatsApp bot, cloud object, Al-Quran Digital, IoT, security, dan eksperimen web publik.',
-      hero: 'Developer profile: backend API, automation, dan KFAI ecosystem.',
-      lead: 'Saya Ahsan, developer muda yang fokus membangun backend API, WhatsApp automation, KFAI ecosystem, cloud object, dan project web yang bisa dicoba langsung. Domain ini dibuat lebih teknis untuk profil developer dan eksperimen produk.',
+      hero: 'Developer profile: backend API, automation, dan layanan KFAI.',
+      lead: 'Saya Ahsan, developer muda yang fokus membangun backend API, WhatsApp automation, layanan KFAI, cloud object, dan project web yang bisa dicoba langsung. Domain ini dibuat lebih teknis untuk profil developer dan eksperimen produk.',
       terminal: '$ node services/kfai.js<br>status: dev profile · automation ready', bridge: 'Buka portfolio utama'
     }
   };
