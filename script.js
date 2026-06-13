@@ -23,7 +23,6 @@
       desc: 'Portfolio pribadi Ahsan dari Gresik: backend, API Kangwifi, KFAI, WhatsApp KFAI, Cloud Object, dan project web publik.',
       hero: 'Saya bikin web, API, dan bot yang bisa dipakai langsung.',
       lead: 'Mohammad Ahsan Al Ghoni, pelajar dari Gresik yang suka membangun sistem nyata: backend, REST API, WhatsApp KFAI, cloud object, game realtime, sampai aplikasi edukasi. Fokus saya sederhana: cepat, rapi, dan benar-benar jalan.',
-      note: '🌐 Versi utama portfolio Ahsan dari Gresik',
       terminal: '$ curl https://api.kangwifi.eu.org<br>response: gresik portfolio · api online'
     },
     'ahsanid.dev': {
@@ -37,7 +36,6 @@
       desc: 'Developer profile AhsanID: backend API, KFAI, WhatsApp automation, Cloud Object, Al-Quran Digital, dan project web publik.',
       hero: 'Backend, API, dan automation yang saya bangun bertahap.',
       lead: 'Saya Ahsan, developer muda yang fokus membangun layanan backend, API publik, WhatsApp automation, dan project web yang benar-benar bisa dicoba. Domain ini saya pakai sebagai profil developer yang lebih teknis.',
-      note: '⚙️ Versi developer profile untuk AhsanID',
       terminal: '$ node services/kfai.js<br>status: dev profile · automation ready'
     }
   };
@@ -84,8 +82,6 @@
     if (heroTitle && pageName === 'home') heroTitle.innerHTML = `<span class="grad">${variant.hero}</span>`;
     const lead = $('.hero .lead');
     if (lead && pageName === 'home') lead.innerHTML = variant.lead.replace('Mohammad Ahsan Al Ghoni', '<strong>Mohammad Ahsan Al Ghoni</strong>');
-    const note = $('.hero .domain-note');
-    if (note && pageName === 'home') note.innerHTML = variant.note;
     const terminal = $('.terminal');
     if (terminal) terminal.innerHTML = variant.terminal;
   }
