@@ -110,6 +110,19 @@
     feature.appendChild(box);
   }
 
+  function initSpotlight() {
+    if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
+    $$('.cardx,.project-card,.cert-card,.glass,.hero-card').forEach((el) => {
+      el.addEventListener('pointermove', (event) => {
+        const rect = el.getBoundingClientRect();
+        el.style.setProperty('--mx', `${event.clientX - rect.left}px`);
+        el.style.setProperty('--my', `${event.clientY - rect.top}px`);
+        el.classList.add('is-lit');
+      });
+      el.addEventListener('pointerleave', () => el.classList.remove('is-lit'));
+    });
+  }
+
   function initMobileNav() { const btn = $('.menu-btn'); const links = $('.nav-links'); if (!btn || !links) return; btn.addEventListener('click', () => { const open = links.classList.toggle('open'); btn.setAttribute('aria-expanded', String(open)); }); links.addEventListener('click', (e) => { if (e.target.closest('a')) { links.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); } }); }
   function initReveal() { const items = $$('[data-reveal]'); if (!items.length) return; const io = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('visible'); io.unobserve(entry.target); } }); }, { threshold: 0.12 }); items.forEach((item, index) => { item.style.transitionDelay = `${Math.min(index * 45, 260)}ms`; io.observe(item); }); }
   function initCertFilters() { const buttons = $$('.filter-btn'); const items = $$('.cert-item'); if (!buttons.length || !items.length) return; buttons.forEach((btn) => { btn.addEventListener('click', () => { const filter = btn.dataset.filter || 'all'; buttons.forEach((b) => b.classList.remove('active')); btn.classList.add('active'); items.forEach((item) => { const show = filter === 'all' || item.dataset.category === filter; item.style.display = show ? '' : 'none'; }); }); }); }
@@ -120,6 +133,7 @@
     setDynamicDomainMeta();
     initDomainBridge();
     initSeoMiniLinks();
+    initSpotlight();
     initMobileNav();
     initReveal();
     initCertFilters();
