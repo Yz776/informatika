@@ -10,35 +10,46 @@
   const publicHost = isPublicDomain ? currentHost : 'ahsangresik.me';
   const publicOrigin = isPublicDomain ? `${location.protocol}//${location.hostname}` : 'https://ahsangresik.me';
   const pageName = location.pathname.includes('project') ? 'project' : location.pathname.includes('sertifikat') ? 'sertifikat' : 'home';
+  const pathMap = { home: '/', project: '/project.html', sertifikat: '/sertifikat.html' };
+  const pagePath = pathMap[pageName] || '/';
 
   const variants = {
     'ahsangresik.me': {
       key: 'gresik',
       label: isWWW ? 'www.ahsangresik.me' : 'ahsangresik.me',
       suffix: 'Gresik',
-      homeTitle: 'Ahsan Gresik — Backend, API, dan WhatsApp KFAI',
-      projectTitle: 'Project Ahsan Gresik — API, KFAI, WhatsApp, Cloud',
-      certTitle: 'Sertifikat Ahsan Gresik — Dicoding, IDN, Digitalent',
-      desc: 'Portfolio pribadi Ahsan dari Gresik: backend, API Kangwifi, KFAI, WhatsApp KFAI, Cloud Object, dan project web publik.',
-      hero: 'Saya bikin web, API, dan bot yang bisa dipakai langsung.',
-      lead: 'Mohammad Ahsan Al Ghoni, pelajar dari Gresik yang suka membangun sistem nyata: backend, REST API, WhatsApp KFAI, cloud object, game realtime, sampai aplikasi edukasi. Fokus saya sederhana: cepat, rapi, dan benar-benar jalan.',
-      terminal: '$ curl https://api.kangwifi.eu.org<br>response: gresik portfolio · api online'
+      sibling: 'https://ahsanid.dev',
+      siblingLabel: 'AhsanID Dev',
+      siteName: 'Ahsan Gresik Portfolio',
+      homeTitle: 'Ahsan Gresik — Portfolio Backend, API, WhatsApp KFAI',
+      projectTitle: 'Project Ahsan Gresik — API Kangwifi, KFAI, WhatsApp Bot',
+      certTitle: 'Sertifikat Ahsan Gresik — Dicoding, IDN, Digitalent Kominfo',
+      desc: 'Portfolio utama Mohammad Ahsan Al Ghoni dari Gresik: backend, API Kangwifi, KFAI, WhatsApp KFAI, Cloud Object, Al-Quran Digital, sertifikat IT, dan karya web publik.',
+      hero: 'Portfolio utama dari Gresik: web, API, dan WhatsApp KFAI.',
+      lead: 'Mohammad Ahsan Al Ghoni, pelajar dari Gresik yang membangun project nyata: backend, REST API, WhatsApp KFAI, cloud object, game realtime, aplikasi edukasi, dan otomasi. Fokus saya: cepat, rapi, responsif, dan benar-benar bisa dipakai.',
+      terminal: '$ curl https://api.kangwifi.eu.org<br>response: gresik portfolio · api online',
+      bridge: 'Lihat versi developer'
     },
     'ahsanid.dev': {
       key: 'dev',
       label: isWWW ? 'www.ahsanid.dev' : 'ahsanid.dev',
       suffix: 'Dev',
-      homeTitle: 'AhsanID Dev — Backend API, KFAI, dan Automation',
-      projectTitle: 'AhsanID Dev Projects — API, KFAI, WhatsApp Bot',
-      certTitle: 'AhsanID Dev Certificates — Learning & Shipping',
-      desc: 'Developer profile AhsanID: backend API, KFAI, WhatsApp automation, Cloud Object, Al-Quran Digital, dan project web publik.',
-      hero: 'Backend, API, dan automation yang saya bangun bertahap.',
-      lead: 'Saya Ahsan, developer muda yang fokus membangun layanan backend, API publik, WhatsApp automation, dan project web yang benar-benar bisa dicoba. Domain ini saya pakai sebagai profil developer yang lebih teknis.',
-      terminal: '$ node services/kfai.js<br>status: dev profile · automation ready'
+      sibling: 'https://ahsangresik.me',
+      siblingLabel: 'Ahsan Gresik',
+      siteName: 'AhsanID Developer Profile',
+      homeTitle: 'AhsanID Dev — Backend API, Automation, KFAI Developer Profile',
+      projectTitle: 'AhsanID Dev Projects — Backend API, KFAI, WhatsApp Automation',
+      certTitle: 'AhsanID Dev Certificates — AI, Cloud, Security, IoT',
+      desc: 'Profil developer AhsanID untuk backend API, automation, KFAI, WhatsApp bot, cloud object, Al-Quran Digital, IoT, security, dan eksperimen web publik.',
+      hero: 'Developer profile: backend API, automation, dan KFAI ecosystem.',
+      lead: 'Saya Ahsan, developer muda yang fokus membangun backend API, WhatsApp automation, KFAI ecosystem, cloud object, dan project web yang bisa dicoba langsung. Domain ini dibuat lebih teknis untuk profil developer dan eksperimen produk.',
+      terminal: '$ node services/kfai.js<br>status: dev profile · automation ready',
+      bridge: 'Buka portfolio utama'
     }
   };
 
   const variant = variants[publicHost] || variants['ahsangresik.me'];
+  const siblingUrl = `${variant.sibling}${pagePath}`;
   document.documentElement.dataset.domain = publicHost;
   document.documentElement.dataset.variant = variant.key;
   document.documentElement.dataset.www = String(isWWW);
@@ -48,39 +59,127 @@
     if (el) el.setAttribute(attr, value);
   }
 
+  function upsertLink(rel, href, attrs = {}) {
+    const selector = attrs.hreflang ? `link[rel="${rel}"][hreflang="${attrs.hreflang}"]` : `link[rel="${rel}"][data-dynamic="true"]`;
+    let el = $(selector);
+    if (!el) {
+      el = document.createElement('link');
+      el.setAttribute('rel', rel);
+      el.dataset.dynamic = 'true';
+      document.head.appendChild(el);
+    }
+    el.href = href;
+    Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+    return el;
+  }
+
   function pageTitle() {
     if (pageName === 'project') return variant.projectTitle;
     if (pageName === 'sertifikat') return variant.certTitle;
     return variant.homeTitle;
   }
 
+  function injectStructuredData(canonical, title) {
+    const graph = {
+      '@context': 'https://schema.org',
+      '@graph': [
+        {
+          '@type': 'Person',
+          '@id': `${publicOrigin}/#person`,
+          name: 'Mohammad Ahsan Al Ghoni',
+          alternateName: ['Ahsan Gresik', 'AhsanID'],
+          url: publicOrigin,
+          image: `${publicOrigin}/tes.jpg`,
+          jobTitle: 'Backend Developer & Network Engineer',
+          address: { '@type': 'PostalAddress', addressLocality: 'Gresik', addressRegion: 'Jawa Timur', addressCountry: 'ID' },
+          sameAs: ['https://ahsangresik.me', 'https://ahsanid.dev', 'https://api.kangwifi.eu.org', 'https://alquran.kangwifi.eu.org', 'https://wa.me/6285168601458', 'https://www.instagram.com/ahsanazmibp', 'https://id.linkedin.com/in/mohammad-ah-san-al-ghoni-1b053a29b'],
+          knowsAbout: ['Backend', 'REST API', 'KFAI', 'WhatsApp Bot', 'Cloud Computing', 'Networking', 'Linux', 'Cyber Security', 'Internet of Things']
+        },
+        {
+          '@type': 'WebSite',
+          '@id': `${publicOrigin}/#website`,
+          name: variant.siteName,
+          url: publicOrigin,
+          inLanguage: 'id-ID',
+          about: { '@id': `${publicOrigin}/#person` },
+          sameAs: [variant.sibling]
+        },
+        {
+          '@type': pageName === 'home' ? 'ProfilePage' : 'CollectionPage',
+          '@id': `${canonical}#webpage`,
+          name: title,
+          description: variant.desc,
+          url: canonical,
+          isPartOf: { '@id': `${publicOrigin}/#website` },
+          about: { '@id': `${publicOrigin}/#person` },
+          inLanguage: 'id-ID',
+          relatedLink: siblingUrl
+        }
+      ]
+    };
+    let script = $('#dynamic-schema');
+    if (!script) {
+      script = document.createElement('script');
+      script.id = 'dynamic-schema';
+      script.type = 'application/ld+json';
+      document.head.appendChild(script);
+    }
+    script.textContent = JSON.stringify(graph);
+  }
+
   function setDynamicDomainMeta() {
-    const path = location.pathname.endsWith('/') ? '/' : location.pathname;
-    const canonical = `${publicOrigin}${path}`;
+    const canonical = `${publicOrigin}${pagePath}`;
     const title = pageTitle();
     document.title = title;
-
     const canonicalEl = $('link[rel="canonical"]');
     if (canonicalEl) canonicalEl.href = canonical;
+    upsertLink('alternate', `https://ahsangresik.me${pagePath}`, { hreflang: 'id-ID' });
+    upsertLink('alternate', `https://ahsanid.dev${pagePath}`, { hreflang: 'x-default' });
     setMeta('meta[name="description"]', 'content', variant.desc);
     setMeta('meta[property="og:url"]', 'content', canonical);
     setMeta('meta[property="og:title"]', 'content', title);
     setMeta('meta[property="og:description"]', 'content', variant.desc);
     setMeta('meta[property="og:image"]', 'content', `${publicOrigin}/tes.jpg`);
+    setMeta('meta[property="og:site_name"]', 'content', variant.siteName);
     setMeta('meta[name="twitter:title"]', 'content', title);
     setMeta('meta[name="twitter:description"]', 'content', variant.desc);
     setMeta('meta[name="twitter:image"]', 'content', `${publicOrigin}/tes.jpg`);
-
     $$('.js-domain').forEach((el) => { el.textContent = variant.label; });
     $$('.js-domain-home').forEach((el) => { el.href = publicOrigin; });
     $$('.brand .grad').forEach((el) => { el.textContent = variant.suffix; });
-
     const heroTitle = $('.hero h1');
     if (heroTitle && pageName === 'home') heroTitle.innerHTML = `<span class="grad">${variant.hero}</span>`;
     const lead = $('.hero .lead');
     if (lead && pageName === 'home') lead.innerHTML = variant.lead.replace('Mohammad Ahsan Al Ghoni', '<strong>Mohammad Ahsan Al Ghoni</strong>');
     const terminal = $('.terminal');
     if (terminal) terminal.innerHTML = variant.terminal;
+    injectStructuredData(canonical, title);
+  }
+
+  function initDomainBridge() {
+    if ($('.domain-bridge')) return;
+    const bridge = document.createElement('nav');
+    bridge.className = 'domain-bridge';
+    bridge.setAttribute('aria-label', 'Pilih versi domain portfolio');
+    bridge.innerHTML = `<small>Domain</small><a class="active" href="${publicOrigin}${pagePath}" aria-current="page">${variant.label}</a><a href="${siblingUrl}" rel="noopener">${variant.bridge}</a>`;
+    document.body.appendChild(bridge);
+    const footerSocial = $('.footer .social');
+    if (footerSocial && !$('.footer-domain-link')) {
+      const a = document.createElement('a');
+      a.className = 'footer-domain-link';
+      a.href = siblingUrl;
+      a.textContent = variant.siblingLabel;
+      footerSocial.prepend(a);
+    }
+  }
+
+  function initSeoMiniLinks() {
+    const feature = $('.feature-band .glass');
+    if (!feature || $('.seo-mini')) return;
+    const box = document.createElement('div');
+    box.className = 'seo-mini';
+    box.innerHTML = `<a href="${siblingUrl}">${variant.siblingLabel}<span>domain lain →</span></a><a href="/sitemap.xml">Sitemap<span>SEO map →</span></a>`;
+    feature.appendChild(box);
   }
 
   function initMobileNav() {
@@ -139,7 +238,6 @@
     const modalTitle = $('#certModalTitle');
     const close = $('#certModalClose');
     if (!modal || !modalImg || !modalTitle) return;
-
     const open = (card) => {
       modalImg.src = card.dataset.img || '';
       modalImg.alt = card.dataset.title || 'Preview sertifikat';
@@ -169,6 +267,8 @@
 
   document.addEventListener('DOMContentLoaded', () => {
     setDynamicDomainMeta();
+    initDomainBridge();
+    initSeoMiniLinks();
     initMobileNav();
     initReveal();
     initCertFilters();
