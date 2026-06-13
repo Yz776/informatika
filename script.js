@@ -15,20 +15,20 @@
 
   const variants = {
     'ahsangresik.me': {
-      key: 'gresik', label: isWWW ? 'www.ahsangresik.me' : 'ahsangresik.me', suffix: 'Gresik', sibling: 'https://ahsanid.dev', siblingLabel: 'AhsanID Dev', siteName: 'Ahsan Gresik Portfolio',
-      homeTitle: 'Ahsan Gresik — Portfolio Backend, API, WhatsApp KFAI', projectTitle: 'Project Ahsan Gresik — API Kangwifi, KFAI, WhatsApp Bot', certTitle: 'Sertifikat Ahsan Gresik — Dicoding, IDN, Digitalent Kominfo',
-      desc: 'Portfolio utama Mohammad Ahsan Al Ghoni dari Gresik: backend, API Kangwifi, KFAI, WhatsApp KFAI, Cloud Object, Al-Quran Digital, sertifikat IT, dan karya web publik.',
-      hero: 'Portfolio utama dari Gresik: web, API, dan WhatsApp KFAI.',
+      key: 'gresik', label: isWWW ? 'www.ahsangresik.me' : 'ahsangresik.me', suffix: 'Gresik', sibling: 'https://ahsanid.dev', siblingLabel: 'AhsanID Dev', siteName: 'Ahsan Gresik',
+      homeTitle: 'Ahsan Gresik — Backend, API, dan WhatsApp KFAI', projectTitle: 'Project Ahsan Gresik — API Kangwifi, KFAI, WhatsApp Bot', certTitle: 'Sertifikat Ahsan Gresik — Dicoding, IDN, Digitalent Kominfo',
+      desc: 'Halaman utama Mohammad Ahsan Al Ghoni dari Gresik: backend, API Kangwifi, KFAI, WhatsApp KFAI, Cloud Object, Al-Quran Digital, sertifikat IT, dan karya web publik.',
+      hero: 'Web, API, dan WhatsApp KFAI dari Ahsan Gresik.',
       lead: 'Mohammad Ahsan Al Ghoni, pelajar dari Gresik yang membangun project nyata: backend, REST API, WhatsApp KFAI, cloud object, game realtime, aplikasi edukasi, dan otomasi. Fokus saya: cepat, rapi, responsif, dan benar-benar bisa dipakai.',
-      terminal: '$ curl https://api.kangwifi.eu.org<br>response: gresik portfolio · api online', bridge: 'Lihat versi developer'
+      terminal: '$ curl https://api.kangwifi.eu.org<br>response: layanan aktif · api online', bridge: 'Lihat versi developer'
     },
     'ahsanid.dev': {
-      key: 'dev', label: isWWW ? 'www.ahsanid.dev' : 'ahsanid.dev', suffix: 'Dev', sibling: 'https://ahsangresik.me', siblingLabel: 'Ahsan Gresik', siteName: 'AhsanID Developer Profile',
-      homeTitle: 'AhsanID Dev — Backend API, Automation, KFAI Developer Profile', projectTitle: 'AhsanID Dev Projects — Backend API, KFAI, WhatsApp Automation', certTitle: 'AhsanID Dev Certificates — AI, Cloud, Security, IoT',
-      desc: 'Profil developer AhsanID untuk backend API, automation, KFAI, WhatsApp bot, cloud object, Al-Quran Digital, IoT, security, dan eksperimen web publik.',
-      hero: 'Developer profile: backend API, automation, dan layanan KFAI.',
-      lead: 'Saya Ahsan, developer muda yang fokus membangun backend API, WhatsApp automation, layanan KFAI, cloud object, dan project web yang bisa dicoba langsung. Domain ini dibuat lebih teknis untuk profil developer dan eksperimen produk.',
-      terminal: '$ node services/kfai.js<br>status: dev profile · automation ready', bridge: 'Buka portfolio utama'
+      key: 'dev', label: isWWW ? 'www.ahsanid.dev' : 'ahsanid.dev', suffix: 'Dev', sibling: 'https://ahsangresik.me', siblingLabel: 'Ahsan Gresik', siteName: 'AhsanID Dev',
+      homeTitle: 'AhsanID Dev — Backend API, Automation, dan KFAI', projectTitle: 'AhsanID Dev — Backend API, KFAI, WhatsApp Automation', certTitle: 'Sertifikat AhsanID Dev — AI, Cloud, Security, IoT',
+      desc: 'Halaman teknis AhsanID untuk backend API, automation, KFAI, WhatsApp bot, cloud object, Al-Quran Digital, IoT, security, dan eksperimen web publik.',
+      hero: 'Backend API, automation, dan layanan KFAI.',
+      lead: 'Saya Ahsan, developer muda yang fokus membangun backend API, WhatsApp automation, layanan KFAI, cloud object, dan project web yang bisa dicoba langsung. Halaman ini dibuat lebih teknis untuk catatan karya dan eksperimen produk.',
+      terminal: '$ node services/kfai.js<br>status: layanan aktif · automation ready', bridge: 'Buka halaman utama'
     }
   };
 
