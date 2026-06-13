@@ -17,7 +17,6 @@
       label: isWWW ? 'www.ahsangresik.me' : 'ahsangresik.me',
       brand: 'Ahsan',
       suffix: 'Gresik',
-      badge: isWWW ? 'Portfolio utama · versi www' : 'Portfolio utama',
       homeTitle: 'Ahsan Gresik — Backend, API, dan WhatsApp KFAI',
       projectTitle: 'Project Ahsan Gresik — API, KFAI, WhatsApp, Cloud',
       certTitle: 'Sertifikat Ahsan Gresik — Dicoding, IDN, Digitalent',
@@ -32,7 +31,6 @@
       label: isWWW ? 'www.ahsanid.dev' : 'ahsanid.dev',
       brand: 'Ahsan',
       suffix: 'Dev',
-      badge: isWWW ? 'Developer profile · versi www' : 'Developer profile',
       homeTitle: 'AhsanID Dev — Backend API, KFAI, dan Automation',
       projectTitle: 'AhsanID Dev Projects — API, KFAI, WhatsApp Bot',
       certTitle: 'AhsanID Dev Certificates — Learning & Shipping',
@@ -81,9 +79,6 @@
     $$('.js-domain').forEach((el) => { el.textContent = variant.label; });
     $$('.js-domain-home').forEach((el) => { el.href = publicOrigin; });
     $$('.brand .grad').forEach((el) => { el.textContent = variant.suffix; });
-    $$('.eyebrow').forEach((el, index) => {
-      if (index === 0) el.innerHTML = `<span class="dot"></span> ${variant.badge}`;
-    });
 
     const heroTitle = $('.hero h1');
     if (heroTitle && pageName === 'home') heroTitle.innerHTML = `<span class="grad">${variant.hero}</span>`;
