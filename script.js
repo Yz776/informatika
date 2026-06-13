@@ -1,253 +1,120 @@
-// =======================
-// AUDIO KACA PECAH (AUTOPLAY ATTEMPT)
-// =======================
-const glassSound = document.getElementById("glassSound");
+(() => {
+  const $ = (q, root = document) => root.querySelector(q);
+  const $$ = (q, root = document) => [...root.querySelectorAll(q)];
 
-function playGlassSound() {
-    if (!glassSound) return;
-    glassSound.currentTime = 0;
-    glassSound.volume = 0.1;
-    glassSound.play().catch(() => {
-        // Browser block autoplay → DIAM (tidak error)
-        console.warn("Audio autoplay diblokir browser");
+  const currentHost = location.hostname.replace(/^www\./, '');
+  const allowedHosts = ['ahsangresik.me', 'ahsanid.dev'];
+  const publicHost = allowedHosts.includes(currentHost) ? currentHost : 'ahsangresik.me';
+  const publicOrigin = `${location.protocol}//${location.hostname}`;
+
+  document.documentElement.dataset.domain = publicHost;
+
+  function setMeta(selector, attr, value) {
+    const el = $(selector);
+    if (el) el.setAttribute(attr, value);
+  }
+
+  function setDynamicDomainMeta() {
+    const path = location.pathname.endsWith('/') ? '/' : location.pathname;
+    const canonical = `${publicOrigin}${path}`;
+    const canonicalEl = $('link[rel="canonical"]');
+    if (canonicalEl) canonicalEl.href = canonical;
+    setMeta('meta[property="og:url"]', 'content', canonical);
+    setMeta('meta[property="og:image"]', 'content', `${publicOrigin}/tes.jpg`);
+    setMeta('meta[name="twitter:image"]', 'content', `${publicOrigin}/tes.jpg`);
+    $$('.js-domain').forEach((el) => { el.textContent = publicHost; });
+    $$('.js-domain-home').forEach((el) => { el.href = publicOrigin; });
+  }
+
+  function initMobileNav() {
+    const btn = $('.menu-btn');
+    const links = $('.nav-links');
+    if (!btn || !links) return;
+    btn.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(open));
     });
-    // 📳 GETAR HP
-    if (navigator.vibrate) {
-        navigator.vibrate([40, 30, 40]);
-    }
-}
-
-
-// =======================
-// LOADING + ANIMASI OTOMATIS
-// =======================
-window.addEventListener("load", () => {
-    
-    // JEDA LOADING
-    setTimeout(() => {
-
-        // ANIMASI PECAH LOADING
-        anime({
-            targets: ".loading-glass",
-            scale: [1, 2.8],
-            rotate: [0, 45],
-            opacity: [1, 0],
-            duration: 700,
-            easing: "easeInExpo",
-            complete: () => {
-                const loading = document.getElementById("loading-screen");
-                if (loading) loading.remove();
-                startLandingAnimation();
-                playGlassSound();
-            }
-        });
-
-    }, 900); // durasi loading
-});
-
-
-// =======================
-// LANDING PAGE ANIMATION
-// =======================
-function startLandingAnimation() {
-
-    const tl = anime.timeline({
-        easing: "easeOutExpo",
-        duration: 800
+    links.addEventListener('click', (e) => {
+      if (e.target.closest('a')) {
+        links.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
     });
+  }
 
-    // PROFIL CARD
-    tl.add({
-        targets: ".kartu-profil",
-        opacity: [0, 1],
-        translateY: [40, 0]
-    })
-
-    // FOTO PROFIL (EFEK KACA)
-    .add({
-        targets: ".kartu-profil img",
-        scale: [0.6, 1],
-        rotate: [-12, 0],
-        opacity: [0, 1],
-        duration: 900,
-        easing: "easeOutElastic(1, .6)",
-        begin: () => {
-            anime({
-                targets: ".kartu-profil img",
-                keyframes: [
-                    { rotate: -8 },
-                    { rotate: 8 },
-                    { rotate: -4 },
-                    { rotate: 0 }
-                ],
-                duration: 350,
-                easing: "easeOutSine"
-            });
+  function initReveal() {
+    const items = $$('[data-reveal]');
+    if (!items.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
         }
-    }, "-=400")
-
-    // NAMA
-    .add({
-        targets: ".kartu-profil h1",
-        opacity: [0, 1],
-        translateY: [30, 0]
-    }, "-=300")
-
-    // DESKRIPSI
-    .add({
-        targets: ".kartu-profil p",
-        opacity: [0, 1],
-        filter: ["blur(6px)", "blur(0px)"],
-        duration: 700
-    })
-
-    // SOSIAL
-    .add({
-        targets: ".link-sosial a",
-        opacity: [0, 1],
-        scale: [0.8, 1],
-        delay: anime.stagger(200),
-        easing: "easeOutBack"
-    })
-
-    // JUDUL KARYA
-    .add({
-        targets: ".karya h2",
-        opacity: [0, 1],
-        translateY: [30, 0]
-    })
-
-    // KARYA 1
-    .add({
-        targets: ".anim-1",
-        translateX: [150, 0],
-        opacity: [0, 1]
-    })
-
-    // KARYA 2
-    .add({
-        targets: ".anim-2",
-        translateX: [-150, 0],
-        opacity: [0, 1]
-    }, "+=200")
-
-    // KARYA 3
-    .add({
-        targets: ".anim-3",
-        translateY: [150, 0],
-        opacity: [0, 1]
-    }, "+=200")
-
-
-
-// sertifikat
-    .add({
-        targets: ".anime-0",
-        translateX: [150, 0],
-        opacity: [0, 1]
-    })
-
-    .add({
-        targets: ".anime-1",
-        translateX: [-150, 0],
-        opacity: [0, 1]
-    }, "+=200")
-        
-   .add({
-        targets: ".anime-2",
-        translateY: [150, 0],
-        opacity: [0, 1]
-    }, "+=200")
-
-    .add({
-        targets: ".anime-3",
-        translateY: [150, 0],
-        opacity: [0, 1]
-    })
-        
-  .add({
-        targets: ".anime-4",
-        translateY: [150, 0],
-        opacity: [0, 1]
-    }); 
-    
-    
-}
-// =======================
-// TOGGLE IFRAME (OTOMATIS, TANPA SOUND)
-// =======================
-let activeLink = null;
-
-document.querySelectorAll(".karya-link").forEach(link => {
-
-    const originalText = link.innerHTML;
-    const container = link.nextElementSibling;
-
-    link.addEventListener("click", () => {
-        playGlassSound();
-        if (activeLink === link) {
-            container.innerHTML = "";
-link.innerHTML = originalText;
-link.classList.remove("active", "split");
-activeLink = null;
-return;
-
-        }
-
-        document.querySelectorAll(".iframe-container").forEach(c => c.innerHTML = "");
-        document.querySelectorAll(".karya-link").forEach(l => {
-            l.classList.remove("active");
-            l.innerHTML = l.dataset.original || l.innerHTML;
-        });
-
-        link.dataset.original = originalText;
-       link.classList.add("active", "split");
-link.innerHTML = `
-    <span class="btn-close-half">❌ Tutup</span>
-    <span class="btn-open-half">🔗 Buka</span>
-`;
-activeLink = link;
-
-// aksi tombol buka
-link.querySelector(".btn-open-half").addEventListener("click", (e) => {
-    e.stopPropagation();
-    window.open(link.dataset.url, "_blank");
-});
-
-        const loader = document.createElement("div");
-        loader.className = "loader";
-        container.appendChild(loader);
-
-        const iframe = document.createElement("iframe");
-        iframe.src = link.dataset.url;
-        iframe.style.display = "none";
-
-        iframe.onload = () => {
-            loader.remove();
-            iframe.style.display = "block";
-
-            anime({
-                targets: iframe,
-                opacity: [0, 1],
-                scale: [0.95, 1],
-                duration: 600,
-                easing: "easeOutExpo"
-            });
-        };
-
-        container.appendChild(iframe);
-        container.scrollIntoView({ behavior: "smooth" });
+      });
+    }, { threshold: 0.12 });
+    items.forEach((item, index) => {
+      item.style.transitionDelay = `${Math.min(index * 45, 260)}ms`;
+      io.observe(item);
     });
-});
-new Typed("#typed", {
-    strings: [
-      "Backend WebDev",
-      "AI Engineer",
-      "Network Administrator",
-      "Cloud Engineer"
-    ],
-    typeSpeed: 60,
-    backSpeed: 40,
-    backDelay: 1200,
-    loop: true
+  }
+
+  function initCertFilters() {
+    const buttons = $$('.filter-btn');
+    const items = $$('.cert-item');
+    if (!buttons.length || !items.length) return;
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter || 'all';
+        buttons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        items.forEach((item) => {
+          const show = filter === 'all' || item.dataset.category === filter;
+          item.style.display = show ? '' : 'none';
+        });
+      });
+    });
+  }
+
+  function initCertModal() {
+    const modal = $('#certModal');
+    const modalImg = $('#certModalImg');
+    const modalTitle = $('#certModalTitle');
+    const close = $('#certModalClose');
+    if (!modal || !modalImg || !modalTitle) return;
+
+    const open = (card) => {
+      modalImg.src = card.dataset.img || '';
+      modalImg.alt = card.dataset.title || 'Preview sertifikat';
+      modalTitle.textContent = card.dataset.title || 'Preview Sertifikat';
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+      close?.focus();
+    };
+    const hide = () => {
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+      modalImg.src = '';
+    };
+    $$('.cert-card').forEach((card) => {
+      card.addEventListener('click', () => open(card));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          open(card);
+        }
+      });
+    });
+    close?.addEventListener('click', hide);
+    modal.addEventListener('click', (e) => { if (e.target === modal) hide(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); });
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    setDynamicDomainMeta();
+    initMobileNav();
+    initReveal();
+    initCertFilters();
+    initCertModal();
   });
+})();
