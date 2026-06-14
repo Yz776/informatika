@@ -28,7 +28,7 @@
       hero: 'Saya membangun web, API, dan layanan WhatsApp yang bisa dipakai langsung.',
       lead: 'Saya pelajar dari Gresik yang suka membangun project nyata: backend, REST API, WhatsApp KFAI, cloud object, game realtime, aplikasi edukasi, dan otomasi. Fokus saya sederhana: cepat, rapi, responsif, dan benar-benar bisa dipakai.',
       terminal: '$ curl https://api.kangwifi.eu.org<br>response: layanan aktif · api online',
-      bridge: 'Buka catatan teknis'
+      bridge: 'ahsanid.dev'
     },
     'ahsanid.dev': {
       key: 'dev',
@@ -44,7 +44,7 @@
       hero: 'Catatan teknis saya untuk backend, automation, dan KFAI.',
       lead: 'Di halaman ini saya menaruh catatan karya yang lebih teknis: backend API, WhatsApp automation, layanan KFAI, cloud object, dan project web yang bisa dicoba langsung.',
       terminal: '$ node services/kfai.js<br>status: layanan aktif · automation ready',
-      bridge: 'Buka halaman utama'
+      bridge: 'ahsangresik.me'
     }
   };
 
