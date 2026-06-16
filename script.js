@@ -21,13 +21,13 @@
       sibling: 'https://ahsanid.dev',
       siblingLabel: 'Versi teknis',
       siteName: 'ahsangresik.me',
-      homeTitle: 'Mohammad Ahsan Al Ghoni — Backend, API, dan WhatsApp KFAI',
-      projectTitle: 'Project Mohammad Ahsan Al Ghoni — API, KFAI, Cloud, WhatsApp Bot',
+      homeTitle: 'Mohammad Ahsan Al Ghoni — Backend, Cloud, dan WhatsApp KFAI',
+      projectTitle: 'Project Mohammad Ahsan Al Ghoni — KFAI, Cloud, WhatsApp Bot',
       certTitle: 'Sertifikat Mohammad Ahsan Al Ghoni — Dicoding, IDN, Digitalent',
-      desc: 'Halaman karya saya: backend, API Kangwifi, KFAI, WhatsApp KFAI, Cloud Object, Al-Quran Digital, sertifikat IT, dan project web yang bisa dicoba langsung.',
-      hero: 'Saya membangun web, API, dan layanan WhatsApp yang bisa dipakai langsung.',
-      lead: 'Saya pelajar dari Gresik yang suka membangun project nyata: backend, REST API, WhatsApp KFAI, cloud object, game realtime, aplikasi edukasi, dan otomasi. Fokus saya sederhana: cepat, rapi, responsif, dan benar-benar bisa dipakai.',
-      terminal: '$ curl https://api.kangwifi.eu.org<br>response: layanan aktif · api online',
+      desc: 'Halaman karya saya: backend, KFAI, WhatsApp KFAI, Cloud Object, Al-Quran Digital, sertifikat IT, dan project web yang bisa dicoba langsung.',
+      hero: 'Saya membangun web, layanan cloud, dan WhatsApp bot yang bisa dipakai langsung.',
+      lead: 'Saya pelajar dari Gresik yang suka membangun project nyata: backend, WhatsApp KFAI, cloud object, game realtime, aplikasi edukasi, dan otomasi. Fokus saya sederhana: cepat, rapi, responsif, dan benar-benar bisa dipakai.',
+      terminal: '$ curl https://ai.kangwifi.eu.org<br>response: layanan aktif · kfai online',
       bridge: 'ahsanid.dev'
     },
     'ahsanid.dev': {
@@ -37,12 +37,12 @@
       sibling: 'https://ahsangresik.me',
       siblingLabel: 'Halaman utama',
       siteName: 'ahsanid.dev',
-      homeTitle: 'Mohammad Ahsan Al Ghoni — Backend API, Automation, dan KFAI',
-      projectTitle: 'Project Backend API, KFAI, WhatsApp Automation — Mohammad Ahsan',
+      homeTitle: 'Mohammad Ahsan Al Ghoni — Backend, Automation, dan KFAI',
+      projectTitle: 'Project Backend, KFAI, WhatsApp Automation — Mohammad Ahsan',
       certTitle: 'Sertifikat IT — AI, Cloud, Security, IoT, dan Networking',
-      desc: 'Catatan teknis karya saya: backend API, automation, KFAI, WhatsApp bot, cloud object, IoT, security, networking, dan eksperimen web publik.',
+      desc: 'Catatan teknis karya saya: backend, automation, KFAI, WhatsApp bot, cloud object, IoT, security, networking, dan eksperimen web publik.',
       hero: 'Catatan teknis saya untuk backend, automation, dan KFAI.',
-      lead: 'Di halaman ini saya menaruh catatan karya yang lebih teknis: backend API, WhatsApp automation, layanan KFAI, cloud object, dan project web yang bisa dicoba langsung.',
+      lead: 'Di halaman ini saya menaruh catatan karya yang lebih teknis: backend, WhatsApp automation, layanan KFAI, cloud object, dan project web yang bisa dicoba langsung.',
       terminal: '$ node services/kfai.js<br>status: layanan aktif · automation ready',
       bridge: 'ahsangresik.me'
     }
@@ -74,7 +74,7 @@
     const breadcrumbName = pageName === 'home' ? 'Beranda' : pageName === 'project' ? 'Proyek' : 'Sertifikat';
     const faq = [
       ['Apa isi halaman ini?', 'Halaman ini berisi karya, project, sertifikat, dan catatan teknis yang saya bangun atau pelajari.'],
-      ['Apa project utamanya?', 'Fokus project saya ada di backend API, KFAI, WhatsApp bot, Cloud Object, Al-Quran Digital, dan beberapa eksperimen web publik.'],
+      ['Apa project utamanya?', 'Fokus project saya ada di backend, KFAI, WhatsApp bot, Cloud Object, Al-Quran Digital, dan beberapa eksperimen web publik.'],
       ['Apakah project bisa dicoba?', 'Sebagian project memiliki link publik sehingga bisa dibuka langsung dari halaman proyek.']
     ];
     const graph = {
@@ -89,8 +89,8 @@
           image: `${publicOrigin}/tes.jpg`,
           jobTitle: 'Backend Developer & Network Engineer',
           address: { '@type': 'PostalAddress', addressLocality: 'Gresik', addressRegion: 'Jawa Timur', addressCountry: 'ID' },
-          sameAs: ['https://ahsangresik.me', 'https://ahsanid.dev', 'https://api.kangwifi.eu.org', 'https://alquran.kangwifi.eu.org', 'https://wa.me/6285168601458', 'https://www.instagram.com/ahsanazmibp', 'https://id.linkedin.com/in/mohammad-ah-san-al-ghoni-1b053a29b'],
-          knowsAbout: ['Backend', 'REST API', 'KFAI', 'WhatsApp Bot', 'Cloud Computing', 'Networking', 'Linux', 'Cyber Security', 'Internet of Things']
+          sameAs: ['https://ahsangresik.me', 'https://ahsanid.dev', 'https://alquran.kangwifi.eu.org', 'https://wa.me/6285168601458', 'https://www.instagram.com/ahsanazmibp', 'https://id.linkedin.com/in/mohammad-ah-san-al-ghoni-1b053a29b'],
+          knowsAbout: ['Backend', 'KFAI', 'WhatsApp Bot', 'Cloud Computing', 'Networking', 'Linux', 'Cyber Security', 'Internet of Things']
         },
         {
           '@type': 'WebSite',
@@ -184,7 +184,7 @@
     if (!target) return;
     const panel = document.createElement('section');
     panel.className = 'seo-panel';
-    panel.innerHTML = `<div class="containerx seo-panel-inner"><article><span>Fokus</span><b>Backend, API, automation</b><p>Saya mengerjakan project yang bisa dicoba langsung, bukan hanya tampilan.</p></article><article><span>Stack</span><b>Go, Node.js, Linux</b><p>Dipakai untuk API, WhatsApp bot, dashboard, dan layanan web ringan.</p></article><article><span>Catatan</span><b>16 sertifikat IT</b><p>Materi AI, cloud, security, IoT, networking, dan JavaScript saya pakai untuk project.</p></article></div>`;
+    panel.innerHTML = `<div class="containerx seo-panel-inner"><article><span>Fokus</span><b>Backend, cloud, automation</b><p>Saya mengerjakan project yang bisa dicoba langsung, bukan hanya tampilan.</p></article><article><span>Stack</span><b>Go, Node.js, Linux</b><p>Dipakai untuk WhatsApp bot, dashboard, dan layanan web ringan.</p></article><article><span>Catatan</span><b>16 sertifikat IT</b><p>Materi AI, cloud, security, IoT, networking, dan JavaScript saya pakai untuk project.</p></article></div>`;
     target.insertAdjacentElement('afterend', panel);
   }
 
