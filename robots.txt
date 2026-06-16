@@ -3,5 +3,3 @@ Allow: /
 
 Sitemap: https://ahsangresik.me/sitemap.xml
 Sitemap: https://www.ahsangresik.me/sitemap.xml
-Sitemap: https://ahsanid.dev/sitemap.xml
-Sitemap: https://www.ahsanid.dev/sitemap.xml
