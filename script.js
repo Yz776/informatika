@@ -4,55 +4,28 @@
 
   const rawHost = location.hostname.toLowerCase();
   const currentHost = rawHost.replace(/^www\./, '');
-  const isWWW = rawHost.startsWith('www.');
-  const allowedHosts = ['ahsangresik.me', 'ahsanid.dev'];
-  const isPublicDomain = allowedHosts.includes(currentHost);
-  const publicHost = isPublicDomain ? currentHost : 'ahsangresik.me';
-  const publicOrigin = isPublicDomain ? `${location.protocol}//${location.hostname}` : 'https://ahsangresik.me';
+  const publicOrigin = currentHost === 'www.ahsangresik.me' ? `${location.protocol}//${location.hostname}` : 'https://ahsangresik.me';
   const pageName = location.pathname.includes('project') ? 'project' : location.pathname.includes('sertifikat') ? 'sertifikat' : 'home';
   const pathMap = { home: '/', project: '/project.html', sertifikat: '/sertifikat.html' };
   const pagePath = pathMap[pageName] || '/';
 
-  const variants = {
-    'ahsangresik.me': {
-      key: 'gresik',
-      label: isWWW ? 'www.ahsangresik.me' : 'ahsangresik.me',
-      suffix: 'Gresik',
-      sibling: 'https://ahsanid.dev',
-      siblingLabel: 'Versi teknis',
-      siteName: 'ahsangresik.me',
-      homeTitle: 'Mohammad Ahsan Al Ghoni — Backend, Cloud, dan WhatsApp KFAI',
-      projectTitle: 'Project Mohammad Ahsan Al Ghoni — KFAI, Cloud, WhatsApp Bot',
-      certTitle: 'Sertifikat Mohammad Ahsan Al Ghoni — Dicoding, IDN, Digitalent',
-      desc: 'Halaman karya saya: backend, KFAI, WhatsApp KFAI, Cloud Object, Al-Quran Digital, sertifikat IT, dan project web yang bisa dicoba langsung.',
-      hero: 'Saya membangun web, layanan cloud, dan WhatsApp bot yang bisa dipakai langsung.',
-      lead: 'Saya pelajar dari Gresik yang suka membangun project nyata: backend, WhatsApp KFAI, cloud object, game realtime, aplikasi edukasi, dan otomasi. Fokus saya sederhana: cepat, rapi, responsif, dan benar-benar bisa dipakai.',
-      terminal: '$ curl https://ai.kangwifi.eu.org<br>response: layanan aktif · kfai online',
-      bridge: 'ahsanid.dev'
-    },
-    'ahsanid.dev': {
-      key: 'dev',
-      label: isWWW ? 'www.ahsanid.dev' : 'ahsanid.dev',
-      suffix: 'Dev',
-      sibling: 'https://ahsangresik.me',
-      siblingLabel: 'Halaman utama',
-      siteName: 'ahsanid.dev',
-      homeTitle: 'Mohammad Ahsan Al Ghoni — Backend, Automation, dan KFAI',
-      projectTitle: 'Project Backend, KFAI, WhatsApp Automation — Mohammad Ahsan',
-      certTitle: 'Sertifikat IT — AI, Cloud, Security, IoT, dan Networking',
-      desc: 'Catatan teknis karya saya: backend, automation, KFAI, WhatsApp bot, cloud object, IoT, security, networking, dan eksperimen web publik.',
-      hero: 'Catatan teknis saya untuk backend, automation, dan KFAI.',
-      lead: 'Di halaman ini saya menaruh catatan karya yang lebih teknis: backend, WhatsApp automation, layanan KFAI, cloud object, dan project web yang bisa dicoba langsung.',
-      terminal: '$ node services/kfai.js<br>status: layanan aktif · automation ready',
-      bridge: 'ahsangresik.me'
-    }
+  const variant = {
+    key: 'gresik',
+    label: rawHost.startsWith('www.') ? 'www.ahsangresik.me' : 'ahsangresik.me',
+    suffix: 'Gresik',
+    siteName: 'ahsangresik.me',
+    homeTitle: 'Mohammad Ahsan Al Ghoni — Backend, Cloud, dan WhatsApp KFAI',
+    projectTitle: 'Project Mohammad Ahsan Al Ghoni — KFAI, Cloud, WhatsApp Bot',
+    certTitle: 'Sertifikat Mohammad Ahsan Al Ghoni — Dicoding, IDN, Digitalent',
+    desc: 'Halaman karya saya: backend, KFAI, WhatsApp KFAI, Cloud Object, Al-Quran Digital, sertifikat IT, dan project web yang bisa dicoba langsung.',
+    hero: 'Saya membangun web, layanan cloud, dan WhatsApp bot yang bisa dipakai langsung.',
+    lead: 'Saya pelajar dari Gresik yang suka membangun project nyata: backend, WhatsApp KFAI, cloud object, game realtime, aplikasi edukasi, dan otomasi. Fokus saya sederhana: cepat, rapi, responsif, dan benar-benar bisa dipakai.',
+    terminal: '$ curl https://ai.kangwifi.eu.org<br>response: layanan aktif · kfai online'
   };
 
-  const variant = variants[publicHost] || variants['ahsangresik.me'];
-  const siblingUrl = `${variant.sibling}${pagePath}`;
-  document.documentElement.dataset.domain = publicHost;
+  document.documentElement.dataset.domain = 'ahsangresik.me';
   document.documentElement.dataset.variant = variant.key;
-  document.documentElement.dataset.www = String(isWWW);
+  document.documentElement.dataset.www = String(rawHost.startsWith('www.'));
 
   function setMeta(selector, attr, value) { const el = $(selector); if (el) el.setAttribute(attr, value); }
   function pageTitle() { return pageName === 'project' ? variant.projectTitle : pageName === 'sertifikat' ? variant.certTitle : variant.homeTitle; }
@@ -84,12 +57,12 @@
           '@type': 'Person',
           '@id': `${publicOrigin}/#person`,
           name: 'Mohammad Ahsan Al Ghoni',
-          alternateName: ['Ahsan', 'AhsanID'],
+          alternateName: ['Ahsan', 'Ahsan Gresik'],
           url: publicOrigin,
           image: `${publicOrigin}/tes.jpg`,
           jobTitle: 'Backend Developer & Network Engineer',
           address: { '@type': 'PostalAddress', addressLocality: 'Gresik', addressRegion: 'Jawa Timur', addressCountry: 'ID' },
-          sameAs: ['https://ahsangresik.me', 'https://ahsanid.dev', 'https://alquran.kangwifi.eu.org', 'https://wa.me/6285168601458', 'https://www.instagram.com/ahsanazmibp', 'https://id.linkedin.com/in/mohammad-ah-san-al-ghoni-1b053a29b'],
+          sameAs: ['https://ahsangresik.me', 'https://alquran.kangwifi.eu.org', 'https://wa.me/6285168601458', 'https://www.instagram.com/ahsanazmibp', 'https://id.linkedin.com/in/mohammad-ah-san-al-ghoni-1b053a29b'],
           knowsAbout: ['Backend', 'KFAI', 'WhatsApp Bot', 'Cloud Computing', 'Networking', 'Linux', 'Cyber Security', 'Internet of Things']
         },
         {
@@ -98,8 +71,7 @@
           name: variant.siteName,
           url: publicOrigin,
           inLanguage: 'id-ID',
-          about: { '@id': `${publicOrigin}/#person` },
-          sameAs: [variant.sibling]
+          about: { '@id': `${publicOrigin}/#person` }
         },
         {
           '@type': pageName === 'home' ? 'ProfilePage' : 'CollectionPage',
@@ -109,8 +81,7 @@
           url: canonical,
           isPartOf: { '@id': `${publicOrigin}/#website` },
           about: { '@id': `${publicOrigin}/#person` },
-          inLanguage: 'id-ID',
-          relatedLink: siblingUrl
+          inLanguage: 'id-ID'
         },
         {
           '@type': 'BreadcrumbList',
@@ -138,7 +109,7 @@
     document.title = title;
     const canonicalEl = $('link[rel="canonical"]'); if (canonicalEl) canonicalEl.href = canonical;
     upsertLink('alternate', `https://ahsangresik.me${pagePath}`, { hreflang: 'id-ID' });
-    upsertLink('alternate', `https://ahsanid.dev${pagePath}`, { hreflang: 'x-default' });
+    upsertLink('alternate', `https://ahsangresik.me${pagePath}`, { hreflang: 'x-default' });
     setMeta('meta[name="description"]', 'content', variant.desc);
     setMeta('meta[name="robots"]', 'content', 'index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1');
     setMeta('meta[property="og:url"]', 'content', canonical);
@@ -158,23 +129,12 @@
     injectStructuredData(canonical, title);
   }
 
-  function initDomainBridge() {
-    if ($('.domain-bridge')) return;
-    const bridge = document.createElement('nav');
-    bridge.className = 'domain-bridge';
-    bridge.setAttribute('aria-label', 'Pilih versi domain portfolio');
-    bridge.innerHTML = `<small>Domain</small><a class="active" href="${publicOrigin}${pagePath}" aria-current="page">${variant.label}</a><a href="${siblingUrl}" rel="noopener">${variant.bridge}</a>`;
-    document.body.appendChild(bridge);
-    const footerSocial = $('.footer .social');
-    if (footerSocial && !$('.footer-domain-link')) { const a = document.createElement('a'); a.className = 'footer-domain-link'; a.href = siblingUrl; a.textContent = variant.siblingLabel; footerSocial.prepend(a); }
-  }
-
   function initSeoMiniLinks() {
     const feature = $('.feature-band .glass');
     if (!feature || $('.seo-mini')) return;
     const box = document.createElement('div');
     box.className = 'seo-mini';
-    box.innerHTML = `<a href="${siblingUrl}">${variant.siblingLabel}<span>domain lain →</span></a><a href="/sitemap.xml">Sitemap<span>SEO map →</span></a>`;
+    box.innerHTML = `<a href="project.html">Lihat project<span>karya saya →</span></a><a href="/sitemap.xml">Sitemap<span>SEO map →</span></a>`;
     feature.appendChild(box);
   }
 
@@ -209,7 +169,6 @@
   document.addEventListener('DOMContentLoaded', () => {
     ensureVariantStylesheet();
     setDynamicDomainMeta();
-    initDomainBridge();
     initSeoMiniLinks();
     initSeoPanel();
     initSpotlight();
