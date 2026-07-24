@@ -1,0 +1,34 @@
+{
+  "name": "Portfolio Ahsan — Mohammad Ahsan Al Ghoni",
+  "short_name": "AhsanID",
+  "description": "Portofolio Mohammad Ahsan Al Ghoni: backend, KFAI, WhatsApp KFAI, Catur Online, Al-Quran Digital, TTT Online, dan WotAnime.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#050810",
+  "theme_color": "#050810",
+  "lang": "id-ID",
+  "dir": "ltr",
+  "categories": ["portfolio", "developer", "personal"],
+  "icons": [
+    {
+      "src": "tes.jpg",
+      "sizes": "any",
+      "type": "image/jpeg",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Proyek",
+      "short_name": "Proyek",
+      "url": "/project.html"
+    },
+    {
+      "name": "Sertifikat",
+      "short_name": "Sertifikat",
+      "url": "/sertifikat.html"
+    }
+  ]
+}

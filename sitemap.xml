@@ -1,27 +1,100 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://ahsangresik.me/</loc>
     <xhtml:link rel="alternate" hreflang="id-ID" href="https://ahsangresik.me/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ahsangresik.me/" />
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <image:image>
+      <image:loc>https://ahsangresik.me/tes.jpg</image:loc>
+      <image:title>Mohammad Ahsan Al Ghoni</image:title>
+      <image:caption>Backend Developer & Network Engineer dari Gresik</image:caption>
+    </image:image>
   </url>
   <url>
     <loc>https://ahsangresik.me/project.html</loc>
     <xhtml:link rel="alternate" hreflang="id-ID" href="https://ahsangresik.me/project.html" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ahsangresik.me/project.html" />
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://ahsangresik.me/tes.jpg</image:loc>
+      <image:title>Proyek Mohammad Ahsan Al Ghoni</image:title>
+    </image:image>
   </url>
   <url>
     <loc>https://ahsangresik.me/sertifikat.html</loc>
     <xhtml:link rel="alternate" hreflang="id-ID" href="https://ahsangresik.me/sertifikat.html" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ahsangresik.me/sertifikat.html" />
-    <lastmod>2026-06-14</lastmod>
+    <lastmod>2026-07-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+    <image:image>
+      <image:loc>https://ahsangresik.me/sertifikat-1.jpg</image:loc>
+      <image:title>Sertifikat Belajar Dasar AI Dicoding</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ahsangresik.me/sertifikat-2.jpg</image:loc>
+      <image:title>Sertifikat Cloud dan Generative AI di AWS Dicoding</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ahsangresik.me/sertifikat-3.jpg</image:loc>
+      <image:title>Sertifikat Belajar Dasar JavaScript Dicoding</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ahsangresik.me/sertifikat-4.jpg</image:loc>
+      <image:title>Sertifikat Back-End Pemula dengan JavaScript Dicoding</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ahsangresik.me/sertifikat-5.jpg</image:loc>
+      <image:title>Sertifikat Mikrotik Dasar ID-Networkers</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ahsangresik.me/sertifikat-6.jpg</image:loc>
+      <image:title>Sertifikat Jaringan Komputer Dasar ID-Networkers</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ahsangresik.me/sertifikat-7.jpg</image:loc>
+      <image:title>Sertifikat Cisco Networking Dasar ID-Networkers</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ahsangresik.me/sertifikat-8.jpg</image:loc>
+      <image:title>Sertifikat Belajar Linux dari Nol ID-Networkers</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ahsangresik.me/sertifikat-9.jpg</image:loc>
+      <image:title>Sertifikat Cyber Security Dasar ID-Networkers</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ahsangresik.me/sertifikat-10.jpg</image:loc>
+      <image:title>Sertifikat Menjaga Data Pribadi Digitalent Kominfo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ahsangresik.me/sertifikat-11.jpg</image:loc>
+      <image:title>Sertifikat Dasar Keamanan AI Digitalent Kominfo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ahsangresik.me/sertifikat-12.jpg</image:loc>
+      <image:title>Sertifikat Introduction to Cloud Computing Digitalent Kominfo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ahsangresik.me/sertifikat-13.jpg</image:loc>
+      <image:title>Sertifikat Ethical Hacker For Dummies Digitalent Kominfo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ahsangresik.me/sertifikat-14.jpg</image:loc>
+      <image:title>Sertifikat Lindungi Data Pribadi Digitalent Kominfo</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ahsangresik.me/sertifikat-15.jpg</image:loc>
+      <image:title>Sertifikat Keamanan Siber Micro Skill Digital Talent Scholarship 2026</image:title>
+    </image:image>
+    <image:image>
+      <image:loc>https://ahsangresik.me/sertifikat-16.jpg</image:loc>
+      <image:title>Sertifikat Pengenalan Internet of Things Digital Talent Scholarship 2026</image:title>
+    </image:image>
   </url>
 </urlset>

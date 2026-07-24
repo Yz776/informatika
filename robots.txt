@@ -1,5 +1,28 @@
 User-agent: *
 Allow: /
 
+# AI crawlers welcome
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Block nothing else
 Sitemap: https://ahsangresik.me/sitemap.xml
 Sitemap: https://www.ahsangresik.me/sitemap.xml

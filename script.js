@@ -12,15 +12,15 @@
   const variant = {
     key: 'gresik',
     label: rawHost.startsWith('www.') ? 'www.ahsangresik.me' : 'ahsangresik.me',
-    suffix: 'Gresik',
+    suffix: 'ID',
     siteName: 'ahsangresik.me',
-    homeTitle: 'Mohammad Ahsan Al Ghoni — Backend, Cloud, dan WhatsApp KFAI',
-    projectTitle: 'Project Mohammad Ahsan Al Ghoni — KFAI, Cloud, WhatsApp Bot',
+    homeTitle: 'Mohammad Ahsan Al Ghoni — Backend Developer & Network Engineer',
+    projectTitle: 'Proyek Mohammad Ahsan Al Ghoni — KFAI, WhatsApp, Catur, Anime',
     certTitle: 'Sertifikat Mohammad Ahsan Al Ghoni — Dicoding, IDN, Digitalent',
-    desc: 'Halaman karya saya: backend, KFAI, WhatsApp KFAI, Cloud Object, Al-Quran Digital, sertifikat IT, dan project web yang bisa dicoba langsung.',
-    hero: 'Saya membangun web, layanan cloud, dan WhatsApp bot yang bisa dipakai langsung.',
-    lead: 'Saya pelajar dari Gresik yang suka membangun project nyata: backend, WhatsApp KFAI, cloud object, game realtime, aplikasi edukasi, dan otomasi. Fokus saya sederhana: cepat, rapi, responsif, dan benar-benar bisa dipakai.',
-    terminal: '$ curl https://ai.kangwifi.eu.org<br>response: layanan aktif · kfai online'
+    desc: 'Portofolio Mohammad Ahsan Al Ghoni: backend, KFAI, WhatsApp KFAI, Catur Online, Al-Quran Digital, TTT Online, WotAnime, sertifikat IT, dan project web yang bisa dicoba langsung.',
+    hero: 'Saya bikin web dan bot',
+    lead: 'Saya pelajar dari Gresik yang suka membangun project nyata: backend, WhatsApp KFAI, game realtime seperti Catur Online dan TTT, aplikasi edukasi seperti Al-Quran Digital, sampai platform streaming anime. Fokus saya sederhana: cepat, rapi, dan benar-benar bisa dipakai.',
+    terminal: '$ curl https://ai.kangwifi.eu.org<br>response: layanan aktif · kfai ready'
   };
 
   document.documentElement.dataset.domain = 'ahsangresik.me';
@@ -46,9 +46,10 @@
   function injectStructuredData(canonical, title) {
     const breadcrumbName = pageName === 'home' ? 'Beranda' : pageName === 'project' ? 'Proyek' : 'Sertifikat';
     const faq = [
-      ['Apa isi halaman ini?', 'Halaman ini berisi karya, project, sertifikat, dan catatan teknis yang saya bangun atau pelajari.'],
-      ['Apa project utamanya?', 'Fokus project saya ada di backend, KFAI, WhatsApp bot, Cloud Object, Al-Quran Digital, dan beberapa eksperimen web publik.'],
-      ['Apakah project bisa dicoba?', 'Sebagian project memiliki link publik sehingga bisa dibuka langsung dari halaman proyek.']
+      ['Siapa Mohammad Ahsan Al Ghoni?', 'Pelajar dari Gresik yang membangun project nyata seperti KFAI, WhatsApp KFAI, Catur Online, Al-Quran Digital, TTT Online, dan WotAnime. Fokus di backend, networking, dan bot WhatsApp.'],
+      ['Apa project utamanya?', 'KFAI (platform AI), WhatsApp KFAI (AI di WhatsApp), Catur Online, Al-Quran Digital, TTT Online, WotAnime streaming, dan YouTube Tanpa Iklan.'],
+      ['Apakah project bisa dicoba?', 'Sebagian besar project memiliki link publik sehingga bisa dibuka langsung dari halaman proyek.'],
+      ['Di mana Ahsan belajar?', 'Ahsan menyelesaikan 16 sertifikat dari Dicoding, ID-Networkers, dan Digitalent Kominfo mencakup AI, JavaScript, cloud, networking, security, dan IoT.']
     ];
     const graph = {
       '@context': 'https://schema.org',
@@ -63,7 +64,7 @@
           jobTitle: 'Backend Developer & Network Engineer',
           address: { '@type': 'PostalAddress', addressLocality: 'Gresik', addressRegion: 'Jawa Timur', addressCountry: 'ID' },
           sameAs: ['https://ahsangresik.me', 'https://alquran.kangwifi.eu.org', 'https://wa.me/6285168601458', 'https://www.instagram.com/ahsanazmibp', 'https://id.linkedin.com/in/mohammad-ah-san-al-ghoni-1b053a29b'],
-          knowsAbout: ['Backend', 'KFAI', 'WhatsApp Bot', 'Cloud Computing', 'Networking', 'Linux', 'Cyber Security', 'Internet of Things']
+          knowsAbout: ['Backend', 'KFAI', 'WhatsApp Bot', 'Cloud Computing', 'Networking', 'Linux', 'Cyber Security', 'Internet of Things', 'Game Development']
         },
         {
           '@type': 'WebSite',
@@ -123,8 +124,8 @@
     $$('.js-domain').forEach((el) => { el.textContent = variant.label; });
     $$('.js-domain-home').forEach((el) => { el.href = publicOrigin; });
     $$('.brand .grad').forEach((el) => { el.textContent = variant.suffix; });
-    const heroTitle = $('.hero h1'); if (heroTitle && pageName === 'home') heroTitle.innerHTML = `<span class="grad">${variant.hero}</span>`;
-    const lead = $('.hero .lead'); if (lead && pageName === 'home') lead.innerHTML = variant.lead;
+    const heroTitle = $('.hero h1'); if (heroTitle && pageName === 'home') heroTitle.innerHTML = `<span class="grad">${variant.hero}</span> yang bisa dipakai langsung.`;
+    const lead = $('.hero .lead'); if (lead && pageName === 'home') lead.innerHTML = `<strong>Mohammad Ahsan Al Ghoni</strong>, ${variant.lead.replace('Saya ', '')}`;
     const terminal = $('.terminal'); if (terminal) terminal.innerHTML = variant.terminal;
     injectStructuredData(canonical, title);
   }
@@ -161,10 +162,108 @@
     });
   }
 
-  function initMobileNav() { const btn = $('.menu-btn'); const links = $('.nav-links'); if (!btn || !links) return; btn.addEventListener('click', () => { const open = links.classList.toggle('open'); btn.setAttribute('aria-expanded', String(open)); }); links.addEventListener('click', (e) => { if (e.target.closest('a')) { links.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); } }); }
-  function initReveal() { const items = $$('[data-reveal], .seo-panel article'); if (!items.length) return; const io = new IntersectionObserver((entries) => { entries.forEach((entry) => { if (entry.isIntersecting) { entry.target.classList.add('visible'); io.unobserve(entry.target); } }); }, { threshold: 0.12 }); items.forEach((item, index) => { item.style.transitionDelay = `${Math.min(index * 45, 260)}ms`; io.observe(item); }); }
-  function initCertFilters() { const buttons = $$('.filter-btn'); const items = $$('.cert-item'); if (!buttons.length || !items.length) return; buttons.forEach((btn) => { btn.addEventListener('click', () => { const filter = btn.dataset.filter || 'all'; buttons.forEach((b) => b.classList.remove('active')); btn.classList.add('active'); items.forEach((item) => { const show = filter === 'all' || item.dataset.category === filter; item.style.display = show ? '' : 'none'; }); }); }); }
-  function initCertModal() { const modal = $('#certModal'); const modalImg = $('#certModalImg'); const modalTitle = $('#certModalTitle'); const close = $('#certModalClose'); if (!modal || !modalImg || !modalTitle) return; const open = (card) => { modalImg.src = card.dataset.img || ''; modalImg.alt = card.dataset.title || 'Preview sertifikat'; modalTitle.textContent = card.dataset.title || 'Preview Sertifikat'; modal.classList.add('show'); document.body.style.overflow = 'hidden'; close?.focus(); }; const hide = () => { modal.classList.remove('show'); document.body.style.overflow = ''; modalImg.src = ''; }; $$('.cert-card').forEach((card) => { card.addEventListener('click', () => open(card)); card.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(card); } }); }); close?.addEventListener('click', hide); modal.addEventListener('click', (e) => { if (e.target === modal) hide(); }); document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); }); }
+  function initMobileNav() {
+    const btn = $('.menu-btn'); const links = $('.nav-links');
+    if (!btn || !links) return;
+    btn.addEventListener('click', () => {
+      const open = links.classList.toggle('open');
+      btn.setAttribute('aria-expanded', String(open));
+    });
+    links.addEventListener('click', (e) => {
+      if (e.target.closest('a')) {
+        links.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  }
+
+  function initReveal() {
+    const items = $$('[data-reveal], .seo-panel article');
+    if (!items.length) return;
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    items.forEach((item, index) => {
+      item.style.transitionDelay = `${Math.min(index * 45, 260)}ms`;
+      io.observe(item);
+    });
+  }
+
+  function initCertFilters() {
+    const buttons = $$('.filter-btn'); const items = $$('.cert-item');
+    if (!buttons.length || !items.length) return;
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter || 'all';
+        buttons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        items.forEach((item) => {
+          const show = filter === 'all' || item.dataset.category === filter;
+          item.style.display = show ? '' : 'none';
+        });
+      });
+    });
+  }
+
+  function initCertModal() {
+    const modal = $('#certModal');
+    const modalImg = $('#certModalImg');
+    const modalTitle = $('#certModalTitle');
+    const close = $('#certModalClose');
+    if (!modal || !modalImg || !modalTitle) return;
+    const open = (card) => {
+      modalImg.src = card.dataset.img || '';
+      modalImg.alt = card.dataset.title || 'Preview sertifikat';
+      modalTitle.textContent = card.dataset.title || 'Preview Sertifikat';
+      modal.classList.add('show');
+      document.body.style.overflow = 'hidden';
+      close?.focus();
+    };
+    const hide = () => {
+      modal.classList.remove('show');
+      document.body.style.overflow = '';
+      modalImg.src = '';
+    };
+    $$('.cert-card').forEach((card) => {
+      card.addEventListener('click', () => open(card));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(card); }
+      });
+    });
+    close?.addEventListener('click', hide);
+    modal.addEventListener('click', (e) => { if (e.target === modal) hide(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); });
+  }
+
+  function initBackTop() {
+    const btn = $('#backTop');
+    if (!btn) return;
+    const toggle = () => {
+      if (window.scrollY > 600) btn.classList.add('show');
+      else btn.classList.remove('show');
+    };
+    window.addEventListener('scroll', toggle, { passive: true });
+    btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    toggle();
+  }
+
+  function initReadProgress() {
+    const bar = $('#readProgress');
+    if (!bar) return;
+    const update = () => {
+      const h = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = h > 0 ? (window.scrollY / h) * 100 : 0;
+      bar.style.width = `${Math.min(pct, 100)}%`;
+    };
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update, { passive: true });
+    update();
+  }
 
   document.addEventListener('DOMContentLoaded', () => {
     ensureVariantStylesheet();
@@ -176,5 +275,7 @@
     initReveal();
     initCertFilters();
     initCertModal();
+    initBackTop();
+    initReadProgress();
   });
 })();
