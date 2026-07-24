@@ -235,6 +235,31 @@ h1,h2,h3{font-family:'Syne',sans-serif;line-height:1.05;letter-spacing:-.06em}
 .url{display:inline-flex;margin-top:16px;color:#d6e9ff;font-size:13px;font-weight:900;overflow-wrap:anywhere;transition:.2s var(--ease);align-items:center;gap:6px}
 .cardx:hover .url{opacity:1;transform:translateX(3px);color:#fff}
 
+/* ---------- Card with split actions (visit + download) ---------- */
+.card-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:16px}
+.card-actions .url{margin-top:0}
+.btn-apk{
+  display:inline-flex;align-items:center;gap:7px;
+  min-height:36px;padding:8px 14px;border-radius:11px;
+  font-size:12.5px;font-weight:900;letter-spacing:.01em;
+  background:linear-gradient(135deg,rgba(var(--accent-a),.22),rgba(var(--accent-c),.22));
+  border:1px solid rgba(var(--accent-a),.42);color:#eaf2ff;
+  transition:.22s var(--ease);cursor:pointer;text-decoration:none;
+  box-shadow:0 8px 22px rgba(var(--accent-a),.18);
+}
+.btn-apk:hover{
+  transform:translateY(-2px);
+  background:linear-gradient(135deg,rgba(var(--accent-a),.36),rgba(var(--accent-c),.36));
+  border-color:rgba(var(--accent-a),.7);color:#fff;
+  box-shadow:0 14px 30px rgba(var(--accent-a),.30);
+}
+.btn-apk:active{transform:translateY(0)}
+.btn-apk .apk-icon{font-size:14px;line-height:1}
+
+/* ---------- Project card actions (download APK inside project card) ---------- */
+.project-actions{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-top:14px}
+.project-actions .btn-apk{min-height:38px;padding:9px 16px;font-size:13px}
+
 /* ---------- Feature band ---------- */
 .feature-band{display:grid;grid-template-columns:1.1fr .9fr;gap:16px}
 .glass{border-radius:var(--radius);padding:26px}

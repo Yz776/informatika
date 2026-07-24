@@ -16,7 +16,7 @@ backend, WhatsApp bot, game realtime, dan aplikasi web publik.
 - **Catur Online** — https://catur.kangwifi.eu.org
 - **Al-Quran Digital** — https://alquran.kangwifi.eu.org
 - **TTT Online** — https://ttt.kangwifi.eu.org
-- **WotAnime** — https://www.wotanime.my.id
+- **WotAnime** — https://www.wotanime.my.id (APK: `wotanime-v1.1.apk`)
 - **YouTube Tanpa Iklan** — https://yt.kangwifi.eu.org
 
 ## Struktur File
