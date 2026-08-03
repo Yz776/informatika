@@ -1,3 +1,6 @@
+# robots.txt — Portfolio Ahsan
+# Mengizinkan semua crawler, termasuk AI crawlers, untuk mengindeks portofolio publik.
+
 User-agent: *
 Allow: /
 
@@ -23,6 +26,15 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-# Block nothing else
+User-agent: Applebot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Crawl delay untuk fairness
+Crawl-delay: 1
+
+# Sitemap
 Sitemap: https://ahsangresik.me/sitemap.xml
 Sitemap: https://www.ahsangresik.me/sitemap.xml

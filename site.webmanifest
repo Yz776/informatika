@@ -1,7 +1,7 @@
 {
   "name": "Portfolio Ahsan — Mohammad Ahsan Al Ghoni",
   "short_name": "AhsanID",
-  "description": "Portofolio Mohammad Ahsan Al Ghoni: backend, KFAI, WhatsApp KFAI, Catur Online, Al-Quran Digital, TTT Online, dan WotAnime.",
+  "description": "Portofolio Mohammad Ahsan Al Ghoni: backend, networking, game realtime (Catur Online, TTT), aplikasi edukasi (Al-Quran Digital), platform streaming WotAnime, dan layanan web publik.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -10,7 +10,7 @@
   "theme_color": "#050810",
   "lang": "id-ID",
   "dir": "ltr",
-  "categories": ["portfolio", "developer", "personal"],
+  "categories": ["portfolio", "developer", "personal", "education", "productivity"],
   "icons": [
     {
       "src": "tes.jpg",
@@ -23,11 +23,13 @@
     {
       "name": "Proyek",
       "short_name": "Proyek",
+      "description": "Lihat daftar proyek Mohammad Ahsan Al Ghoni",
       "url": "/project.html"
     },
     {
       "name": "Sertifikat",
       "short_name": "Sertifikat",
+      "description": "Lihat galeri 16 sertifikat kompetensi IT",
       "url": "/sertifikat.html"
     }
   ]

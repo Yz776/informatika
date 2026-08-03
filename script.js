@@ -14,13 +14,13 @@
     label: rawHost.startsWith('www.') ? 'www.ahsangresik.me' : 'ahsangresik.me',
     suffix: 'ID',
     siteName: 'ahsangresik.me',
-    homeTitle: 'Mohammad Ahsan Al Ghoni — Backend Developer & Network Engineer',
-    projectTitle: 'Proyek Mohammad Ahsan Al Ghoni — KFAI, WhatsApp, Catur, Anime',
+    homeTitle: 'Mohammad Ahsan Al Ghoni — Backend Developer & Network Engineer dari Gresik',
+    projectTitle: 'Proyek Mohammad Ahsan Al Ghoni — Catur Online, Al-Quran Digital, WotAnime, TTT',
     certTitle: 'Sertifikat Mohammad Ahsan Al Ghoni — Dicoding, IDN, Digitalent',
-    desc: 'Portofolio Mohammad Ahsan Al Ghoni: backend, KFAI, WhatsApp KFAI, Catur Online, Al-Quran Digital, TTT Online, WotAnime, sertifikat IT, dan project web yang bisa dicoba langsung.',
-    hero: 'Saya bikin web dan bot',
-    lead: 'Saya pelajar dari Gresik yang suka membangun project nyata: backend, WhatsApp KFAI, game realtime seperti Catur Online dan TTT, aplikasi edukasi seperti Al-Quran Digital, sampai platform streaming anime. Fokus saya sederhana: cepat, rapi, dan benar-benar bisa dipakai.',
-    terminal: '$ curl https://ai.kangwifi.eu.org<br>response: layanan aktif · kfai ready'
+    desc: 'Portofolio Mohammad Ahsan Al Ghoni: backend, networking, game realtime (Catur Online, TTT), aplikasi edukasi (Al-Quran Digital), platform streaming WotAnime, dan layanan web publik yang bisa dicoba langsung.',
+    hero: 'Membangun sistem nyata',
+    lead: 'pelajar dari Gresik yang suka membangun sistem fungsional: backend yang stabil, game realtime seperti Catur Online dan TTT, aplikasi edukasi seperti Al-Quran Digital, sampai platform streaming anime. Fokus saya sederhana — cepat, rapi, dan benar-benar bisa dipakai.',
+    terminal: '<span class="t-prompt">$</span> <span class="t-cmd">curl -s https://ahsangresik.me</span><br><span class="t-out">→ status: <em>200 OK</em> · uptime: <em>99.9%</em> · region: <em>id-jt</em></span>'
   };
 
   document.documentElement.dataset.domain = 'ahsangresik.me';
@@ -46,9 +46,9 @@
   function injectStructuredData(canonical, title) {
     const breadcrumbName = pageName === 'home' ? 'Beranda' : pageName === 'project' ? 'Proyek' : 'Sertifikat';
     const faq = [
-      ['Siapa Mohammad Ahsan Al Ghoni?', 'Pelajar dari Gresik yang membangun project nyata seperti KFAI, WhatsApp KFAI, Catur Online, Al-Quran Digital, TTT Online, dan WotAnime. Fokus di backend, networking, dan bot WhatsApp.'],
-      ['Apa project utamanya?', 'KFAI (platform AI), WhatsApp KFAI (AI di WhatsApp), Catur Online, Al-Quran Digital, TTT Online, WotAnime streaming, dan YouTube Tanpa Iklan.'],
-      ['Apakah project bisa dicoba?', 'Sebagian besar project memiliki link publik sehingga bisa dibuka langsung dari halaman proyek.'],
+      ['Siapa Mohammad Ahsan Al Ghoni?', 'Pelajar dari Gresik yang membangun project nyata seperti Catur Online, Al-Quran Digital, TTT Online, WotAnime, dan YouTube Tanpa Iklan. Fokus di backend, networking, dan layanan web publik.'],
+      ['Apa project utamanya?', 'Catur Online (game realtime), Al-Quran Digital (edukasi), TTT Online (multiplayer), WotAnime (streaming anime), dan YouTube Tanpa Iklan.'],
+      ['Apakah project bisa dicoba?', 'Sebagian besar project memiliki link publik sehingga bisa dibuka langsung dari halaman proyek. WotAnime juga menyediakan download APK.'],
       ['Di mana Ahsan belajar?', 'Ahsan menyelesaikan 16 sertifikat dari Dicoding, ID-Networkers, dan Digitalent Kominfo mencakup AI, JavaScript, cloud, networking, security, dan IoT.']
     ];
     const graph = {
@@ -58,13 +58,13 @@
           '@type': 'Person',
           '@id': `${publicOrigin}/#person`,
           name: 'Mohammad Ahsan Al Ghoni',
-          alternateName: ['Ahsan', 'Ahsan Gresik'],
+          alternateName: ['Ahsan', 'Ahsan Gresik', 'AhsanID'],
           url: publicOrigin,
           image: `${publicOrigin}/tes.jpg`,
           jobTitle: 'Backend Developer & Network Engineer',
           address: { '@type': 'PostalAddress', addressLocality: 'Gresik', addressRegion: 'Jawa Timur', addressCountry: 'ID' },
-          sameAs: ['https://ahsangresik.me', 'https://alquran.kangwifi.eu.org', 'https://wa.me/6285168601458', 'https://www.instagram.com/ahsanazmibp', 'https://id.linkedin.com/in/mohammad-ah-san-al-ghoni-1b053a29b'],
-          knowsAbout: ['Backend', 'KFAI', 'WhatsApp Bot', 'Cloud Computing', 'Networking', 'Linux', 'Cyber Security', 'Internet of Things', 'Game Development']
+          sameAs: ['https://ahsangresik.me', 'https://alquran.kangwifi.eu.org', 'https://wa.me/6285168601458', 'https://www.instagram.com/ahsanazmibp', 'https://id.linkedin.com/in/mohammad-ah-san-al-ghoni-1b053a29b', 'https://github.com/Yz776'],
+          knowsAbout: ['Backend', 'Network Engineering', 'Cloud Computing', 'WhatsApp Bot', 'Linux', 'Cyber Security', 'Internet of Things', 'Game Development', 'Mikrotik', 'Cisco']
         },
         {
           '@type': 'WebSite',
@@ -82,7 +82,8 @@
           url: canonical,
           isPartOf: { '@id': `${publicOrigin}/#website` },
           about: { '@id': `${publicOrigin}/#person` },
-          inLanguage: 'id-ID'
+          inLanguage: 'id-ID',
+          lastReviewed: '2026-08-03'
         },
         {
           '@type': 'BreadcrumbList',
@@ -124,34 +125,15 @@
     $$('.js-domain').forEach((el) => { el.textContent = variant.label; });
     $$('.js-domain-home').forEach((el) => { el.href = publicOrigin; });
     $$('.brand .grad').forEach((el) => { el.textContent = variant.suffix; });
-    const heroTitle = $('.hero h1'); if (heroTitle && pageName === 'home') heroTitle.innerHTML = `<span class="grad">${variant.hero}</span> yang bisa dipakai langsung.`;
-    const lead = $('.hero .lead'); if (lead && pageName === 'home') lead.innerHTML = `<strong>Mohammad Ahsan Al Ghoni</strong>, ${variant.lead.replace('Saya ', '')}`;
+    const heroTitle = $('.hero h1'); if (heroTitle && pageName === 'home') heroTitle.innerHTML = `<span class="grad">${variant.hero}</span> — bukan sekadar tampilan.`;
+    const lead = $('.hero .lead'); if (lead && pageName === 'home') lead.innerHTML = `<strong>Mohammad Ahsan Al Ghoni</strong>, ${variant.lead}`;
     const terminal = $('.terminal'); if (terminal) terminal.innerHTML = variant.terminal;
     injectStructuredData(canonical, title);
   }
 
-  function initSeoMiniLinks() {
-    const feature = $('.feature-band .glass');
-    if (!feature || $('.seo-mini')) return;
-    const box = document.createElement('div');
-    box.className = 'seo-mini';
-    box.innerHTML = `<a href="project.html">Lihat project<span>karya saya →</span></a><a href="/sitemap.xml">Sitemap<span>SEO map →</span></a>`;
-    feature.appendChild(box);
-  }
-
-  function initSeoPanel() {
-    if ($('.seo-panel')) return;
-    const target = $('.hero') || $('.page-hero');
-    if (!target) return;
-    const panel = document.createElement('section');
-    panel.className = 'seo-panel';
-    panel.innerHTML = `<div class="containerx seo-panel-inner"><article><span>Fokus</span><b>Backend, cloud, automation</b><p>Saya mengerjakan project yang bisa dicoba langsung, bukan hanya tampilan.</p></article><article><span>Stack</span><b>Go, Node.js, Linux</b><p>Dipakai untuk WhatsApp bot, dashboard, dan layanan web ringan.</p></article><article><span>Catatan</span><b>16 sertifikat IT</b><p>Materi AI, cloud, security, IoT, networking, dan JavaScript saya pakai untuk project.</p></article></div>`;
-    target.insertAdjacentElement('afterend', panel);
-  }
-
   function initSpotlight() {
     if (!matchMedia('(hover:hover) and (pointer:fine)').matches) return;
-    $$('.cardx,.project-card,.cert-card,.glass,.hero-card,.seo-panel article').forEach((el) => {
+    $$('.cardx,.project-card,.cert-card,.glass,.hero-card,.tech-cat,.contact-item').forEach((el) => {
       el.addEventListener('pointermove', (event) => {
         const rect = el.getBoundingClientRect();
         el.style.setProperty('--mx', `${event.clientX - rect.left}px`);
@@ -177,8 +159,26 @@
     });
   }
 
+  function initNavScroll() {
+    const nav = $('.topnav');
+    if (!nav) return;
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          if (window.scrollY > 24) nav.classList.add('scrolled');
+          else nav.classList.remove('scrolled');
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
   function initReveal() {
-    const items = $$('[data-reveal], .seo-panel article');
+    const items = $$('[data-reveal]');
     if (!items.length) return;
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -265,17 +265,39 @@
     update();
   }
 
+  function initSmoothAnchor() {
+    // Smooth scroll untuk anchor link di halaman yang sama (fallback bila CSS smooth dinonaktifkan)
+    $$('a[href^="#"]').forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const id = link.getAttribute('href');
+        if (!id || id === '#') return;
+        const target = document.querySelector(id);
+        if (!target) return;
+        e.preventDefault();
+        const top = target.getBoundingClientRect().top + window.scrollY - 80;
+        window.scrollTo({ top, behavior: 'smooth' });
+        // Tutup menu mobile kalau terbuka
+        const navLinks = $('.nav-links');
+        const menuBtn = $('.menu-btn');
+        if (navLinks && navLinks.classList.contains('open')) {
+          navLinks.classList.remove('open');
+          menuBtn?.setAttribute('aria-expanded', 'false');
+        }
+      });
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     ensureVariantStylesheet();
     setDynamicDomainMeta();
-    initSeoMiniLinks();
-    initSeoPanel();
     initSpotlight();
     initMobileNav();
+    initNavScroll();
     initReveal();
     initCertFilters();
     initCertModal();
     initBackTop();
     initReadProgress();
+    initSmoothAnchor();
   });
 })();
