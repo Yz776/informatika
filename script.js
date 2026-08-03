@@ -63,7 +63,7 @@
           image: `${publicOrigin}/tes.jpg`,
           jobTitle: 'Backend Developer & Network Engineer',
           address: { '@type': 'PostalAddress', addressLocality: 'Gresik', addressRegion: 'Jawa Timur', addressCountry: 'ID' },
-          sameAs: ['https://ahsangresik.me', 'https://alquran.kangwifi.eu.org', 'https://wa.me/6285168601458', 'https://www.instagram.com/ahsanazmibp', 'https://id.linkedin.com/in/mohammad-ah-san-al-ghoni-1b053a29b', 'https://github.com/Yz776'],
+          sameAs: ['https://ahsangresik.me', 'https://alquran.kangwifi.eu.org', 'https://wa.me/6285168601283', 'https://www.instagram.com/ahsanazmibp', 'https://id.linkedin.com/in/mohammad-ah-san-al-ghoni-1b053a29b', 'https://github.com/Yz776'],
           knowsAbout: ['Backend', 'Network Engineering', 'Cloud Computing', 'WhatsApp Bot', 'Linux', 'Cyber Security', 'Internet of Things', 'Game Development', 'Mikrotik', 'Cisco']
         },
         {

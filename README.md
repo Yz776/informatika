@@ -91,7 +91,7 @@ Site ini cocok untuk GitHub Pages, Cloudflare Pages, Netlify, Vercel, atau hosti
 
 ## 📞 Kontak
 
-- WhatsApp: +62 851-6860-1458
+- WhatsApp: +62 851-6860-1283
 - Instagram: @ahsanazmibp
 - LinkedIn: Mohammad Ahsan Al Ghoni
 - GitHub: @Yz776
