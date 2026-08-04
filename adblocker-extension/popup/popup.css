@@ -117,6 +117,37 @@ html, body {
 .author a { color: var(--text-mute); text-decoration: none; transition: color 0.2s; }
 .author a:hover { color: var(--accent); }
 
+/* Activation action button */
+.activation-action {
+  padding: 0 16px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.btn-activate {
+  width: 100%;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #00e5ff, #b388ff);
+  color: #0a0817;
+  border: none;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 4px 16px rgba(0, 229, 255, 0.4);
+  transition: all 0.2s;
+}
+.btn-activate:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(0, 229, 255, 0.5);
+}
+.btn-activate:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .toast {
   position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%) translateY(20px);
   background: var(--bg-3); color: var(--text); padding: 8px 14px; border-radius: 999px;

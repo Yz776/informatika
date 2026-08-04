@@ -1,122 +1,175 @@
-# Adblock Gresik v2.1 — Pemblokir Iklan (Chrome & Firefox)
+# NovaShield v3.0 — Pemblokir Iklan Modern
 
-> Author: **Ahsan Gresik** — [www.ahsangresik.me](https://www.ahsangresik.me)
+> **Author:** Ahsan Gresik — [www.ahsangresik.me](https://www.ahsangresik.me)
+> **License:** MIT • **Size:** 67 KB • **Browser:** Chrome 88+, Firefox 115+
 
-Extension MV3 cross-browser dengan **sistem aktivasi**, **YouTube ad blocker advanced**, **SponsorBlock**, **anti-adblock bypass**, **privacy protection**, dan **20+ fitur lainnya**.
+<div align="center">
+  <img src="icons/icon128.png" alt="NovaShield Logo" width="96" height="96">
+</div>
+
+Extension browser modern dengan **YouTube ad blocker**, **SponsorBlock**, **anti-adblock bypass**, **privacy protection**, dan **20+ fitur lainnya**. Cross-browser Manifest V3.
 
 ---
 
-## Apa yang Baru di v2.1
+## 📦 Download & Install
 
-### Sistem Aktivasi (baru!)
-Saat extension baru diinstall:
-1. Tab otomatis terbuka ke Google search "mohammad ahsan al ghoni"
-2. Content script auto-click hasil pencarian pertama (website ahsangresik.me)
-3. Di website, script cari "menu aktivasi" (button/link/text/meta tag)
-4. Setelah ditemukan → auto-sync → extension aktif
-5. **Extension tidak akan memblokir iklan sebelum diaktivasi**
+### Cara Cepat (3 menit)
 
-Cara trigger aktivasi manual:
-- Klik kanan halaman → "Buka halaman aktivasi"
-- Atau klik banner merah "Belum Aktivasi" di popup
-- Atau tambahkan `#aktifasi` / `#activate` di URL ahsangresik.me
-- Atau tambahkan meta tag: `<meta name="adbg-activate" content="token-anda">`
+1. **Download** file untuk browser Anda:
+   - Chrome/Edge/Brave: `.zip` file
+   - Firefox: `.xpi` file
+2. **Install** extension (lihat [docs/INSTALL.md](docs/INSTALL.md) untuk detail)
+3. **Aktivasi otomatis**: Tab Google terbuka → auto-click hasil → buka ahsangresik.me → **auto-aktivasi** (tidak perlu klik apapun!)
 
-### YouTube Ad Blocker (advanced v2.1)
-- **MutationObserver** untuk deteksi state iklan (lebih cepat dari setInterval)
-- **Auto-skip button** dengan 8 selector fallback
-- **Speed-up 16x + mute** dengan override `playbackRate` setter (anti-reset)
-- **Force seek to end** untuk video iklan
-- **SponsorBlock** integration (skip sponsor segments)
-- **CSS injection** untuk hide semua `.ytp-ad-*` overlay
+### Landing Page
+Buka [ahsangresik.me/download.html](https://www.ahsangresik.me/download.html) untuk download dengan UI yang lebih bagus.
+
+---
+
+## ✨ Fitur Utama
+
+### 🎬 YouTube Ad Blocker (advanced)
+- **Auto-skip**: klik tombol "Lewati iklan" otomatis (cek setiap 100ms)
+- **Speed-up 16x + mute**: video iklan selesai dalam 1-3 detik
+- **SponsorBlock**: skip segmen sponsor via `sponsor.ajay.app`
 - **58 aturan network blocking** untuk YouTube ad endpoints
+- **Override `playbackRate`**: YouTube tidak bisa reset speed
 
-### 20+ Fitur Lainnya
-- Network blocking: 157 ad + 193 tracker + 58 YouTube + 122 malware = 530+ aturan statis
-- EasyList dynamic (maks. 4500 aturan)
-- Cosmetic filtering (CSS + DOM sweep)
-- Anti-adblock bypass (MAIN world): spoof globals, intercept fetch/XHR, defuse BlockAdBlock
-- Cookie consent auto-reject (OneTrust, Didomi, Quantcast)
-- Notification & autoplay blocker
-- WebRTC IP leak protection + Canvas/Audio fingerprint protection + Hardware spoof
-- HTTPS upgrade
-- Element zapper (click-to-hide)
-- Pause per-site (1 jam / 1 hari)
-- Backup/restore settings JSON
-- Per-domain blocking stats
+### 📊 Counter Akurat (baru!)
+- `declarativeNetRequest.onRuleMatchedDebug` (Chrome)
+- **`content-counter.js` fallback** (Firefox + Chrome): detect failed resource loads via error event, PerformanceObserver, dan MAIN world bridge
+- Per-tab counter + total counter persist
+- Top 10 situs dengan blokiran terbanyak
+
+### 🔐 Sistem Aktivasi (simplified!)
+- **Auto-aktivasi** saat visit ahsangresik.me (no button click!)
+- 1-click activate di popup
+- Multi-trigger: hostname, URL hash `#aktifasi`, meta tag, button
+- DNR rulesets disabled sampai activated
+
+### 🛡️ Network Blocking (531+ aturan statis)
+| Ruleset | Aturan | Fungsi |
+|---|---|---|
+| main | 157 | Ad servers (Google, Amazon, Facebook, dll) |
+| trackers | 193 | Tracker & analytics (GA, FB Pixel, Hotjar, dll) |
+| youtube | 58 | YouTube ad endpoints |
+| malware | 122 | Malware/phishing (cracks, scam, miners) |
+| https | 1 | HTTP → HTTPS redirect |
+- **Plus**: EasyList dynamic (maks. 4500 aturan, auto-refresh 72 jam)
+
+### 🚫 Anti-Adblock Bypass (MAIN world)
+- Spoof `canRunAds`, `adblock`, `adBlockDetected`, dll
+- Intercept `fetch()` dan `XMLHttpRequest` untuk ad probe URLs
+- Defuse `BlockAdBlock`, `adblockDetector` library
+- Bait element `offsetHeight` spoof
+
+### 🔒 Privacy Protection (MAIN world)
+- WebRTC IP leak protection (filter `typ host` candidates)
+- Canvas/Audio fingerprint protection (noise injection)
+- Hardware spoof (CPU=4, RAM=4, block Battery API)
+
+### 🍪 Annoyance Blocker
+- Cookie consent auto-reject (OneTrust, Didomi, Quantcast, 50+ provider)
+- Notification blocker
+- Autoplay blocker
+- Exit confirmation blocker
+- Sticky header blocker
+- Newsletter popup blocker
+- Social widgets blocker (opsional)
+
+### 🛠️ UX Features
+- **Element zapper**: click-to-hide elemen apapun
+- **Pause per-site**: 1 jam / 1 hari
+- **Backup/restore**: export/import settings JSON
+- **Whitelist**: per-site dengan 1 klik
+- **Context menu**: klik kanan untuk quick actions
 
 ---
 
-## Cara Install
-
-### Chrome / Edge / Brave
-1. Download & extract `adblock-gresik-v2.1.0.zip`
-2. Buka `chrome://extensions` → aktifkan **Developer mode**
-3. Klik **Load unpacked** → pilih folder hasil extract
-4. Tab otomatis terbuka ke Google search "mohammad ahsan al ghoni"
-5. Ikuti flow aktivasi
-
-### Firefox
-1. Download `adblock-gresik-v2.1.0.xpi`
-2. Buka `about:debugging#/runtime/this-firefox`
-3. Klik **Load Temporary Add-on...** → pilih file `.xpi`
-
----
-
-## Struktur File v2.1
+## 📁 Struktur Folder
 
 ```
 adblocker-extension/
-├── manifest.json              # MV3 cross-browser (5 rulesets, 8 content scripts)
-├── background.js              # Service worker (DNR, activation, badge, message API)
+├── manifest.json              # MV3 cross-browser (5 rulesets, 9 content scripts)
+├── background.js              # Service worker (DNR, activation, counter, message API)
 ├── activation.html            # Halaman aktivasi manual
 ├── content.js                 # Cosmetic + DOM sweep (ISOLATED)
 ├── content-antiadblock.js     # Anti-adblock bypass (MAIN world)
 ├── content-privacy.js         # WebRTC + Canvas + Audio + Hardware (MAIN world)
 ├── content-bridge.js          # Bridge MAIN↔ISOLATED + Element zapper
 ├── content-annoyance.js       # Cookie/Notif/Autoplay/Sticky/Newsletter
-├── content-youtube.js         # YouTube ad blocker v2.1 + SponsorBlock
+├── content-counter.js         # Accurate blocked request counter (fallback)
+├── content-youtube.js         # YouTube ad blocker v3 + SponsorBlock
 ├── content-google-redirect.js # Auto-click hasil Google search pertama
-├── content-activation.js      # Cari menu aktivasi + sync token
+├── content-activation.js      # Auto-aktivasi saat visit ahsangresik.me
 ├── popup/                     # 4 tab UI dark modern
 ├── options/                   # 9 section settings
 ├── rules/                     # 531 aturan statis
 ├── data/                      # cosmetic.css + whitelist.json
+├── docs/                      # INSTALL.md, FEATURES.md, FAQ.md, CHANGELOG.md
 ├── _locales/id/
-└── icons/
+└── icons/                     # 10 ikon PNG (5 ukuran + 5 disabled)
 ```
 
 ---
 
-## Permissions
+## 📚 Dokumentasi
 
-| Permission | Tujuan |
-|---|---|
-| `declarativeNetRequest` | Memblokir request iklan/tracker/malware |
-| `declarativeNetRequestFeedback` | Counter badge (Chrome only) |
-| `storage` | Simpan whitelist, settings, activation token |
-| `tabs` / `activeTab` | Baca URL tab, reload, buka tab baru |
-| `scripting` | Inject content script |
-| `alarms` | Refresh EasyList tiap 72 jam |
-| `contextMenus` | Menu klik kanan (whitelist/zap/pause/activate) |
-| `downloads` | Export settings JSON |
-| `webNavigation` | Track navigasi untuk reset counter |
-| `<all_urls>` | Host permission |
+- [📖 INSTALL.md](docs/INSTALL.md) — Panduan install step-by-step
+- [⚙️ FEATURES.md](docs/FEATURES.md) — Daftar fitur lengkap
+- [❓ FAQ.md](docs/FAQ.md) — Pertanyaan umum
+- [📝 CHANGELOG.md](docs/CHANGELOG.md) — Riwayat versi
 
 ---
 
-## Privacy
+## 🚀 Cara Pakai
+
+### Setelah Install & Aktivasi
+
+1. **Popup**: Klik ikon NovaShield di toolbar → lihat statistik real-time
+2. **Toggle fitur**: 4 tab di popup (Utama, YouTube, Privacy, Ekstra)
+3. **Whitelist situs**: Popup → "Whitelist situs ini" atau klik kanan → "Toggle NovaShield"
+4. **Zap elemen**: Klik kanan → "Zap elemen" → klik elemen untuk hide permanen
+5. **Pause**: Klik kanan → "Jeda NovaShield 1 jam/1 hari"
+6. **Settings**: Popup → "Pengaturan" → halaman full dengan 9 section
+
+### Verifikasi Counter
+- Buka situs berita (detik.com, kompas.com) → counter harus naik
+- Buka YouTube → counter naik saat iklan di-skip
+- Badge toolbar: angka cyan = jumlah blokiran
+
+---
+
+## 🔒 Privacy
 
 - **TIDAK** mengumpulkan data browsing
+- **TIDAK** mengirim data ke server pihak ketiga
 - Hanya fetch: `easylist.to` (filter list) + `sponsor.ajay.app` (SponsorBlock)
 - Saat install: 1 tab ke Google search "mohammad ahsan al ghoni"
-- Setelah aktivasi: 1 tab ke `www.ahsangresik.me`
+- Setelah aktivasi: 1 tab ke `ahsangresik.me`
 - Semua data lokal di `chrome.storage.local`
 
 ---
 
-## Lisensi
+## 🌐 Browser Support
+
+| Browser | Status | Catatan |
+|---|---|---|
+| Chrome 88+ | ✅ Full support | Counter pakai `onRuleMatchedDebug` |
+| Edge 88+ | ✅ Full support | Same as Chrome |
+| Brave | ✅ Full support | Same as Chrome |
+| Firefox 115+ | ✅ Full support | Counter pakai content-counter.js |
+| Opera | ✅ Full support | Same as Chrome |
+| Vivaldi | ✅ Full support | Same as Chrome |
+| Safari | ❌ Not supported | Different extension API |
+| Chrome Android | ❌ Not supported | Chrome mobile tidak dukung extension |
+| Firefox Android | ⚠️ Coming soon | Perlu submit ke AMO |
+
+---
+
+## 📝 License
 
 MIT License — bebas digunakan, dimodifikasi, dan didistribusikan.
 
-Author: **Ahsan Gresik** — [www.ahsangresik.me](https://www.ahsangresik.me)
+**Author:** Ahsan Gresik — [www.ahsangresik.me](https://www.ahsangresik.me)
+**GitHub:** [Yz776/informatika](https://github.com/Yz776/informatika)

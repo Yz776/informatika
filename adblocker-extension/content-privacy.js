@@ -1,4 +1,4 @@
-/* Adblock Gresik v2.1 - Privacy Protection (MAIN world) */
+/* NovaShield v2.1 - Privacy Protection (MAIN world) */
 (() => {
   if (window.__adbgPrivacyInstalled) return;
   window.__adbgPrivacyInstalled = true;
@@ -6,9 +6,9 @@
   let enabled = true, webrtcProtect = true, canvasProtect = true,
       audioProtect = true, fontProtect = true, activated = false;
 
-  try { activated = localStorage.getItem("__adbg_activated") === "1"; } catch (e) {}
+  try { activated = localStorage.getItem("__novashield_activated") === "1"; } catch (e) {}
 
-  window.addEventListener("__adbg_privacy_state", (e) => {
+  window.addEventListener("__novashield_privacy_state", (e) => {
     if (e.detail) {
       if (typeof e.detail.activated !== "undefined") activated = !!e.detail.activated;
       if (typeof e.detail.enabled !== "undefined") enabled = !!e.detail.enabled;
@@ -19,7 +19,7 @@
       if (activated && enabled) applyAll();
     }
   });
-  window.dispatchEvent(new CustomEvent("__adbg_privacy_request_state"));
+  window.dispatchEvent(new CustomEvent("__novashield_privacy_request_state"));
 
   function applyAll() {
     if (!activated || !enabled) return;
@@ -140,5 +140,5 @@
   }
 
   applyAll();
-  console.info("[Adblock Gresik] Privacy protection aktif di", location.hostname);
+  console.info("[NovaShield] Privacy protection aktif di", location.hostname);
 })();

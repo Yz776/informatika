@@ -1,4 +1,4 @@
-/* Adblock Gresik v2.1 - Bridge (ISOLATED -> MAIN state sync) + Element Zapper */
+/* NovaShield v2.1 - Bridge (ISOLATED -> MAIN state sync) + Element Zapper */
 (() => {
   const API = (typeof browser !== "undefined") ? browser : chrome;
 
@@ -8,7 +8,7 @@
       activated: false, enabled: true,
       webrtcProtect: true, canvasProtect: true, audioProtect: true, fontProtect: true,
     }, (data) => {
-      const evt = new CustomEvent("__adbg_privacy_state", {
+      const evt = new CustomEvent("__novashield_privacy_state", {
         detail: {
           activated: !!data.activated,
           enabled: !!data.enabled,
@@ -20,12 +20,12 @@
       });
       window.dispatchEvent(evt);
       // Also broadcast activation to anti-adblock MAIN script
-      window.dispatchEvent(new CustomEvent("__adbg_activation_changed", {
+      window.dispatchEvent(new CustomEvent("__novashield_activation_changed", {
         detail: { activated: !!data.activated }
       }));
     });
   }
-  window.addEventListener("__adbg_privacy_request_state", sendPrivacyState);
+  window.addEventListener("__novashield_privacy_request_state", sendPrivacyState);
   setTimeout(sendPrivacyState, 100);
   API.storage.onChanged.addListener((changes, area) => {
     if (area === "local") sendPrivacyState();
@@ -37,17 +37,17 @@
   let zapperOverlay = null;
 
   function createZapperStyle() {
-    if (document.getElementById("__adbg_zapper_style")) return;
+    if (document.getElementById("__novashield_zapper_style")) return;
     const style = document.createElement("style");
-    style.id = "__adbg_zapper_style";
+    style.id = "__novashield_zapper_style";
     style.textContent = `
-      .__adbg_zapper_highlight {
+      .__novashield_zapper_highlight {
         outline: 2px solid #00e5ff !important;
         outline-offset: -2px !important;
         background-color: rgba(0, 229, 255, 0.15) !important;
         cursor: crosshair !important;
       }
-      .__adbg_zapper_bar {
+      .__novashield_zapper_bar {
         position: fixed !important; top: 12px !important;
         left: 50% !important; transform: translateX(-50%) !important;
         background: linear-gradient(135deg, #00e5ff, #b388ff) !important;
@@ -58,7 +58,7 @@
         box-shadow: 0 4px 16px rgba(0, 229, 255, 0.5) !important;
         pointer-events: none !important;
       }
-      .__adbg_zapper_hidden {
+      .__novashield_zapper_hidden {
         display: none !important; visibility: hidden !important;
         width: 0 !important; height: 0 !important; opacity: 0 !important;
       }
@@ -71,7 +71,7 @@
     createZapperStyle();
     zapperActive = true;
     zapperOverlay = document.createElement("div");
-    zapperOverlay.className = "__adbg_zapper_bar";
+    zapperOverlay.className = "__novashield_zapper_bar";
     zapperOverlay.textContent = "Klik elemen untuk zap • ESC batal";
     document.body.appendChild(zapperOverlay);
     document.addEventListener("mousemove", onZapperMove, true);
@@ -82,7 +82,7 @@
   function stopZapper() {
     if (!zapperActive) return;
     zapperActive = false;
-    if (lastHovered) lastHovered.classList.remove("__adbg_zapper_highlight");
+    if (lastHovered) lastHovered.classList.remove("__novashield_zapper_highlight");
     if (zapperOverlay) zapperOverlay.remove();
     zapperOverlay = null;
     document.removeEventListener("mousemove", onZapperMove, true);
@@ -91,10 +91,10 @@
   }
 
   function onZapperMove(e) {
-    if (lastHovered) lastHovered.classList.remove("__adbg_zapper_highlight");
+    if (lastHovered) lastHovered.classList.remove("__novashield_zapper_highlight");
     lastHovered = e.target;
     if (lastHovered && lastHovered !== zapperOverlay) {
-      lastHovered.classList.add("__adbg_zapper_highlight");
+      lastHovered.classList.add("__novashield_zapper_highlight");
     }
   }
 
@@ -104,7 +104,7 @@
     if (e.target && e.target !== zapperOverlay) {
       const el = e.target;
       const selector = generateSelector(el);
-      el.classList.add("__adbg_zapper_hidden");
+      el.classList.add("__novashield_zapper_hidden");
       saveCustomHideRule(window.location.hostname, selector);
     }
     stopZapper();
@@ -154,7 +154,7 @@
       const hostRules = (data.customHideRules || {})[window.location.hostname] || [];
       hostRules.forEach((sel) => {
         try {
-          document.querySelectorAll(sel).forEach((el) => el.classList.add("__adbg_zapper_hidden"));
+          document.querySelectorAll(sel).forEach((el) => el.classList.add("__novashield_zapper_hidden"));
         } catch (e) {}
       });
     });

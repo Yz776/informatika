@@ -1,7 +1,7 @@
 {
-  "extName": {"message": "Adblock Gresik - Pemblokir Iklan", "description": "Nama extension"},
+  "extName": {"message": "NovaShield - Pemblokir Iklan", "description": "Nama extension"},
   "extDescription": {"message": "Pemblokir iklan lengkap dengan YouTube ad blocker, SponsorBlock, anti-adblock bypass, privacy protection, dan sistem aktivasi.", "description": "Deskripsi"},
-  "popupTitle": {"message": "Adblock Gresik", "description": "Judul popup"},
+  "popupTitle": {"message": "NovaShield", "description": "Judul popup"},
   "enableAdblock": {"message": "Aktifkan Adblock", "description": "Toggle master"},
   "blockTrackers": {"message": "Blokir Tracker", "description": "Toggle tracker"},
   "cosmeticFilter": {"message": "Cosmetic Filter", "description": "Toggle cosmetic"},

@@ -1,5 +1,5 @@
 /* =====================================================================
- * Adblock Gresik v2.1 - YouTube Ad Blocker (Advanced)
+ * NovaShield v2.1 - YouTube Ad Blocker (Advanced)
  * Multi-layer: ad-state observer + skip click + speed-up + seek + SponsorBlock
  * ===================================================================== */
 
@@ -11,7 +11,7 @@
     ytSpeedUp: true, sponsorBlockEnabled: true,
   };
 
-  try { activated = localStorage.getItem("__adbg_activated") === "1"; } catch (e) {}
+  try { activated = localStorage.getItem("__novashield_activated") === "1"; } catch (e) {}
 
   API.storage.local.get({
     activated: false, enabled: true, ytBlockEnabled: true, ytAutoSkip: true,
@@ -23,7 +23,7 @@
       ytAutoSkip: !!data.ytAutoSkip, ytSpeedUp: !!data.ytSpeedUp,
       sponsorBlockEnabled: !!data.sponsorBlockEnabled,
     };
-    try { localStorage.setItem("__adbg_activated", activated ? "1" : "0"); } catch (e) {}
+    try { localStorage.setItem("__novashield_activated", activated ? "1" : "0"); } catch (e) {}
     if (activated && features.enabled) boot();
   });
 
@@ -31,7 +31,7 @@
     if (!msg || msg.type !== "STATE_CHANGED") return;
     if (typeof msg.activated === "boolean") {
       activated = msg.activated;
-      try { localStorage.setItem("__adbg_activated", activated ? "1" : "0"); } catch (e) {}
+      try { localStorage.setItem("__novashield_activated", activated ? "1" : "0"); } catch (e) {}
       if (activated && features.enabled) boot();
     }
     if (typeof msg.enabled === "boolean") features.enabled = msg.enabled;
@@ -51,7 +51,7 @@
     setupSkipButtonWatcher();
     setupSponsorBlock();
     attachYtNavigateListener();
-    console.info("[Adblock Gresik][YT] v2.1 aktif");
+    console.info("[NovaShield][YT] v2.1 aktif");
   }
 
   if (!activated) return;
@@ -87,9 +87,9 @@
   `;
 
   function injectCSS() {
-    if (document.getElementById("__adbg_yt_css_v2")) return;
+    if (document.getElementById("__novashield_yt_css_v2")) return;
     const s = document.createElement("style");
-    s.id = "__adbg_yt_css_v2";
+    s.id = "__novashield_yt_css_v2";
     s.textContent = css;
     (document.head || document.documentElement).appendChild(s);
   }
@@ -150,14 +150,14 @@
   }
 
   function onAdStart() {
-    console.log("[Adblock Gresik][YT] Ad detected");
+    console.log("[NovaShield][YT] Ad detected");
     if (features.ytSpeedUp) tortureVideo();
     if (features.ytAutoSkip) tryClickSkip();
     forceSeekToEnd();
   }
 
   function onAdEnd() {
-    console.log("[Adblock Gresik][YT] Ad ended");
+    console.log("[NovaShield][YT] Ad ended");
     restoreVideo();
   }
 
@@ -293,7 +293,7 @@
     if (!vid || !features.sponsorBlockEnabled) return;
     sponsorSegments = await fetchSponsorSegments(vid);
     if (sponsorSegments.length > 0) {
-      console.log(`[Adblock Gresik][YT] SponsorBlock: ${sponsorSegments.length} segments`);
+      console.log(`[NovaShield][YT] SponsorBlock: ${sponsorSegments.length} segments`);
     }
   }
 
@@ -318,10 +318,10 @@
   }
 
   function showSponsorToast(category, seconds) {
-    let toast = document.getElementById("__adbg_sponsor_toast");
+    let toast = document.getElementById("__novashield_sponsor_toast");
     if (!toast) {
       toast = document.createElement("div");
-      toast.id = "__adbg_sponsor_toast";
+      toast.id = "__novashield_sponsor_toast";
       toast.style.cssText = `
         position: fixed; bottom: 80px; left: 50%;
         transform: translateX(-50%);

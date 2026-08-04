@@ -1,14 +1,14 @@
-/* Adblock Gresik - Cosmetic Filtering + DOM Sweep */
+/* NovaShield - Cosmetic Filtering + DOM Sweep */
 (() => {
   const API = (typeof browser !== "undefined") ? browser : chrome;
   let enabled = true, cosmeticEnabled = true, activated = false;
-  try { activated = localStorage.getItem("__adbg_activated") === "1"; } catch (e) {}
+  try { activated = localStorage.getItem("__novashield_activated") === "1"; } catch (e) {}
 
   API.storage.local.get({ enabled: true, cosmeticEnabled: true, activated: false }, (data) => {
     enabled = !!data.enabled;
     cosmeticEnabled = !!data.cosmeticEnabled;
     activated = !!data.activated;
-    try { localStorage.setItem("__adbg_activated", activated ? "1" : "0"); } catch (e) {}
+    try { localStorage.setItem("__novashield_activated", activated ? "1" : "0"); } catch (e) {}
     if (activated && enabled && cosmeticEnabled) runCosmeticSweep();
   });
 
@@ -16,7 +16,7 @@
     if (!msg || msg.type !== "STATE_CHANGED") return;
     if (typeof msg.activated === "boolean") {
       activated = msg.activated;
-      try { localStorage.setItem("__adbg_activated", activated ? "1" : "0"); } catch (e) {}
+      try { localStorage.setItem("__novashield_activated", activated ? "1" : "0"); } catch (e) {}
     }
     if (typeof msg.enabled === "boolean") enabled = msg.enabled;
     if (typeof msg.cosmetic === "boolean") cosmeticEnabled = msg.cosmetic;

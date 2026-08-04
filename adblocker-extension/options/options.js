@@ -1,4 +1,4 @@
-/* Adblock Gresik v2.1 - Options Logic */
+/* NovaShield v2.1 - Options Logic */
 const API = (typeof browser !== "undefined") ? browser : chrome;
 
 const FEATURE_GROUPS = {
@@ -212,7 +212,7 @@ function setupInputs() {
     if (!resp || !resp.ok) { showToast("Gagal export"); return; }
     const blob = new Blob([JSON.stringify(resp.data, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
-    const a = document.createElement("a"); a.href = url; a.download = `adblock-gresik-backup-${Date.now()}.json`; a.click();
+    const a = document.createElement("a"); a.href = url; a.download = `novashield-backup-${Date.now()}.json`; a.click();
     URL.revokeObjectURL(url);
     showToast("Exported");
   });

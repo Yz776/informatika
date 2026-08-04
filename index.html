@@ -353,44 +353,60 @@
     <div class="containerx">
       <article class="contact-cta glass" data-reveal>
         <header style="text-align:center;margin-bottom:32px;">
-          <h2 id="aktifasiTitle" style="font-size:clamp(28px,5vw,44px);font-weight:800;background:linear-gradient(135deg,#00e5ff,#b388ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin:0 0 12px;">Aktivasi Adblock Gresik</h2>
-          <p style="color:var(--muted);font-size:16px;max-width:600px;margin:0 auto;">Aktifkan extension Adblock Gresik Anda untuk mulai memblokir iklan di semua situs termasuk YouTube.</p>
+          <img src="adblocker-extension/icons/icon128.png" alt="NovaShield" style="width:80px;height:80px;margin:0 auto 16px;display:block;">
+          <h2 id="aktifasiTitle" style="font-size:clamp(32px,6vw,52px);font-weight:900;background:linear-gradient(135deg,#00e5ff,#b388ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin:0 0 12px;letter-spacing:-1px;">NovaShield</h2>
+          <p style="color:var(--muted);font-size:16px;max-width:600px;margin:0 auto;">Pemblokir iklan modern untuk Chrome & Firefox. Tinggal kunjungi halaman ini — extension otomatis aktif!</p>
         </header>
 
-        <div style="max-width:600px;margin:0 auto;">
-          <div style="background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.2);border-radius:16px;padding:24px;margin-bottom:20px;">
-            <h3 style="color:#00e5ff;margin:0 0 16px;font-size:18px;">Cara Aktivasi:</h3>
-            <ol style="color:var(--fg);line-height:1.8;padding-left:20px;font-size:14px;">
-              <li>Pasang extension Adblock Gresik di Chrome atau Firefox</li>
-              <li>Setelah install, tab Google akan terbuka otomatis dengan pencarian "mohammad ahsan al ghoni"</li>
-              <li>Klik hasil pencarian paling atas (website ini)</li>
-              <li>Klik tombol <b>"Aktivasi Sekarang"</b> di bawah ini</li>
-              <li>Extension akan otomatis sync dan aktif — badge di toolbar akan berubah dari "!" menjadi angka pemblokiran</li>
+        <div style="max-width:640px;margin:0 auto;">
+          <div style="background:linear-gradient(135deg,rgba(0,229,255,0.08),rgba(179,136,255,0.05));border:1px solid rgba(0,229,255,0.3);border-radius:16px;padding:28px;margin-bottom:24px;">
+            <h3 style="color:#00e5ff;margin:0 0 20px;font-size:20px;text-align:center;">✨ Aktivasi Otomatis</h3>
+            <p style="color:var(--fg);font-size:15px;line-height:1.7;text-align:center;margin-bottom:20px;">
+              NovaShield akan <strong style="color:#00e5ff;">otomatis aktif</strong> saat Anda mengunjungi halaman ini. Tidak perlu klik tombol apapun!
+            </p>
+            <div style="display:flex;align-items:center;justify-content:center;gap:8px;color:#4ade80;font-size:14px;font-weight:600;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+              <span id="aktifasi-status">Status: Cek aktivasi...</span>
+            </div>
+          </div>
+
+          <div style="background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.15);border-radius:12px;padding:20px;margin-bottom:20px;">
+            <h3 style="color:#00e5ff;margin:0 0 12px;font-size:16px;">📋 Cara Pakai NovaShield:</h3>
+            <ol style="color:var(--fg);line-height:1.8;padding-left:20px;font-size:14px;margin:0;">
+              <li>Download NovaShield di <a href="download.html" style="color:#00e5ff;">halaman download</a></li>
+              <li>Install di Chrome atau Firefox (lihat panduan)</li>
+              <li>Tab Google otomatis terbuka → cari "mohammad ahsan al ghoni"</li>
+              <li>Extension auto-click hasil pertama → buka website ini</li>
+              <li><strong style="color:#00e5ff;">NovaShield otomatis aktif!</strong> Badge berubah dari "!" jadi angka blokiran</li>
             </ol>
           </div>
 
-          <div style="text-align:center;">
-            <button id="aktifasi-btn" data-adbg-activate
-              style="display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:linear-gradient(135deg,#00e5ff,#b388ff);color:#0a0817;border:none;border-radius:999px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(0,229,255,0.4);transition:all 0.2s;">
+          <div style="text-align:center;margin-bottom:20px;">
+            <a href="download.html" style="display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:linear-gradient(135deg,#00e5ff,#b388ff);color:#0a0817;border:none;border-radius:999px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(0,229,255,0.4);transition:all 0.2s;text-decoration:none;">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                <path d="M12 2L3 5v6c0 5 4 9 9 11 5-2 9-6 9-11V5l-9-3z"/>
-                <path d="M9 12l2 2 4-4"/>
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
               </svg>
-              Aktivasi Sekarang
-            </button>
-            <p id="aktifasi-status" style="margin-top:16px;color:var(--muted);font-size:13px;">Belum aktivasi</p>
+              Download NovaShield
+            </a>
           </div>
 
-          <div style="margin-top:24px;padding:16px;background:rgba(255,84,112,0.05);border:1px solid rgba(255,84,112,0.2);border-radius:12px;font-size:13px;color:var(--muted);line-height:1.6;">
-            <strong style="color:#ff5470;">Troubleshooting:</strong> Jika tombol di atas tidak bekerja, pastikan extension Adblock Gresik sudah terpasang. Anda juga bisa aktivasi manual dengan tambah <code style="background:var(--bg);padding:2px 6px;border-radius:4px;color:#00e5ff;">#aktifasi</code> di akhir URL, atau klik kanan halaman → "Buka halaman aktivasi".
+          <div style="margin-top:20px;padding:16px;background:rgba(255,84,112,0.05);border:1px solid rgba(255,84,112,0.2);border-radius:12px;font-size:13px;color:var(--muted);line-height:1.6;">
+            <strong style="color:#ff5470;">Troubleshooting:</strong> Jika belum aktif juga, pastikan extension NovaShield sudah terpasang. Alternatif: tambah <code style="background:var(--bg);padding:2px 6px;border-radius:4px;color:#00e5ff;">#aktifasi</code> di akhir URL, atau klik kanan halaman → "Buka halaman aktivasi".
           </div>
 
-          <div style="margin-top:16px;text-align:center;">
-            <a href="adblocker-extension/README.md" style="color:#00e5ff;font-size:13px;text-decoration:none;">Lihat dokumentasi extension →</a>
+          <div style="margin-top:16px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:13px;">
+            <a href="adblocker-extension/README.md" style="color:#00e5ff;text-decoration:none;">📖 Dokumentasi</a>
+            <a href="adblocker-extension/docs/INSTALL.md" style="color:#00e5ff;text-decoration:none;">⚙️ Install Guide</a>
+            <a href="adblocker-extension/docs/FAQ.md" style="color:#00e5ff;text-decoration:none;">❓ FAQ</a>
+            <a href="https://github.com/Yz776/informatika" target="_blank" style="color:#00e5ff;text-decoration:none;">🐙 GitHub</a>
           </div>
         </div>
 
-        <meta name="adbg-activate" content="ahsangresik-me-activation-token">
+        <meta name="adbg-activate" content="novashield-activation-token-v3">
       </article>
     </div>
   </section>

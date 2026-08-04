@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Adblock Gresik - Pemblokir Iklan",
-  "version": "2.1.0",
-  "description": "Pemblokir iklan lengkap dengan YouTube ad blocker, SponsorBlock, anti-adblock bypass, privacy protection, dan sistem aktivasi.",
+  "name": "NovaShield - Pemblokir Iklan",
+  "version": "3.0.0",
+  "description": "Pemblokir iklan modern dengan YouTube ad blocker, SponsorBlock, anti-adblock bypass, privacy protection, dan aktivasi otomatis.",
   "author": "Ahsan Gresik",
   "homepage_url": "https://www.ahsangresik.me",
   "default_locale": "id",
@@ -15,7 +15,7 @@
   },
   "action": {
     "default_popup": "popup/popup.html",
-    "default_title": "Adblock Gresik",
+    "default_title": "NovaShield",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png",
@@ -91,6 +91,12 @@
       "all_frames": true
     },
     {
+      "matches": ["<all_urls>"],
+      "js": ["content-counter.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
       "matches": ["*://*.youtube.com/*", "*://*.youtu.be/*"],
       "js": ["content-youtube.js"],
       "run_at": "document_start",
@@ -117,7 +123,7 @@
   ],
   "browser_specific_settings": {
     "gecko": {
-      "id": "adblock-gresik@ahsangresik.me",
+      "id": "novashield@ahsangresik.me",
       "strict_min_version": "115.0"
     }
   }

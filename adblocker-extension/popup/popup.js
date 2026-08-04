@@ -1,4 +1,4 @@
-/* Adblock Gresik v2.1 - Popup Logic */
+/* NovaShield v3.0 - Popup Logic */
 const API = (typeof browser !== "undefined") ? browser : chrome;
 
 const els = {
@@ -14,6 +14,8 @@ const els = {
   pauseBtn: document.getElementById("pauseBtn"),
   zapBtn: document.getElementById("zapBtn"),
   activationBanner: document.getElementById("activationBanner"),
+  activationAction: document.getElementById("activationAction"),
+  activateBtn: document.getElementById("activateBtn"),
 };
 
 async function getActiveTab() {
@@ -90,19 +92,27 @@ async function render() {
   if (!resp || !resp.ok) return;
   const { state, tab: tabInfo } = resp;
 
-  // Activation gate
+  // Activation gate - simplified 1-click flow
   if (!state.activated) {
     els.activationBanner.style.display = "flex";
+    els.activationAction.style.display = "block";
     els.masterToggle.disabled = true;
     document.querySelectorAll("input[type='checkbox'][data-key]").forEach((i) => i.disabled = true);
     els.bigBlocked.textContent = "—";
     els.tabBlocked.textContent = "—";
-    els.activationBanner.onclick = () => {
-      API.tabs.create({ url: "https://www.google.com/search?q=mohammad+ahsan+al+ghoni" });
+    // 1-click activation: open ahsangresik.me directly (auto-activates on visit)
+    els.activateBtn.onclick = async () => {
+      els.activateBtn.disabled = true;
+      els.activateBtn.innerHTML = "Membuka...";
+      // Open ahsangresik.me - content-activation.js will auto-activate
+      await API.tabs.create({ url: "https://www.ahsangresik.me#aktifasi" });
+      // Close popup so user can see the activation toast
+      setTimeout(() => window.close(), 1500);
     };
     return;
   } else {
     els.activationBanner.style.display = "none";
+    els.activationAction.style.display = "none";
     els.masterToggle.disabled = false;
   }
 

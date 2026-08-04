@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Adblock Gresik</title>
+  <title>NovaShield</title>
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
   <div class="popup">
-    <!-- Activation required banner -->
+    <!-- Activation required banner (1-click activate) -->
     <div id="activationBanner" class="activation-banner" style="display: none;">
       <div class="activation-icon">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M12 2L3 5v6c0 5 4 9 9 11 5-2 9-6 9-11V5l-9-3z"/>
           <line x1="12" y1="8" x2="12" y2="12"/>
           <line x1="12" y1="16" x2="12.01" y2="16"/>
@@ -19,30 +19,29 @@
       </div>
       <div class="activation-text">
         <div class="activation-title">Belum Aktivasi</div>
-        <div class="activation-desc">Aktifkan extension untuk mulai memblokir iklan.</div>
+        <div class="activation-desc">Klik tombol di bawah untuk aktivasi otomatis.</div>
       </div>
+    </div>
+
+    <div id="activationAction" class="activation-action" style="display: none;">
+      <button id="activateBtn" class="btn btn-activate">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M12 2L3 5v6c0 5 4 9 9 11 5-2 9-6 9-11V5l-9-3z"/>
+          <path d="M9 12l2 2 4-4"/>
+        </svg>
+        Aktivasi Sekarang
+      </button>
     </div>
 
     <!-- Header -->
     <header class="header">
       <div class="brand">
         <div class="logo">
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L3 5v6c0 5 4 9 9 11 5-2 9-6 9-11V5l-9-3z"
-                  fill="url(#shieldGrad)" stroke="#00e5ff" stroke-width="1.2"/>
-            <circle cx="12" cy="10" r="3.5" stroke="#00e5ff" stroke-width="1.5" fill="none"/>
-            <line x1="9.5" y1="12.5" x2="14.5" y2="7.5" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round"/>
-            <defs>
-              <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0" stop-color="#2d205c"/>
-                <stop offset="1" stop-color="#100e26"/>
-              </linearGradient>
-            </defs>
-          </svg>
+          <img src="../icons/icon48.png" alt="NovaShield" width="32" height="32">
         </div>
         <div class="brand-text">
-          <div class="brand-name">Adblock Gresik</div>
-          <div class="brand-sub">v2.1 - Pemblokir Iklan</div>
+          <div class="brand-name">NovaShield</div>
+          <div class="brand-sub">v3.0 - Ad Blocker</div>
         </div>
       </div>
       <label class="switch" title="Aktifkan / Matikan">
@@ -67,7 +66,7 @@
           <span class="value" id="currentDomain">—</span>
         </div>
         <div class="status-row">
-          <span class="label">Iklan Diblokir (tab)</span>
+          <span class="label">Diblokir (tab ini)</span>
           <span class="value cyan" id="tabBlocked">0</span>
         </div>
         <div class="status-row">
@@ -78,7 +77,7 @@
 
       <div class="big-stat">
         <div class="big-number" id="bigBlocked">0</div>
-        <div class="big-label">IKLAN & TRACKER DIBLOKIR DI TAB INI</div>
+        <div class="big-label">IKLAN & TRACKER DIBLOKIR</div>
       </div>
 
       <div class="toggles">
@@ -170,7 +169,7 @@
         <div class="toggle-row">
           <div class="toggle-info">
             <div class="toggle-title">YouTube Ad Blocking</div>
-            <div class="toggle-desc">Blokir request iklan YouTube (58 aturan network)</div>
+            <div class="toggle-desc">Blokir request iklan YouTube (58 aturan)</div>
           </div>
           <label class="switch small">
             <input type="checkbox" data-key="ytBlockEnabled" checked>
@@ -180,7 +179,7 @@
         <div class="toggle-row">
           <div class="toggle-info">
             <div class="toggle-title">Auto-Skip Iklan</div>
-            <div class="toggle-desc">Klik tombol "Lewati iklan" otomatis</div>
+            <div class="toggle-desc">Klik "Lewati iklan" otomatis</div>
           </div>
           <label class="switch small">
             <input type="checkbox" data-key="ytAutoSkip" checked>
@@ -209,7 +208,7 @@
         </div>
       </div>
       <div class="info-note">
-        <strong>Info:</strong> YouTube iklan diserved dari domain yang sama dengan video (googlevideo.com), jadi network blocking saja tidak cukup. Extension ini pakai 4 strategi: (1) Network blocking, (2) Auto-skip button, (3) Speed-up 16x + mute, (4) SponsorBlock.
+        <strong>Info:</strong> YouTube iklan diserved dari domain yang sama dengan video, jadi butuh 4 strategi: (1) Network blocking, (2) Auto-skip, (3) Speed-up 16x + mute, (4) SponsorBlock.
       </div>
     </section>
 
@@ -333,7 +332,7 @@
         <div class="toggle-row">
           <div class="toggle-info">
             <div class="toggle-title">Social Widgets Blocker</div>
-            <div class="toggle-desc">Sembunyikan FB Like, Twitter embed (default: OFF)</div>
+            <div class="toggle-desc">FB Like, Twitter embed (default: OFF)</div>
           </div>
           <label class="switch small">
             <input type="checkbox" data-key="socialWidgetsBlock">
@@ -351,7 +350,7 @@
         </svg>
         <span>Pengaturan</span>
       </button>
-      <button id="refreshBtn" class="btn btn-ghost" title="Refresh EasyList">
+      <button id="refreshBtn" class="btn btn-ghost" title="Update EasyList">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="23 4 23 10 17 10"/>
           <polyline points="1 20 1 14 7 14"/>

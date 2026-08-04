@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download NovaShield - Pemblokir Iklan Modern</title>
+  <meta name="description" content="NovaShield - Pemblokir iklan modern untuk Chrome & Firefox. YouTube ad blocker, SponsorBlock, anti-adblock bypass, privacy protection.">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0817; --bg2: #0e0c1f; --bg3: #16122e;
+      --accent: #00e5ff; --accent2: #b388ff;
+      --text: #e8e6f5; --muted: #8a85a8;
+      --border: rgba(0, 229, 255, 0.2);
+    }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+    .hero {
+      text-align: center;
+      padding: 80px 20px 60px;
+      background: radial-gradient(ellipse at center top, rgba(0,229,255,0.15), transparent 60%),
+                  radial-gradient(ellipse at center bottom, rgba(179,136,255,0.1), transparent 60%);
+    }
+    .hero-logo {
+      width: 96px; height: 96px;
+      margin: 0 auto 24px;
+      display: block;
+    }
+    .hero h1 {
+      font-size: clamp(40px, 8vw, 72px);
+      font-weight: 900;
+      letter-spacing: -2px;
+      background: linear-gradient(135deg, #00e5ff 0%, #b388ff 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+    .hero .tagline {
+      font-size: clamp(16px, 3vw, 22px);
+      color: var(--muted);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+    .download-buttons {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 32px;
+    }
+    .btn-download {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, #00e5ff, #b388ff);
+      color: #0a0817;
+      text-decoration: none;
+      border-radius: 999px;
+      font-weight: 700;
+      font-size: 16px;
+      box-shadow: 0 8px 32px rgba(0, 229, 255, 0.4);
+      transition: all 0.2s;
+    }
+    .btn-download:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px rgba(0, 229, 255, 0.5);
+    }
+    .btn-download.firefox {
+      background: linear-gradient(135deg, #ff9400, #ff5470);
+      box-shadow: 0 8px 32px rgba(255, 148, 0, 0.4);
+    }
+    .btn-download.firefox:hover {
+      box-shadow: 0 12px 40px rgba(255, 148, 0, 0.5);
+    }
+    .btn-download svg { width: 24px; height: 24px; }
+
+    .stats {
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      flex-wrap: wrap;
+      padding: 40px 20px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .stat {
+      text-align: center;
+    }
+    .stat-num {
+      font-size: 36px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #00e5ff, #b388ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .stat-label {
+      font-size: 13px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .features {
+      max-width: 1000px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+    .features h2 {
+      text-align: center;
+      font-size: clamp(28px, 5vw, 40px);
+      margin-bottom: 48px;
+      background: linear-gradient(135deg, #00e5ff, #b388ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .feature {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      transition: all 0.2s;
+    }
+    .feature:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 229, 255, 0.15);
+    }
+    .feature-icon {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, rgba(0,229,255,0.2), rgba(179,136,255,0.2));
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 16px;
+      font-size: 24px;
+    }
+    .feature h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+      color: var(--accent);
+    }
+    .feature p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .install-guide {
+      max-width: 800px;
+      margin: 60px auto;
+      padding: 0 20px;
+    }
+    .install-guide h2 {
+      text-align: center;
+      font-size: clamp(28px, 5vw, 40px);
+      margin-bottom: 48px;
+      background: linear-gradient(135deg, #00e5ff, #b388ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .install-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      margin-bottom: 24px;
+    }
+    .install-card h3 {
+      color: var(--accent);
+      font-size: 22px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .install-steps {
+      list-style: none;
+      counter-reset: step;
+    }
+    .install-steps li {
+      counter-increment: step;
+      padding: 12px 0 12px 48px;
+      position: relative;
+      color: var(--text);
+    }
+    .install-steps li::before {
+      content: counter(step);
+      position: absolute;
+      left: 0;
+      top: 12px;
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #00e5ff, #b388ff);
+      color: #0a0817;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 14px;
+    }
+    .install-steps code {
+      background: var(--bg);
+      padding: 2px 8px;
+      border-radius: 4px;
+      color: var(--accent);
+      font-family: "SF Mono", Monaco, monospace;
+      font-size: 13px;
+    }
+    .activation-flow {
+      background: linear-gradient(135deg, rgba(0,229,255,0.08), rgba(179,136,255,0.08));
+      border: 1px solid var(--accent);
+      border-radius: 16px;
+      padding: 24px;
+      margin-top: 32px;
+    }
+    .activation-flow h3 {
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .activation-flow ol {
+      padding-left: 20px;
+      color: var(--text);
+    }
+    .activation-flow li {
+      margin-bottom: 8px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+      margin-top: 60px;
+    }
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      .download-buttons { flex-direction: column; align-items: stretch; }
+      .stats { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <section class="hero">
+    <img src="adblocker-extension/icons/icon128.png" alt="NovaShield Logo" class="hero-logo">
+    <h1>NovaShield</h1>
+    <p class="tagline">Pemblokir iklan modern untuk Chrome & Firefox. YouTube ad blocker, SponsorBlock, anti-adblock bypass, privacy protection — semua dalam satu.</p>
+    <div class="download-buttons">
+      <a href="LINK_ZIP_HERE" class="btn-download" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download untuk Chrome
+      </a>
+      <a href="LINK_XPI_HERE" class="btn-download firefox" download>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download untuk Firefox
+      </a>
+    </div>
+    <p style="color: var(--muted); font-size: 13px;">
+      Versi 3.0.0 • 67 KB • Open Source MIT
+    </p>
+  </section>
+
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-num">531+</div>
+      <div class="stat-label">Aturan Statis</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">4500+</div>
+      <div class="stat-label">Aturan EasyList</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">20+</div>
+      <div class="stat-label">Fitur</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Browser</div>
+    </div>
+  </div>
+
+  <section class="features">
+    <h2>Fitur Unggulan</h2>
+    <div class="feature-grid">
+      <div class="feature">
+        <div class="feature-icon">🛡️</div>
+        <h3>YouTube Ad Blocker</h3>
+        <p>Auto-skip iklan, speed-up 16x, SponsorBlock. Iklan YouTube selesai dalam hitungan detik.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🚫</div>
+        <h3>Anti-Adblock Bypass</h3>
+        <p>Tembus situs pendeteksi adblock. Spoof window globals, intercept fetch/XHR bait.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🔒</div>
+        <h3>Privacy Protection</h3>
+        <p>WebRTC IP leak, Canvas/Audio fingerprint, Hardware spoof. Browser Anda tetap anonim.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🍪</div>
+        <h3>Cookie Banner Auto-Reject</h3>
+        <p>Auto-tolak banner GDPR di OneTrust, Didomi, Quantcast, dan 50+ provider lain.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⚡</div>
+        <h3>Malware & Phishing Block</h3>
+        <p>Blokir 122+ domain berbahaya: cracks, keygen, tech support scam, crypto miner.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🎨</div>
+        <h3>Element Zapper</h3>
+        <p>Klik kanan → "Zap elemen" → klik elemen apapun untuk sembunyikan permanen.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">⏸️</div>
+        <h3>Pause Per-Site</h3>
+        <p>Jeda NovaShield di situs tertentu selama 1 jam atau 1 hari, otomatis lanjut.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📊</div>
+        <h3>Statistik Akurat</h3>
+        <p>Counter per-tab dan total yang akurat. Top 10 situs dengan blokiran terbanyak.</p>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">💾</div>
+        <h3>Backup & Restore</h3>
+        <p>Export/import semua pengaturan sebagai JSON. Pindahkan ke browser lain dengan mudah.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="install-guide">
+    <h2>Cara Install & Aktivasi</h2>
+
+    <div class="install-card">
+      <h3>🌐 Chrome / Edge / Brave</h3>
+      <ol class="install-steps">
+        <li>Download file <code>.zip</code> dari tombol di atas</li>
+        <li>Extract file zip ke folder mana saja</li>
+        <li>Buka <code>chrome://extensions</code> di address bar</li>
+        <li>Aktifkan <strong>Developer mode</strong> (toggle kanan atas)</li>
+        <li>Klik <strong>Load unpacked</strong> → pilih folder hasil extract</li>
+        <li>Tab Google otomatis terbuka, ikuti flow aktivasi di bawah</li>
+      </ol>
+    </div>
+
+    <div class="install-card">
+      <h3>🦊 Firefox</h3>
+      <ol class="install-steps">
+        <li>Download file <code>.xpi</code> dari tombol di atas</li>
+        <li>Buka <code>about:debugging#/runtime/this-firefox</code></li>
+        <li>Klik <strong>Load Temporary Add-on...</strong></li>
+        <li>Pilih file <code>.xpi</code> yang sudah didownload</li>
+        <li>Tab Google otomatis terbuka, ikuti flow aktivasi di bawah</li>
+      </ol>
+    </div>
+
+    <div class="activation-flow">
+      <h3>✨ Aktivasi Otomatis (super mudah!)</h3>
+      <ol>
+        <li>Setelah install, tab Google otomatis terbuka dengan pencarian "mohammad ahsan al ghoni"</li>
+        <li>Extension auto-click hasil pencarian pertama → buka <strong>ahsangresik.me</strong></li>
+        <li>Saat halaman terbuka, NovaShield <strong>otomatis aktif</strong> (tidak perlu klik apapun!)</li>
+        <li>Badge di toolbar berubah dari <code>!</code> (merah) → angka blokiran (cyan)</li>
+        <li>Selesai! Iklan mulai diblokir di semua situs</li>
+      </ol>
+      <p style="margin-top: 16px; color: var(--muted); font-size: 14px;">
+        💡 <strong>Alternatif:</strong> Buka popup NovaShield → klik tombol "Aktivasi Sekarang" → halaman ahsangresik.me terbuka → auto-aktivasi.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <p>NovaShield v3.0.0 • Dibuat dengan ❤️ oleh <a href="https://www.ahsangresik.me" target="_blank">Ahsan Gresik</a></p>
+    <p style="margin-top: 8px; font-size: 12px;">
+      <a href="adblocker-extension/README.md">Dokumentasi</a> •
+      <a href="adblocker-extension/docs/INSTALL.md">Install Guide</a> •
+      <a href="adblocker-extension/docs/FAQ.md">FAQ</a> •
+      <a href="https://github.com/Yz776/informatika" target="_blank">GitHub</a>
+    </p>
+  </footer>
+
+</body>
+</html>

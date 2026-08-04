@@ -1,20 +1,20 @@
-/* Adblock Gresik v2.1 - Anti-Adblock Bypass (MAIN world) */
+/* NovaShield v2.1 - Anti-Adblock Bypass (MAIN world) */
 (() => {
-  if (window.__adblockGresikBypassInstalled) return;
-  window.__adblockGresikBypassInstalled = true;
+  if (window.__novaShieldBypassInstalled) return;
+  window.__novaShieldBypassInstalled = true;
 
   // Check activation via localStorage (set by bridge)
   let activated = false;
-  try { activated = localStorage.getItem("__adbg_activated") === "1"; } catch (e) {}
+  try { activated = localStorage.getItem("__novashield_activated") === "1"; } catch (e) {}
 
   // Listen for activation changes
-  window.addEventListener("__adbg_activation_changed", (e) => {
+  window.addEventListener("__novashield_activation_changed", (e) => {
     activated = !!(e.detail && e.detail.activated);
     if (activated) applyAll();
   });
 
   if (!activated) {
-    console.info("[Adblock Gresik] Anti-adblock standby (not activated)");
+    console.info("[NovaShield] Anti-adblock standby (not activated)");
     return;
   }
 
@@ -215,7 +215,7 @@
     }
     window.addEventListener("load", removeBodyLocks);
 
-    console.info("[Adblock Gresik] Anti-adblock bypass aktif di", window.location.hostname);
+    console.info("[NovaShield] Anti-adblock bypass aktif di", window.location.hostname);
   }
 
   applyAll();

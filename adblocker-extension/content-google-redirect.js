@@ -1,5 +1,5 @@
 /* =====================================================================
- * Adblock Gresik v2.1 - Google Search Auto-Redirect
+ * NovaShield v2.1 - Google Search Auto-Redirect
  * ---------------------------------------------------------------------
  * Saat new install, extension membuka Google search "mohammad ahsan al ghoni".
  * Script ini auto-click hasil organic pertama untuk mengarahkan user ke
@@ -16,7 +16,7 @@
   const query = params.get("q") || "";
   if (!query.toLowerCase().includes("mohammad ahsan al ghoni")) return;
 
-  console.log("[Adblock Gresik] Activation search detected, auto-clicking first result...");
+  console.log("[NovaShield] Activation search detected, auto-clicking first result...");
 
   function findFirstOrganicResult() {
     // Modern Google selectors (2024-2025)
@@ -49,9 +49,9 @@
   function attemptClick() {
     const link = findFirstOrganicResult();
     if (link) {
-      console.log("[Adblock Gresik] Found first result:", link.href);
+      console.log("[NovaShield] Found first result:", link.href);
       // Set a flag so content-activation.js on the destination knows this is an activation flow
-      try { sessionStorage.setItem("__adbg_activation_flow", "1"); } catch (e) {}
+      try { sessionStorage.setItem("__novashield_activation_flow", "1"); } catch (e) {}
       // Click to navigate
       link.click();
       return true;

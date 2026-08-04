@@ -1,4 +1,4 @@
-/* Adblock Gresik v2.1 - Annoyance Blocker (cookie, notif, autoplay, dll) */
+/* NovaShield v2.1 - Annoyance Blocker (cookie, notif, autoplay, dll) */
 (() => {
   const API = (typeof browser !== "undefined") ? browser : chrome;
   let state = {
@@ -119,7 +119,7 @@
     HTMLMediaElement.prototype.play = function () {
       if (state.autoplayBlock && (this.muted || this.volume === 0)) {
         return new Promise((resolve, reject) => {
-          reject(new DOMException("blocked by Adblock Gresik", "AbortError"));
+          reject(new DOMException("blocked by NovaShield", "AbortError"));
         });
       }
       return origPlay.apply(this, arguments);
