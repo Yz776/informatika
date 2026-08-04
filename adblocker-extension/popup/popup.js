@@ -1,23 +1,54 @@
-/* NovaShield v3.1 - Popup Logic */
+/* =====================================================================
+ * NovaShield v3.5 - Popup Logic with Confirmation Modal
+ * ===================================================================== */
+
 const API = (typeof browser !== "undefined") ? browser : chrome;
 
+// Heavy features yang butuh konfirmasi saat di-enable
+const HEAVY_FEATURES = [
+  "popupBlock", "redirectBlock", "mlEnabled", "contentFilter",
+  "strictRedirect", "sponsorBlockEnabled", "webrtcProtect",
+  "canvasProtect", "audioProtect",
+];
+
+// Descriptions for heavy features
+const HEAVY_FEATURE_INFO = {
+  popupBlock: { title: "Popup Blocker", desc: "Memantau semua window.open() di setiap halaman. Memakai RAM ~15-25MB." },
+  redirectBlock: { title: "Redirect Blocker", desc: "Intercept location.href/assign/replace. Memakai RAM ~10-20MB." },
+  mlEnabled: { title: "ML Heuristic Detector", desc: "Scan DOM untuk deteksi iklan cerdas. Memakai RAM ~30-50MB + CPU." },
+  contentFilter: { title: "Content Filter", desc: "Scan text untuk kata judi/porno/scam. Memakai RAM ~20-30MB." },
+  strictRedirect: { title: "Strict Redirect Block", desc: "Track redirect chain + suspicious patterns. Memakai RAM ~15-25MB." },
+  sponsorBlockEnabled: { title: "SponsorBlock", desc: "Fetch segment data dari API. Memakai network + RAM ~10-15MB per video." },
+  webrtcProtect: { title: "WebRTC IP Leak Protect", desc: "Override RTCPeerConnection. Dapat break video call di beberapa situs." },
+  canvasProtect: { title: "Canvas Fingerprint Protect", desc: "Inject noise ke canvas API. Memakai CPU ~5-10%." },
+  audioProtect: { title: "Audio Fingerprint Protect", desc: "Override AnalyserNode. Memakai CPU ~3-5%." },
+};
+
 const els = {
+  popup: document.getElementById("popup"),
   masterToggle: document.getElementById("masterToggle"),
-  currentDomain: document.getElementById("currentDomain"),
-  tabBlocked: document.getElementById("tabBlocked"),
-  totalBlocked: document.getElementById("totalBlocked"),
   bigBlocked: document.getElementById("bigBlocked"),
-  whitelistBtn: document.getElementById("whitelistBtn"),
-  whitelistLabel: document.getElementById("whitelistLabel"),
-  settingsBtn: document.getElementById("settingsBtn"),
-  refreshBtn: document.getElementById("refreshBtn"),
-  pauseBtn: document.getElementById("pauseBtn"),
-  zapBtn: document.getElementById("zapBtn"),
+  totalBlocked: document.getElementById("totalBlocked"),
+  currentDomain: document.getElementById("currentDomain"),
+  statusBadge: document.getElementById("statusBadge"),
   activationBanner: document.getElementById("activationBanner"),
-  activationAction: document.getElementById("activationAction"),
   activateBtn: document.getElementById("activateBtn"),
   updateBanner: document.getElementById("updateBanner"),
+  updateVersion: document.getElementById("updateVersion"),
   updateDesc: document.getElementById("updateDesc"),
+  whitelistBtn: document.getElementById("whitelistBtn"),
+  whitelistLabel: document.getElementById("whitelistLabel"),
+  pauseBtn: document.getElementById("pauseBtn"),
+  pauseLabel: document.getElementById("pauseLabel"),
+  zapBtn: document.getElementById("zapBtn"),
+  settingsBtn: document.getElementById("settingsBtn"),
+  refreshBtn: document.getElementById("refreshBtn"),
+  // Modal
+  confirmModal: document.getElementById("confirmModal"),
+  modalTitle: document.getElementById("modalTitle"),
+  modalDesc: document.getElementById("modalDesc"),
+  modalCancel: document.getElementById("modalCancel"),
+  modalConfirm: document.getElementById("modalConfirm"),
 };
 
 async function getActiveTab() {
@@ -32,37 +63,20 @@ function getHostname(url) {
 }
 
 function formatNumber(n) {
-  if (n == null) n = 0;
-  return Number(n).toLocaleString("id-ID");
+  return Number(n || 0).toLocaleString("id-ID");
 }
 
 function showToast(text) {
   let t = document.querySelector(".toast");
-  if (!t) { t = document.createElement("div"); t.className = "toast"; document.body.appendChild(t); }
+  if (!t) {
+    t = document.createElement("div");
+    t.className = "toast";
+    els.popup.appendChild(t);
+  }
   t.textContent = text;
   t.classList.add("show");
   clearTimeout(t.__timeout);
-  t.__timeout = setTimeout(() => t.classList.remove("show"), 2000);
-}
-
-function showLoading(text) {
-  let ov = document.querySelector(".loading-overlay");
-  if (!ov) {
-    ov = document.createElement("div");
-    ov.className = "loading-overlay";
-    const sp = document.createElement("div");
-    sp.className = "spinner";
-    const tx = document.createElement("div");
-    tx.className = "loading-text";
-    ov.appendChild(sp); ov.appendChild(tx);
-    document.body.appendChild(ov);
-  }
-  ov.querySelector(".loading-text").textContent = text || "Memuat...";
-  ov.style.display = "flex";
-}
-function hideLoading() {
-  const ov = document.querySelector(".loading-overlay");
-  if (ov) ov.style.display = "none";
+  t.__timeout = setTimeout(() => t.classList.remove("show"), 2200);
 }
 
 function sendMessage(msg) {
@@ -74,6 +88,9 @@ function sendMessage(msg) {
   });
 }
 
+/* ================================================================== *
+ * Tab navigation
+ * ================================================================== */
 function setupTabs() {
   document.querySelectorAll(".tab-btn").forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -86,6 +103,46 @@ function setupTabs() {
   });
 }
 
+/* ================================================================== *
+ * Confirmation Modal for heavy features
+ * ================================================================== */
+let pendingToggle = null;
+
+function showConfirmModal(featureKey, onConfirm) {
+  const info = HEAVY_FEATURE_INFO[featureKey];
+  if (!info) { onConfirm(); return; }
+
+  els.modalTitle.textContent = `Aktifkan ${info.title}?`;
+  els.modalDesc.textContent = info.desc + " Lanjutkan?";
+  els.confirmModal.style.display = "flex";
+
+  pendingToggle = { featureKey, onConfirm };
+}
+
+function hideModal() {
+  els.confirmModal.style.display = "none";
+  pendingToggle = null;
+}
+
+els.modalCancel.addEventListener("click", () => {
+  // Revert the checkbox since user cancelled
+  if (pendingToggle) {
+    const input = document.querySelector(`input[data-key="${pendingToggle.featureKey}"]`);
+    if (input) input.checked = false;
+  }
+  hideModal();
+});
+
+els.modalConfirm.addEventListener("click", () => {
+  if (pendingToggle) {
+    pendingToggle.onConfirm();
+  }
+  hideModal();
+});
+
+/* ================================================================== *
+ * Render popup state
+ * ================================================================== */
 async function render() {
   const tab = await getActiveTab();
   const hostname = tab ? getHostname(tab.url) : "";
@@ -94,94 +151,111 @@ async function render() {
   if (!resp || !resp.ok) return;
   const { state, tab: tabInfo } = resp;
 
-  // v3.1: Update banner (check if update available)
+  // Update banner
   if (state.updateAvailable && state.latestVersion) {
     els.updateBanner.style.display = "flex";
-    els.updateDesc.textContent = `v${state.latestVersion} tersedia (Anda: v${state.version || "3.1.0"})`;
+    els.updateVersion.textContent = state.latestVersion;
+    els.updateDesc.textContent = `Anda: v${state.version || "3.5.0"}`;
     els.updateBanner.onclick = async () => {
-      const r = await sendMessage({ type: "APPLY_UPDATE" });
+      await sendMessage({ type: "APPLY_UPDATE" });
       showToast("Membuka halaman download...");
     };
   } else {
     els.updateBanner.style.display = "none";
   }
 
-  // Activation gate - simplified 1-click flow
+  // Activation gate
   if (!state.activated) {
     els.activationBanner.style.display = "flex";
-    els.activationAction.style.display = "block";
     els.masterToggle.disabled = true;
     document.querySelectorAll("input[type='checkbox'][data-key]").forEach((i) => i.disabled = true);
     els.bigBlocked.textContent = "—";
-    els.tabBlocked.textContent = "—";
-    // 1-click activation: open ahsangresik.me directly (auto-activates on visit)
+    els.totalBlocked.textContent = "—";
+    els.currentDomain.textContent = "—";
+    els.statusBadge.textContent = "Belum Aktivasi";
+    els.statusBadge.className = "status-inactive";
     els.activateBtn.onclick = async () => {
       els.activateBtn.disabled = true;
       els.activateBtn.innerHTML = "Membuka...";
-      // Open ahsangresik.me - content-activation.js will auto-activate
       await API.tabs.create({ url: "https://www.ahsangresik.me#aktifasi" });
-      // Close popup so user can see the activation toast
       setTimeout(() => window.close(), 1500);
     };
     return;
   } else {
     els.activationBanner.style.display = "none";
-    els.activationAction.style.display = "none";
     els.masterToggle.disabled = false;
   }
 
   els.masterToggle.checked = !!state.enabled;
-  document.querySelector(".popup").classList.toggle("disabled", !state.enabled);
+  els.popup.classList.toggle("disabled", !state.enabled);
+  els.statusBadge.textContent = state.enabled ? "Aktif" : "Nonaktif";
+  els.statusBadge.className = state.enabled ? "status-active" : "status-inactive";
 
+  // Set all toggle states
   document.querySelectorAll("input[type='checkbox'][data-key]").forEach((input) => {
     const key = input.dataset.key;
     if (state[key] !== undefined) input.checked = !!state[key];
     input.disabled = !state.enabled;
   });
 
-  els.currentDomain.textContent = hostname || "(tidak tersedia)";
-  els.tabBlocked.textContent = formatNumber(tabInfo.blocked);
-  els.totalBlocked.textContent = formatNumber(state.statsTotal);
+  // Stats
   els.bigBlocked.textContent = formatNumber(tabInfo.blocked);
+  els.totalBlocked.textContent = formatNumber(state.statsTotal);
+  els.currentDomain.textContent = hostname || "—";
+  els.currentDomain.title = hostname || "";
 
+  // Whitelist button
   if (tabInfo.whitelisted) {
     els.whitelistBtn.classList.add("active");
-    els.whitelistLabel.textContent = "Hapus dari whitelist";
+    els.whitelistLabel.textContent = "Whitelisted";
   } else {
     els.whitelistBtn.classList.remove("active");
-    els.whitelistLabel.textContent = "Whitelist situs ini";
+    els.whitelistLabel.textContent = "Whitelist";
   }
 
+  // Pause button
   if (tabInfo.paused) {
-    els.pauseBtn.querySelector("span").textContent = "Lanjutkan";
+    els.pauseBtn.classList.add("active");
+    els.pauseLabel.textContent = "Lanjut";
   } else {
-    els.pauseBtn.querySelector("span").textContent = "Jeda 1 jam";
+    els.pauseBtn.classList.remove("active");
+    els.pauseLabel.textContent = "Jeda";
   }
 
-  if (!hostname) {
-    [els.whitelistBtn, els.pauseBtn, els.zapBtn].forEach((b) => {
-      b.disabled = true; b.style.opacity = "0.5";
-    });
-  } else {
-    [els.whitelistBtn, els.pauseBtn, els.zapBtn].forEach((b) => {
-      b.disabled = false; b.style.opacity = "1";
-    });
-  }
+  // Disable buttons if no hostname
+  const hasHost = !!hostname;
+  [els.whitelistBtn, els.pauseBtn, els.zapBtn].forEach((b) => {
+    b.disabled = !hasHost;
+    b.style.opacity = hasHost ? "1" : "0.4";
+  });
 }
 
+/* ================================================================== *
+ * Event listeners
+ * ================================================================== */
 els.masterToggle.addEventListener("change", async () => {
   const enabled = els.masterToggle.checked;
   await sendMessage({ type: "SET_ENABLED", enabled });
   await render();
-  showToast(enabled ? "Adblock aktif" : "Adblock dimatikan");
+  showToast(enabled ? "NovaShield aktif" : "NovaShield dimatikan");
 });
 
+// Feature toggle handler with heavy feature confirmation
 document.querySelectorAll("input[type='checkbox'][data-key]").forEach((input) => {
   input.addEventListener("change", async () => {
     const key = input.dataset.key;
     const value = input.checked;
-    await sendMessage({ type: "SET_FEATURE", key, value });
-    showToast(`${key}: ${value ? "ON" : "OFF"}`);
+
+    // If enabling a heavy feature, show confirmation
+    if (value && HEAVY_FEATURES.includes(key)) {
+      showConfirmModal(key, async () => {
+        await sendMessage({ type: "SET_FEATURE", key, value });
+        showToast(`${HEAVY_FEATURE_INFO[key].title}: ON`);
+      });
+    } else {
+      await sendMessage({ type: "SET_FEATURE", key, value });
+      showToast(`${key}: ${value ? "ON" : "OFF"}`);
+    }
   });
 });
 
@@ -201,10 +275,10 @@ els.pauseBtn.addEventListener("click", async () => {
   const resp = await sendMessage({ type: "GET_STATE", tabId: tab.id, hostname });
   if (resp && resp.ok && resp.tab.paused) {
     await sendMessage({ type: "UNPAUSE_SITE", domain: hostname });
-    showToast("Adblock dilanjutkan");
+    showToast("NovaShield dilanjutkan");
   } else {
     await sendMessage({ type: "PAUSE_SITE", domain: hostname, durationMs: 3600000 });
-    showToast("Adblock dijeda 1 jam");
+    showToast("Dijeda 1 jam");
   }
   await render();
   if (tab && tab.id) { try { await API.tabs.reload(tab.id); } catch (e) {} }
@@ -214,7 +288,7 @@ els.zapBtn.addEventListener("click", async () => {
   const tab = await getActiveTab();
   if (!tab || !tab.id) return;
   await sendMessage({ type: "START_ZAPPER", tabId: tab.id });
-  showToast("Klik elemen untuk zap. ESC untuk batal.");
+  showToast("Klik elemen untuk zap. ESC batal.");
   window.close();
 });
 
@@ -225,12 +299,11 @@ els.settingsBtn.addEventListener("click", () => {
 
 els.refreshBtn.addEventListener("click", async () => {
   els.refreshBtn.disabled = true;
-  showLoading("Mengupdate filter list...");
+  showToast("Mengupdate filter...");
   const resp = await sendMessage({ type: "REFRESH_EASYLIST" });
-  hideLoading();
   els.refreshBtn.disabled = false;
-  if (resp && resp.ok) showToast(`Filter diupdate: ${formatNumber(resp.count)} aturan`);
-  else showToast("Gagal mengupdate filter");
+  if (resp && resp.ok) showToast(`Filter: ${formatNumber(resp.count)} aturan`);
+  else showToast("Gagal update");
 });
 
 document.addEventListener("DOMContentLoaded", () => { setupTabs(); render(); });

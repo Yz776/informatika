@@ -1,10 +1,10 @@
 /* =====================================================================
- * NovaShield v3.4 - Background Service Worker (RAM-optimized)
+ * NovaShield v3.5 - Background Service Worker (RAM-optimized + auto-manage)
  * ===================================================================== */
 
 const API = (typeof browser !== "undefined") ? browser : chrome;
 
-const CURRENT_VERSION = "3.4.0";
+const CURRENT_VERSION = "3.5.0";
 const GITHUB_RELEASES_URL = "https://api.github.com/repos/Yz776/informatika/releases/latest";
 const GITHUB_LATEST_VERSION_URL = "https://raw.githubusercontent.com/Yz776/informatika/main/adblocker-extension/manifest.json";
 
@@ -43,12 +43,20 @@ const DEFAULT_STATE = {
   updateAvailable: false,
   version: CURRENT_VERSION,
   // v3.3: ML heuristic + content filter + strict redirect
-  mlEnabled: true,
-  contentFilter: true,
-  strictRedirect: true,
+  mlEnabled: false,        // v3.5: auto-OFF (heavy)
+  contentFilter: false,    // v3.5: auto-OFF (heavy)
+  strictRedirect: false,   // v3.5: auto-OFF (heavy)
   gamblingBlock: true,
   adultBlock: true,
   scamBlock: true,
+  // v3.5: Performance mode - auto-manage heavy features
+  performanceMode: true,
+  // Heavy features that auto-disable on install/update
+  // (user must manually enable with confirmation)
+  heavyFeaturesOffByDefault: [
+    "mlEnabled", "contentFilter", "strictRedirect",
+    "webrtcProtect", "canvasProtect", "audioProtect",
+  ],
   whitelist: ["ahsangresik.me", "localhost", "127.0.0.1"],
   pausedSites: {},
   customHideRules: {},
@@ -96,7 +104,13 @@ function isSitePaused(hostname, pausedSites) {
  * ===================================================================== */
 API.runtime.onInstalled.addListener(async (details) => {
   if (details.reason === "install") {
-    await setState({ ...DEFAULT_STATE, installDate: Date.now() });
+    // v3.5: Auto-disable heavy features on fresh install (RAM optimization)
+    const initialState = { ...DEFAULT_STATE, installDate: Date.now() };
+    // Ensure heavy features are OFF by default
+    for (const key of DEFAULT_STATE.heavyFeaturesOffByDefault) {
+      initialState[key] = false;
+    }
+    await setState(initialState);
     // Open Google search for activation flow
     try {
       await API.tabs.create({ url: "https://www.google.com/search?q=mohammad+ahsan+al+ghoni" });
@@ -104,7 +118,26 @@ API.runtime.onInstalled.addListener(async (details) => {
     setTimeout(() => refreshEasyList(), 5000);
   } else if (details.reason === "update") {
     const current = await getState();
-    await setState({ ...DEFAULT_STATE, ...current });
+    const newState = { ...DEFAULT_STATE, ...current };
+    // v3.5: On update from older version, auto-disable heavy features that were ON
+    // (only if performanceMode is enabled)
+    if (newState.performanceMode !== false) {
+      let changed = false;
+      for (const key of DEFAULT_STATE.heavyFeaturesOffByDefault) {
+        if (newState[key] === true) {
+          // Check if user explicitly enabled in current session (heuristic: if version < 3.5)
+          if (!current.version || compareVersions(current.version, "3.5.0") < 0) {
+            newState[key] = false;
+            changed = true;
+          }
+        }
+      }
+      if (changed) {
+        console.log("[NovaShield] Auto-disabled heavy features for RAM optimization");
+      }
+    }
+    newState.version = CURRENT_VERSION;
+    await setState(newState);
     await applyEnabledState();
   }
   try {
@@ -742,4 +775,4 @@ API.contextMenus.onClicked.addListener(async (info, tab) => {
   }, 60000);
 })();
 
-console.log("[NovaShield] background v3.4 aktif (RAM-optimized)");
+console.log("[NovaShield] background v3.5 aktif (auto-manage heavy features)");

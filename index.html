@@ -351,62 +351,120 @@
 
   <section class="section" id="aktifasi" aria-labelledby="aktifasiTitle">
     <div class="containerx">
-      <article class="contact-cta glass" data-reveal>
-        <header style="text-align:center;margin-bottom:32px;">
-          <img src="adblocker-extension/icons/icon128.png" alt="NovaShield" style="width:80px;height:80px;margin:0 auto 16px;display:block;">
-          <h2 id="aktifasiTitle" style="font-size:clamp(32px,6vw,52px);font-weight:900;background:linear-gradient(135deg,#00e5ff,#b388ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin:0 0 12px;letter-spacing:-1px;">NovaShield</h2>
-          <p style="color:var(--muted);font-size:16px;max-width:600px;margin:0 auto;">Pemblokir iklan modern untuk Chrome & Firefox. Tinggal kunjungi halaman ini — extension otomatis aktif!</p>
+      <article class="contact-cta glass" data-reveal style="overflow:hidden;position:relative;">
+        <!-- Animated background glow -->
+        <div style="position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:radial-gradient(ellipse at center,rgba(0,229,255,0.08) 0%,transparent 50%);pointer-events:none;animation:nsrotate 20s linear infinite;"></div>
+        <style>@keyframes nsrotate{from{transform:rotate(0deg);}to{transform:rotate(360deg);}}</style>
+
+        <header style="text-align:center;margin-bottom:40px;position:relative;z-index:1;">
+          <div style="display:inline-block;position:relative;margin-bottom:20px;">
+            <img src="adblocker-extension/icons/icon128.png" alt="NovaShield" style="width:96px;height:96px;display:block;filter:drop-shadow(0 8px 24px rgba(0,229,255,0.4));">
+            <div style="position:absolute;inset:-8px;background:radial-gradient(circle,rgba(0,229,255,0.3),transparent 70%);border-radius:50%;z-index:-1;animation:nspulse 3s ease-in-out infinite;"></div>
+            <style>@keyframes nspulse{0%,100%{opacity:0.5;transform:scale(1);}50%{opacity:1;transform:scale(1.15);}}</style>
+          </div>
+          <h2 id="aktifasiTitle" style="font-size:clamp(36px,7vw,64px);font-weight:900;background:linear-gradient(135deg,#00e5ff 0%,#b388ff 50%,#ff5db1 100%);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin:0 0 16px;letter-spacing:-2px;line-height:1;">NovaShield</h2>
+          <p style="color:var(--muted);font-size:17px;max-width:580px;margin:0 auto;line-height:1.6;">Pemblokir iklan <strong style="color:#00e5ff;">hemat RAM</strong> dengan AI heuristic, YouTube ad blocker, dan aktivasi otomatis. Tinggal kunjungi halaman ini — extension langsung aktif!</p>
         </header>
 
-        <div style="max-width:640px;margin:0 auto;">
-          <div style="background:linear-gradient(135deg,rgba(0,229,255,0.08),rgba(179,136,255,0.05));border:1px solid rgba(0,229,255,0.3);border-radius:16px;padding:28px;margin-bottom:24px;">
-            <h3 style="color:#00e5ff;margin:0 0 20px;font-size:20px;text-align:center;">✨ Aktivasi Otomatis</h3>
-            <p style="color:var(--fg);font-size:15px;line-height:1.7;text-align:center;margin-bottom:20px;">
-              NovaShield akan <strong style="color:#00e5ff;">otomatis aktif</strong> saat Anda mengunjungi halaman ini. Tidak perlu klik tombol apapun!
-            </p>
-            <div style="display:flex;align-items:center;justify-content:center;gap:8px;color:#4ade80;font-size:14px;font-weight:600;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
-              <span id="aktifasi-status">Status: Cek aktivasi...</span>
+        <!-- Feature pills -->
+        <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:32px;position:relative;z-index:1;">
+          <span style="padding:6px 14px;background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.3);border-radius:999px;font-size:12px;font-weight:600;color:#00e5ff;">🛡️ 1081+ Aturan</span>
+          <span style="padding:6px 14px;background:rgba(179,136,255,0.1);border:1px solid rgba(179,136,255,0.3);border-radius:999px;font-size:12px;font-weight:600;color:#b388ff;">🎬 YouTube Blocker</span>
+          <span style="padding:6px 14px;background:rgba(74,222,128,0.1);border:1px solid rgba(74,222,128,0.3);border-radius:999px;font-size:12px;font-weight:600;color:#4ade80;">⚡ Hemat RAM</span>
+          <span style="padding:6px 14px;background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.3);border-radius:999px;font-size:12px;font-weight:600;color:#fbbf24;">🤖 ML Heuristic</span>
+          <span style="padding:6px 14px;background:rgba(255,93,177,0.1);border:1px solid rgba(255,93,177,0.3);border-radius:999px;font-size:12px;font-weight:600;color:#ff5db1;">🔒 Privacy Shield</span>
+        </div>
+
+        <div style="max-width:680px;margin:0 auto;position:relative;z-index:1;">
+          <!-- Activation status card -->
+          <div style="background:linear-gradient(135deg,rgba(0,229,255,0.1),rgba(179,136,255,0.06));border:1px solid rgba(0,229,255,0.3);border-radius:20px;padding:28px;margin-bottom:24px;backdrop-filter:blur(12px);">
+            <div style="display:flex;align-items:center;gap:16px;margin-bottom:20px;">
+              <div style="width:48px;height:48px;background:linear-gradient(135deg,#00e5ff,#b388ff);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#0a0817" stroke-width="3">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+              </div>
+              <div>
+                <h3 style="color:#00e5ff;margin:0 0 4px;font-size:18px;font-weight:700;">Aktivasi Otomatis</h3>
+                <p style="color:var(--fg);font-size:14px;margin:0;">NovaShield akan otomatis aktif saat Anda berkunjung</p>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:center;gap:8px;padding:12px;background:rgba(0,0,0,0.3);border-radius:12px;border:1px solid rgba(74,222,128,0.2);">
+              <div style="width:8px;height:8px;background:#4ade80;border-radius:50%;box-shadow:0 0 8px #4ade80;animation:nsblink 2s infinite;"></div>
+              <style>@keyframes nsblink{0%,100%{opacity:1;}50%{opacity:0.4;}}</style>
+              <span id="aktifasi-status" style="color:#4ade80;font-size:13px;font-weight:600;">Status: Cek aktivasi...</span>
             </div>
           </div>
 
-          <div style="background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.15);border-radius:12px;padding:20px;margin-bottom:20px;">
-            <h3 style="color:#00e5ff;margin:0 0 12px;font-size:16px;">📋 Cara Pakai NovaShield:</h3>
-            <ol style="color:var(--fg);line-height:1.8;padding-left:20px;font-size:14px;margin:0;">
-              <li>Download NovaShield di <a href="download.html" style="color:#00e5ff;">halaman download</a></li>
-              <li>Install di Chrome atau Firefox (lihat panduan)</li>
-              <li>Tab Google otomatis terbuka → cari "mohammad ahsan al ghoni"</li>
-              <li>Extension auto-click hasil pertama → buka website ini</li>
-              <li><strong style="color:#00e5ff;">NovaShield otomatis aktif!</strong> Badge berubah dari "!" jadi angka blokiran</li>
-            </ol>
-          </div>
-
-          <div style="text-align:center;margin-bottom:20px;">
-            <a href="download.html" style="display:inline-flex;align-items:center;gap:10px;padding:14px 32px;background:linear-gradient(135deg,#00e5ff,#b388ff);color:#0a0817;border:none;border-radius:999px;font-size:16px;font-weight:700;cursor:pointer;box-shadow:0 4px 16px rgba(0,229,255,0.4);transition:all 0.2s;text-decoration:none;">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <!-- Download CTA -->
+          <div style="text-align:center;margin-bottom:24px;">
+            <a href="download.html" style="display:inline-flex;align-items:center;gap:12px;padding:18px 40px;background:linear-gradient(135deg,#00e5ff,#b388ff);color:#0a0817;border:none;border-radius:999px;font-size:17px;font-weight:800;cursor:pointer;box-shadow:0 8px 32px rgba(0,229,255,0.4);transition:all 0.3s;text-decoration:none;position:relative;overflow:hidden;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                 <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
                 <polyline points="7 10 12 15 17 10"/>
                 <line x1="12" y1="15" x2="12" y2="3"/>
               </svg>
-              Download NovaShield
+              Download NovaShield v3.5
             </a>
+            <p style="color:var(--muted);font-size:12px;margin-top:12px;">Gratis • Open Source • Chrome & Firefox</p>
           </div>
 
-          <div style="margin-top:20px;padding:16px;background:rgba(255,84,112,0.05);border:1px solid rgba(255,84,112,0.2);border-radius:12px;font-size:13px;color:var(--muted);line-height:1.6;">
-            <strong style="color:#ff5470;">Troubleshooting:</strong> Jika belum aktif juga, pastikan extension NovaShield sudah terpasang. Alternatif: tambah <code style="background:var(--bg);padding:2px 6px;border-radius:4px;color:#00e5ff;">#aktifasi</code> di akhir URL, atau klik kanan halaman → "Buka halaman aktivasi".
+          <!-- Quick stats grid -->
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin-bottom:24px;">
+            <div style="background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.15);border-radius:12px;padding:16px;text-align:center;">
+              <div style="font-size:24px;font-weight:900;background:linear-gradient(135deg,#00e5ff,#b388ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">1081+</div>
+              <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:4px;">Aturan Statis</div>
+            </div>
+            <div style="background:rgba(179,136,255,0.05);border:1px solid rgba(179,136,255,0.15);border-radius:12px;padding:16px;text-align:center;">
+              <div style="font-size:24px;font-weight:900;background:linear-gradient(135deg,#b388ff,#ff5db1);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">25+</div>
+              <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:4px;">Fitur</div>
+            </div>
+            <div style="background:rgba(74,222,128,0.05);border:1px solid rgba(74,222,128,0.15);border-radius:12px;padding:16px;text-align:center;">
+              <div style="font-size:24px;font-weight:900;background:linear-gradient(135deg,#4ade80,#00e5ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">~50%</div>
+              <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:4px;">Hemat RAM</div>
+            </div>
+            <div style="background:rgba(251,191,36,0.05);border:1px solid rgba(251,191,36,0.15);border-radius:12px;padding:16px;text-align:center;">
+              <div style="font-size:24px;font-weight:900;background:linear-gradient(135deg,#fbbf24,#ff5470);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;">2</div>
+              <div style="font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:4px;">Browser</div>
+            </div>
           </div>
 
-          <div style="margin-top:16px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;font-size:13px;">
-            <a href="adblocker-extension/README.md" style="color:#00e5ff;text-decoration:none;">📖 Dokumentasi</a>
-            <a href="adblocker-extension/docs/INSTALL.md" style="color:#00e5ff;text-decoration:none;">⚙️ Install Guide</a>
-            <a href="adblocker-extension/docs/FAQ.md" style="color:#00e5ff;text-decoration:none;">❓ FAQ</a>
-            <a href="https://github.com/Yz776/informatika" target="_blank" style="color:#00e5ff;text-decoration:none;">🐙 GitHub</a>
+          <!-- How it works -->
+          <div style="background:rgba(0,0,0,0.3);border:1px solid rgba(0,229,255,0.15);border-radius:16px;padding:24px;margin-bottom:20px;">
+            <h3 style="color:#00e5ff;margin:0 0 16px;font-size:15px;font-weight:700;display:flex;align-items:center;gap:8px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              Cara Pakai (3 langkah)
+            </h3>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;">
+              <div style="flex:1;min-width:180px;display:flex;align-items:flex-start;gap:12px;">
+                <div style="width:28px;height:28px;background:linear-gradient(135deg,#00e5ff,#b388ff);color:#0a0817;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;">1</div>
+                <div><div style="font-weight:600;font-size:13px;color:var(--fg);">Download & Install</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">Chrome atau Firefox</div></div>
+              </div>
+              <div style="flex:1;min-width:180px;display:flex;align-items:flex-start;gap:12px;">
+                <div style="width:28px;height:28px;background:linear-gradient(135deg,#00e5ff,#b388ff);color:#0a0817;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;">2</div>
+                <div><div style="font-weight:600;font-size:13px;color:var(--fg);">Buka Website Ini</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">Auto-aktivasi</div></div>
+              </div>
+              <div style="flex:1;min-width:180px;display:flex;align-items:flex-start;gap:12px;">
+                <div style="width:28px;height:28px;background:linear-gradient(135deg,#4ade80,#00e5ff);color:#0a0817;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;flex-shrink:0;">3</div>
+                <div><div style="font-weight:600;font-size:13px;color:var(--fg);">Iklan Diblokir!</div><div style="font-size:12px;color:var(--muted);margin-top:2px;">Termasuk YouTube</div></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Troubleshooting + links -->
+          <div style="padding:16px;background:rgba(255,84,112,0.05);border:1px solid rgba(255,84,112,0.2);border-radius:12px;font-size:13px;color:var(--muted);line-height:1.6;margin-bottom:16px;">
+            <strong style="color:#ff5470;">⚠️ Troubleshooting:</strong> Jika belum aktif, pastikan extension terpasang. Alternatif: tambah <code style="background:var(--bg);padding:2px 6px;border-radius:4px;color:#00e5ff;font-family:monospace;">#aktifasi</code> di URL, atau klik kanan → "Buka halaman aktivasi".
+          </div>
+
+          <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;font-size:13px;">
+            <a href="adblocker-extension/README.md" style="display:inline-flex;align-items:center;gap:6px;color:#00e5ff;text-decoration:none;padding:8px 14px;background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.2);border-radius:8px;transition:all 0.2s;">📖 Dokumentasi</a>
+            <a href="adblocker-extension/docs/INSTALL.md" style="display:inline-flex;align-items:center;gap:6px;color:#b388ff;text-decoration:none;padding:8px 14px;background:rgba(179,136,255,0.05);border:1px solid rgba(179,136,255,0.2);border-radius:8px;transition:all 0.2s;">⚙️ Install Guide</a>
+            <a href="adblocker-extension/docs/FAQ.md" style="display:inline-flex;align-items:center;gap:6px;color:#4ade80;text-decoration:none;padding:8px 14px;background:rgba(74,222,128,0.05);border:1px solid rgba(74,222,128,0.2);border-radius:8px;transition:all 0.2s;">❓ FAQ</a>
+            <a href="https://github.com/Yz776/informatika" target="_blank" style="display:inline-flex;align-items:center;gap:6px;color:#fbbf24;text-decoration:none;padding:8px 14px;background:rgba(251,191,36,0.05);border:1px solid rgba(251,191,36,0.2);border-radius:8px;transition:all 0.2s;">🐙 GitHub</a>
           </div>
         </div>
 
-        <meta name="adbg-activate" content="novashield-activation-token-v3">
+        <meta name="adbg-activate" content="novashield-activation-token-v3.5">
       </article>
     </div>
   </section>

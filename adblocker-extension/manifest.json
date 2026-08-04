@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "NovaShield - Pemblokir Iklan",
-  "version": "3.4.0",
-  "description": "Pemblokir iklan hemat RAM dengan ML heuristic, strict redirect blocker, content filter, YouTube ad blocker, dan auto-update.",
+  "version": "3.5.0",
+  "description": "Pemblokir iklan hemat RAM dengan UI glassmorphism, auto-manage heavy features, ML heuristic, content filter, dan YouTube ad blocker.",
   "author": "Ahsan Gresik",
   "homepage_url": "https://www.ahsangresik.me",
   "default_locale": "id",
