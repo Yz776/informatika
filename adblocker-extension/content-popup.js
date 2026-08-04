@@ -345,11 +345,18 @@
   } else {
     blockMetaRefresh();
   }
-  setInterval(blockMetaRefresh, 2000);
+  // v3.4: Slower poll (5s) + only when visible
+  let isTabVisible = !document.hidden;
+  document.addEventListener("visibilitychange", () => { isTabVisible = !document.hidden; });
+  function pollMetaRefresh() {
+    if (activated && enabled && redirectBlock && isTabVisible) blockMetaRefresh();
+    setTimeout(pollMetaRefresh, isTabVisible ? 5000 : 15000);
+  }
+  pollMetaRefresh();
 
   // MutationObserver for new meta refresh tags
   const metaObserver = new MutationObserver(() => {
-    if (activated && enabled && redirectBlock) blockMetaRefresh();
+    if (activated && enabled && redirectBlock && isTabVisible) blockMetaRefresh();
   });
   if (document.documentElement) {
     try {

@@ -214,8 +214,27 @@
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", runAll);
   } else { runAll(); }
-  setInterval(runAll, 1500);
-  const obs = new MutationObserver(() => { if (state.activated && state.enabled) runAll(); });
+
+  // v3.4: Adaptive polling (2s active, 8s hidden) instead of fixed 1.5s
+  let isTabVisible = !document.hidden;
+  document.addEventListener("visibilitychange", () => { isTabVisible = !document.hidden; });
+
+  function adaptivePoll() {
+    if (state.activated && state.enabled && isTabVisible) runAll();
+    setTimeout(adaptivePoll, isTabVisible ? 2000 : 8000);
+  }
+  adaptivePoll();
+
+  // v3.4: Throttled MutationObserver (500ms debounce)
+  let mutationPending = false;
+  const obs = new MutationObserver(() => {
+    if (mutationPending || !state.activated || !state.enabled || !isTabVisible) return;
+    mutationPending = true;
+    setTimeout(() => {
+      mutationPending = false;
+      if (state.activated && state.enabled && isTabVisible) runAll();
+    }, 500);
+  });
   function attach() {
     if (!document.body) { setTimeout(attach, 50); return; }
     try { obs.observe(document.body, { childList: true, subtree: true }); } catch (e) {}

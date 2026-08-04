@@ -442,7 +442,14 @@
         });
       } catch (e) {}
     }
-    setInterval(removeBodyLocks, 500);
+    // v3.4: Slower body lock cleanup (2s, was 500ms) + only when visible
+    let isTabVisible = !document.hidden;
+    document.addEventListener("visibilitychange", () => { isTabVisible = !document.hidden; });
+    function pollBodyLocks() {
+      if (isTabVisible) removeBodyLocks();
+      setTimeout(pollBodyLocks, isTabVisible ? 2000 : 10000);
+    }
+    pollBodyLocks();
 
     if (document.readyState === "loading") {
       document.addEventListener("DOMContentLoaded", removeBodyLocks);

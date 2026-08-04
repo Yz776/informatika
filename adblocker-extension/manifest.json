@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "NovaShield - Pemblokir Iklan",
-  "version": "3.3.0",
-  "description": "Pemblokir iklan dengan ML heuristic, strict redirect blocker, content filter (gambling/porn/scam), YouTube ad blocker, dan auto-update.",
+  "version": "3.4.0",
+  "description": "Pemblokir iklan hemat RAM dengan ML heuristic, strict redirect blocker, content filter, YouTube ad blocker, dan auto-update.",
   "author": "Ahsan Gresik",
   "homepage_url": "https://www.ahsangresik.me",
   "default_locale": "id",
@@ -166,11 +166,10 @@
         "<all_urls>"
       ],
       "js": [
-        "content-ml.js"
+        "content-scanner.js"
       ],
       "run_at": "document_start",
-      "all_frames": true,
-      "world": "MAIN"
+      "all_frames": true
     },
     {
       "matches": [
@@ -188,26 +187,6 @@
       ],
       "js": [
         "content-annoyance.js"
-      ],
-      "run_at": "document_start",
-      "all_frames": true
-    },
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "content-counter.js"
-      ],
-      "run_at": "document_start",
-      "all_frames": true
-    },
-    {
-      "matches": [
-        "<all_urls>"
-      ],
-      "js": [
-        "content-filter.js"
       ],
       "run_at": "document_start",
       "all_frames": true

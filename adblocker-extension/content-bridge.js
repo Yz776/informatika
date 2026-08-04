@@ -179,5 +179,12 @@
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", applyCustomHideRules);
   } else { applyCustomHideRules(); }
-  setInterval(applyCustomHideRules, 2000);
+  // v3.4: Slower poll (5s) + only when visible
+  let isTabVisible = !document.hidden;
+  document.addEventListener("visibilitychange", () => { isTabVisible = !document.hidden; });
+  function pollCustomRules() {
+    if (isTabVisible) applyCustomHideRules();
+    setTimeout(pollCustomRules, isTabVisible ? 5000 : 15000);
+  }
+  pollCustomRules();
 })();

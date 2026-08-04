@@ -430,8 +430,21 @@
   }
 
   function setupSponsorBlock() {
-    setInterval(checkVideoChange, 500); // v3.1: faster check
-    setInterval(skipSponsorSegments, 100); // v3.1: faster skip
+    // v3.4: Adaptive polling (1s active, 5s hidden) instead of fixed 500ms/100ms
+    let isTabVisible = !document.hidden;
+    document.addEventListener("visibilitychange", () => { isTabVisible = !document.hidden; });
+
+    function pollSponsorCheck() {
+      if (isTabVisible) checkVideoChange();
+      setTimeout(pollSponsorCheck, isTabVisible ? 1000 : 5000);
+    }
+    pollSponsorCheck();
+
+    function pollSponsorSkip() {
+      if (isTabVisible) skipSponsorSegments();
+      setTimeout(pollSponsorSkip, isTabVisible ? 200 : 2000); // 200ms active (was 100)
+    }
+    pollSponsorSkip();
   }
 
   function attachYtNavigateListener() {

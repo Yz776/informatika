@@ -1,10 +1,10 @@
 /* =====================================================================
- * NovaShield v3.3 - Background Service Worker
+ * NovaShield v3.4 - Background Service Worker (RAM-optimized)
  * ===================================================================== */
 
 const API = (typeof browser !== "undefined") ? browser : chrome;
 
-const CURRENT_VERSION = "3.3.0";
+const CURRENT_VERSION = "3.4.0";
 const GITHUB_RELEASES_URL = "https://api.github.com/repos/Yz776/informatika/releases/latest";
 const GITHUB_LATEST_VERSION_URL = "https://raw.githubusercontent.com/Yz776/informatika/main/adblocker-extension/manifest.json";
 
@@ -742,4 +742,4 @@ API.contextMenus.onClicked.addListener(async (info, tab) => {
   }, 60000);
 })();
 
-console.log("[NovaShield] background v3.3 aktif");
+console.log("[NovaShield] background v3.4 aktif (RAM-optimized)");
