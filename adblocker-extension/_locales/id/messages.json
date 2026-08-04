@@ -1,0 +1,18 @@
+{
+  "extName": {"message": "Adblock Gresik - Pemblokir Iklan", "description": "Nama extension"},
+  "extDescription": {"message": "Pemblokir iklan lengkap dengan YouTube ad blocker, SponsorBlock, anti-adblock bypass, privacy protection, dan sistem aktivasi.", "description": "Deskripsi"},
+  "popupTitle": {"message": "Adblock Gresik", "description": "Judul popup"},
+  "enableAdblock": {"message": "Aktifkan Adblock", "description": "Toggle master"},
+  "blockTrackers": {"message": "Blokir Tracker", "description": "Toggle tracker"},
+  "cosmeticFilter": {"message": "Cosmetic Filter", "description": "Toggle cosmetic"},
+  "antiAdblock": {"message": "Anti-Adblock Bypass", "description": "Toggle anti-adblock"},
+  "whitelistThisSite": {"message": "Whitelist situs ini", "description": "Tombol whitelist"},
+  "removeFromWhitelist": {"message": "Hapus dari whitelist", "description": "Tombol hapus"},
+  "settings": {"message": "Pengaturan", "description": "Tombol settings"},
+  "updateFilter": {"message": "Update Filter", "description": "Tombol update"},
+  "blockedOnTab": {"message": "Iklan Diblokir (tab)", "description": "Label"},
+  "totalBlocked": {"message": "Total Diblokir", "description": "Label"},
+  "activeSite": {"message": "Situs Aktif", "description": "Label"},
+  "notActivated": {"message": "Belum Aktivasi", "description": "Status belum aktivasi"},
+  "activateNow": {"message": "Aktivasi Sekarang", "description": "Tombol aktivasi"}
+}

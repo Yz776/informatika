@@ -1,0 +1,6 @@
+{
+  "version": 1,
+  "defaultWhitelist": ["ahsangresik.me", "localhost", "127.0.0.1"],
+  "easyListSource": "https://easylist.to/easylist/easylist.txt",
+  "refreshIntervalHours": 72
+}

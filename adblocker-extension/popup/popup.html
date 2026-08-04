@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adblock Gresik</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="popup">
+    <!-- Activation required banner -->
+    <div id="activationBanner" class="activation-banner" style="display: none;">
+      <div class="activation-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 2L3 5v6c0 5 4 9 9 11 5-2 9-6 9-11V5l-9-3z"/>
+          <line x1="12" y1="8" x2="12" y2="12"/>
+          <line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+      </div>
+      <div class="activation-text">
+        <div class="activation-title">Belum Aktivasi</div>
+        <div class="activation-desc">Aktifkan extension untuk mulai memblokir iklan.</div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="logo">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L3 5v6c0 5 4 9 9 11 5-2 9-6 9-11V5l-9-3z"
+                  fill="url(#shieldGrad)" stroke="#00e5ff" stroke-width="1.2"/>
+            <circle cx="12" cy="10" r="3.5" stroke="#00e5ff" stroke-width="1.5" fill="none"/>
+            <line x1="9.5" y1="12.5" x2="14.5" y2="7.5" stroke="#00e5ff" stroke-width="1.5" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="shieldGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#2d205c"/>
+                <stop offset="1" stop-color="#100e26"/>
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <div class="brand-name">Adblock Gresik</div>
+          <div class="brand-sub">v2.1 - Pemblokir Iklan</div>
+        </div>
+      </div>
+      <label class="switch" title="Aktifkan / Matikan">
+        <input type="checkbox" id="masterToggle" checked>
+        <span class="slider"></span>
+      </label>
+    </header>
+
+    <!-- Tab nav -->
+    <nav class="tab-nav">
+      <button class="tab-btn active" data-tab="main">Utama</button>
+      <button class="tab-btn" data-tab="youtube">YouTube</button>
+      <button class="tab-btn" data-tab="privacy">Privacy</button>
+      <button class="tab-btn" data-tab="extra">Ekstra</button>
+    </nav>
+
+    <!-- Tab: Main -->
+    <section class="tab-content active" id="tab-main">
+      <div class="status-section">
+        <div class="status-row">
+          <span class="label">Situs Aktif</span>
+          <span class="value" id="currentDomain">—</span>
+        </div>
+        <div class="status-row">
+          <span class="label">Iklan Diblokir (tab)</span>
+          <span class="value cyan" id="tabBlocked">0</span>
+        </div>
+        <div class="status-row">
+          <span class="label">Total Diblokir</span>
+          <span class="value cyan" id="totalBlocked">0</span>
+        </div>
+      </div>
+
+      <div class="big-stat">
+        <div class="big-number" id="bigBlocked">0</div>
+        <div class="big-label">IKLAN & TRACKER DIBLOKIR DI TAB INI</div>
+      </div>
+
+      <div class="toggles">
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Blokir Tracker</div>
+            <div class="toggle-desc">Cegah pelacakan pihak ketiga</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="trackersEnabled" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Cosmetic Filter</div>
+            <div class="toggle-desc">Sembunyikan elemen iklan</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="cosmeticEnabled" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Anti-Adblock Bypass</div>
+            <div class="toggle-desc">Tembus situs pendeteksi</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="antiAdblockEnabled" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Malware / Phishing Block</div>
+            <div class="toggle-desc">Blokir 122+ domain berbahaya</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="malwareBlock" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">HTTPS Upgrade</div>
+            <div class="toggle-desc">Paksa koneksi aman HTTPS</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="httpsUpgrade" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+
+      <div class="whitelist-section">
+        <button id="whitelistBtn" class="btn btn-secondary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 12l2 2 4-4M21 12c0 5-3.5 7.5-9 9-5.5-1.5-9-4-9-9V5l9-3 9 3v7z"/>
+          </svg>
+          <span id="whitelistLabel">Whitelist situs ini</span>
+        </button>
+      </div>
+
+      <div class="quick-actions">
+        <button id="pauseBtn" class="btn btn-quick">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="6" y="4" width="4" height="16"/>
+            <rect x="14" y="4" width="4" height="16"/>
+          </svg>
+          <span>Jeda 1 jam</span>
+        </button>
+        <button id="zapBtn" class="btn btn-quick">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/>
+          </svg>
+          <span>Zap elemen</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Tab: YouTube -->
+    <section class="tab-content" id="tab-youtube">
+      <div class="tab-header">
+        <h2>YouTube Ad Blocker</h2>
+        <p class="tab-desc">Auto-skip iklan, speed-up video iklan, dan SponsorBlock.</p>
+      </div>
+      <div class="toggles">
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">YouTube Ad Blocking</div>
+            <div class="toggle-desc">Blokir request iklan YouTube (58 aturan network)</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="ytBlockEnabled" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Auto-Skip Iklan</div>
+            <div class="toggle-desc">Klik tombol "Lewati iklan" otomatis</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="ytAutoSkip" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Speed-up Iklan</div>
+            <div class="toggle-desc">Mainkan iklan 16x cepat + mute</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="ytSpeedUp" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">SponsorBlock</div>
+            <div class="toggle-desc">Lewati segmen sponsor (sponsor.ajay.app)</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="sponsorBlockEnabled" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+      <div class="info-note">
+        <strong>Info:</strong> YouTube iklan diserved dari domain yang sama dengan video (googlevideo.com), jadi network blocking saja tidak cukup. Extension ini pakai 4 strategi: (1) Network blocking, (2) Auto-skip button, (3) Speed-up 16x + mute, (4) SponsorBlock.
+      </div>
+    </section>
+
+    <!-- Tab: Privacy -->
+    <section class="tab-content" id="tab-privacy">
+      <div class="tab-header">
+        <h2>Privacy Protection</h2>
+        <p class="tab-desc">Lindungi dari fingerprinting dan IP leak.</p>
+      </div>
+      <div class="toggles">
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">WebRTC IP Leak Protect</div>
+            <div class="toggle-desc">Cegah IP lokal terbongkar via WebRTC</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="webrtcProtect" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Canvas Fingerprint Protect</div>
+            <div class="toggle-desc">Inject noise ke toDataURL/getImageData</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="canvasProtect" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Audio Fingerprint Protect</div>
+            <div class="toggle-desc">Noise di AnalyserNode</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="audioProtect" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Hardware Spoof</div>
+            <div class="toggle-desc">Cap CPU=4, RAM=4, block Battery API</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="fontProtect" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab: Extra -->
+    <section class="tab-content" id="tab-extra">
+      <div class="tab-header">
+        <h2>Annoyance Blocker</h2>
+        <p class="tab-desc">Blokir gangguan selain iklan.</p>
+      </div>
+      <div class="toggles">
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Cookie Consent</div>
+            <div class="toggle-desc">Auto-tolak banner cookie GDPR</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="cookieBlock" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Notification Blocker</div>
+            <div class="toggle-desc">Tolak semua permintaan notifikasi</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="notifBlock" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Autoplay Blocker</div>
+            <div class="toggle-desc">Cegah video autoplay (muted)</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="autoplayBlock" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Exit Confirmation Blocker</div>
+            <div class="toggle-desc">Block "Yakin mau keluar?"</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="exitConfirmBlock" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Sticky Header Blocker</div>
+            <div class="toggle-desc">Lepaskan header menempel</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="stickyHeaderBlock" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Newsletter Popup Blocker</div>
+            <div class="toggle-desc">Tutup pop-up subscribe</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="newsletterPopupBlock" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Social Widgets Blocker</div>
+            <div class="toggle-desc">Sembunyikan FB Like, Twitter embed (default: OFF)</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="socialWidgetsBlock">
+            <span class="slider"></span>
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <button id="settingsBtn" class="btn btn-ghost" title="Pengaturan">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="3"/>
+          <path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>
+        </svg>
+        <span>Pengaturan</span>
+      </button>
+      <button id="refreshBtn" class="btn btn-ghost" title="Refresh EasyList">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="23 4 23 10 17 10"/>
+          <polyline points="1 20 1 14 7 14"/>
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/>
+        </svg>
+        <span>Update Filter</span>
+      </button>
+    </footer>
+
+    <div class="author">
+      <a href="https://www.ahsangresik.me" target="_blank" rel="noopener">by ahsangresik.me</a>
+    </div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+[
+  {
+    "id": 40000,
+    "priority": 1,
+    "action": {
+      "type": "redirect",
+      "redirect": {
+        "transform": {
+          "scheme": "https"
+        }
+      }
+    },
+    "condition": {
+      "urlFilter": "http://*",
+      "resourceTypes": [
+        "main_frame",
+        "sub_frame",
+        "xmlhttprequest",
+        "script",
+        "image"
+      ],
+      "excludedRequestDomains": [
+        "localhost",
+        "127.0.0.1",
+        "0.0.0.0"
+      ]
+    }
+  }
+]

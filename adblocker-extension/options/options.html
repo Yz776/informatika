@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="UTF-8"><title>Pengaturan - Adblock Gresik</title>
+<link rel="stylesheet" href="options.css"></head><body>
+<div class="page">
+  <aside class="sidebar">
+    <div class="sidebar-brand">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+        <path d="M12 2L3 5v6c0 5 4 9 9 11 5-2 9-6 9-11V5l-9-3z" fill="url(#sg)" stroke="#00e5ff" stroke-width="1.2"/>
+        <circle cx="12" cy="10" r="3.5" stroke="#00e5ff" stroke-width="1.5" fill="none"/>
+        <line x1="9.5" y1="12.5" x2="14.5" y2="7.5" stroke="#00e5ff" stroke-width="1.5"/>
+        <defs><linearGradient id="sg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2d205c"/><stop offset="1" stop-color="#100e26"/></linearGradient></defs>
+      </svg>
+      <div><div class="brand-name">Adblock Gresik</div><div class="brand-sub">v2.1 Pengaturan</div></div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#umum" class="nav-item active" data-section="umum"><span>Umum</span></a>
+      <a href="#youtube" class="nav-item" data-section="youtube"><span>YouTube</span></a>
+      <a href="#privacy" class="nav-item" data-section="privacy"><span>Privacy</span></a>
+      <a href="#annoyance" class="nav-item" data-section="annoyance"><span>Annoyance</span></a>
+      <a href="#whitelist" class="nav-item" data-section="whitelist"><span>Whitelist</span></a>
+      <a href="#filter" class="nav-item" data-section="filter"><span>Filter List</span></a>
+      <a href="#statistik" class="nav-item" data-section="statistik"><span>Statistik</span></a>
+      <a href="#backup" class="nav-item" data-section="backup"><span>Backup</span></a>
+      <a href="#tentang" class="nav-item" data-section="tentang"><span>Tentang</span></a>
+    </nav>
+    <div class="sidebar-footer"><a href="https://www.ahsangresik.me" target="_blank">ahsangresik.me</a></div>
+  </aside>
+  <main class="main">
+    <section id="section-umum" class="content-section active">
+      <header class="section-header"><h1>Pengaturan Umum</h1><p class="section-desc">Kontrol fitur utama.</p></header>
+      <div class="card" id="card-general"></div>
+    </section>
+    <section id="section-youtube" class="content-section">
+      <header class="section-header"><h1>YouTube Ad Blocker</h1><p class="section-desc">Pengaturan pemblokiran iklan YouTube.</p></header>
+      <div class="card" id="card-youtube"></div>
+    </section>
+    <section id="section-privacy" class="content-section">
+      <header class="section-header"><h1>Privacy Protection</h1><p class="section-desc">Lindungi dari fingerprinting dan IP leak.</p></header>
+      <div class="card" id="card-privacy"></div>
+    </section>
+    <section id="section-annoyance" class="content-section">
+      <header class="section-header"><h1>Annoyance Blocker</h1><p class="section-desc">Blokir gangguan selain iklan.</p></header>
+      <div class="card" id="card-annoyance"></div>
+    </section>
+    <section id="section-whitelist" class="content-section">
+      <header class="section-header"><h1>Whitelist Situs</h1><p class="section-desc">Daftar situs yang tidak diblokir.</p></header>
+      <div class="card">
+        <div class="whitelist-input-row">
+          <input type="text" id="whitelistInput" placeholder="contoh: tokopedia.com" class="input">
+          <button id="whitelistAddBtn" class="btn btn-primary">Tambah</button>
+        </div>
+        <div class="card-divider"></div>
+        <div id="whitelistList" class="whitelist-list"></div>
+      </div>
+    </section>
+    <section id="section-filter" class="content-section">
+      <header class="section-header"><h1>Filter List</h1><p class="section-desc">Sumber aturan pemblokiran.</p></header>
+      <div class="card">
+        <div class="filter-item"><div class="filter-info"><div class="filter-name">EasyList (Dynamic)</div><div class="filter-status" id="easyListStatus">Memuat...</div></div><button id="updateEasyListBtn" class="btn btn-secondary">Update</button></div>
+        <div class="card-divider"></div>
+        <div class="filter-item"><div class="filter-info"><div class="filter-name">Static Ruleset Utama</div><div class="filter-status">157 aturan iklan</div></div><span class="badge badge-active">Statis</span></div>
+        <div class="card-divider"></div>
+        <div class="filter-item"><div class="filter-info"><div class="filter-name">Tracker Blocking</div><div class="filter-status">193 aturan</div></div><span class="badge badge-active">Statis</span></div>
+        <div class="card-divider"></div>
+        <div class="filter-item"><div class="filter-info"><div class="filter-name">YouTube Ad Endpoints</div><div class="filter-status">58 aturan</div></div><span class="badge badge-active">Statis</span></div>
+        <div class="card-divider"></div>
+        <div class="filter-item"><div class="filter-info"><div class="filter-name">Malware / Phishing</div><div class="filter-status">122 aturan</div></div><span class="badge badge-active">Statis</span></div>
+        <div class="card-divider"></div>
+        <div class="filter-item"><div class="filter-info"><div class="filter-name">HTTPS Upgrade</div><div class="filter-status">Aktif</div></div><span class="badge badge-active">Statis</span></div>
+      </div>
+      <header class="section-header" style="margin-top: 32px;"><h2>Custom Filter Lists</h2><p class="section-desc">URL filter list tambahan (format EasyList).</p></header>
+      <div class="card">
+        <div class="whitelist-input-row">
+          <input type="text" id="customFilterInput" placeholder="https://example.com/filterlist.txt" class="input">
+          <button id="customFilterAddBtn" class="btn btn-primary">Tambah</button>
+        </div>
+        <div class="card-divider"></div>
+        <div id="customFilterList" class="whitelist-list"></div>
+      </div>
+    </section>
+    <section id="section-statistik" class="content-section">
+      <header class="section-header"><h1>Statistik</h1><p class="section-desc">Ringkasan pemblokiran.</p></header>
+      <div class="stats-grid">
+        <div class="stat-card"><div class="stat-label">Total Diblokir</div><div class="stat-value" id="statTotal">0</div></div>
+        <div class="stat-card"><div class="stat-label">Aturan Aktif</div><div class="stat-value" id="statRules">0</div></div>
+        <div class="stat-card"><div class="stat-label">Terakhir Update</div><div class="stat-value small" id="statUpdated">—</div></div>
+        <div class="stat-card"><div class="stat-label">Dipasang</div><div class="stat-value small" id="statInstall">—</div></div>
+      </div>
+      <div class="card">
+        <div class="card-info" style="padding: 16px 0;"><div class="card-title">Top 10 Situs Dengan Blokiran Terbanyak</div></div>
+        <div class="card-divider"></div>
+        <div id="topDomains" class="domain-list"></div>
+      </div>
+      <div class="card"><div class="card-row"><div class="card-info"><div class="card-title">Reset Statistik</div><div class="card-desc">Hapus semua counter.</div></div><button id="resetStatsBtn" class="btn btn-danger">Reset</button></div></div>
+    </section>
+    <section id="section-backup" class="content-section">
+      <header class="section-header"><h1>Backup & Restore</h1><p class="section-desc">Export/import pengaturan.</p></header>
+      <div class="card">
+        <div class="card-row"><div class="card-info"><div class="card-title">Export Pengaturan</div><div class="card-desc">Download JSON backup.</div></div><button id="exportBtn" class="btn btn-primary">Export</button></div>
+        <div class="card-divider"></div>
+        <div class="card-row"><div class="card-info"><div class="card-title">Import Pengaturan</div><div class="card-desc">Muat JSON backup.</div></div><input type="file" id="importFile" accept=".json" style="display: none;"><button id="importBtn" class="btn btn-secondary">Import</button></div>
+        <div class="card-divider"></div>
+        <div class="card-row"><div class="card-info"><div class="card-title">Reset ke Default</div><div class="card-desc">Kembalikan ke nilai awal.</div></div><button id="resetAllBtn" class="btn btn-danger">Reset</button></div>
+      </div>
+    </section>
+    <section id="section-tentang" class="content-section">
+      <header class="section-header"><h1>Tentang</h1><p class="section-desc">Informasi extension.</p></header>
+      <div class="card">
+        <div class="about-grid">
+          <div class="about-label">Nama</div><div class="about-value">Adblock Gresik</div>
+          <div class="about-label">Versi</div><div class="about-value" id="aboutVersion">2.1.0</div>
+          <div class="about-label">Manifest</div><div class="about-value">V3 (Chrome & Firefox)</div>
+          <div class="about-label">Penulis</div><div class="about-value"><a href="https://www.ahsangresik.me" target="_blank">Ahsan Gresik</a></div>
+          <div class="about-label">Sumber Filter</div><div class="about-value"><a href="https://easylist.to" target="_blank">EasyList</a> + <a href="https://sponsor.ajay.app" target="_blank">SponsorBlock</a></div>
+        </div>
+      </div>
+    </section>
+  </main>
+</div>
+<div id="toast" class="toast"></div>
+<script src="options.js"></script>
+</body></html>

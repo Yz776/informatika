@@ -1,0 +1,124 @@
+{
+  "manifest_version": 3,
+  "name": "Adblock Gresik - Pemblokir Iklan",
+  "version": "2.1.0",
+  "description": "Pemblokir iklan lengkap dengan YouTube ad blocker, SponsorBlock, anti-adblock bypass, privacy protection, dan sistem aktivasi.",
+  "author": "Ahsan Gresik",
+  "homepage_url": "https://www.ahsangresik.me",
+  "default_locale": "id",
+  "icons": {
+    "16": "icons/icon16.png",
+    "32": "icons/icon32.png",
+    "48": "icons/icon48.png",
+    "64": "icons/icon64.png",
+    "128": "icons/icon128.png"
+  },
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Adblock Gresik",
+    "default_icon": {
+      "16": "icons/icon16.png",
+      "32": "icons/icon32.png",
+      "48": "icons/icon48.png",
+      "128": "icons/icon128.png"
+    }
+  },
+  "background": {
+    "service_worker": "background.js",
+    "scripts": ["background.js"],
+    "type": "module"
+  },
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback",
+    "storage",
+    "tabs",
+    "activeTab",
+    "scripting",
+    "alarms",
+    "contextMenus",
+    "downloads",
+    "webNavigation"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "declarative_net_request": {
+    "rule_resources": [
+      {"id": "ruleset_main", "enabled": true, "path": "rules/main_rules.json"},
+      {"id": "ruleset_trackers", "enabled": true, "path": "rules/tracker_rules.json"},
+      {"id": "ruleset_youtube", "enabled": true, "path": "rules/youtube_rules.json"},
+      {"id": "ruleset_malware", "enabled": true, "path": "rules/malware_rules.json"},
+      {"id": "ruleset_https", "enabled": true, "path": "rules/https_upgrade.json"}
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "css": ["data/cosmetic.css"],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-antiadblock.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-privacy.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-bridge.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-annoyance.js"],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": ["*://*.youtube.com/*", "*://*.youtu.be/*"],
+      "js": ["content-youtube.js"],
+      "run_at": "document_start",
+      "all_frames": false
+    },
+    {
+      "matches": ["*://www.google.com/*", "*://www.google.co.id/*"],
+      "js": ["content-google-redirect.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-activation.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["data/cosmetic.css", "data/whitelist.json", "activation.html"],
+      "matches": ["<all_urls>"]
+    }
+  ],
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "adblock-gresik@ahsangresik.me",
+      "strict_min_version": "115.0"
+    }
+  }
+}
