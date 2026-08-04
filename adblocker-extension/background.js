@@ -1,10 +1,10 @@
 /* =====================================================================
- * NovaShield v3.1 - Background Service Worker
+ * NovaShield v3.2 - Background Service Worker
  * ===================================================================== */
 
 const API = (typeof browser !== "undefined") ? browser : chrome;
 
-const CURRENT_VERSION = "3.1.0";
+const CURRENT_VERSION = "3.2.0";
 const GITHUB_RELEASES_URL = "https://api.github.com/repos/Yz776/informatika/releases/latest";
 const GITHUB_LATEST_VERSION_URL = "https://raw.githubusercontent.com/Yz776/informatika/main/adblocker-extension/manifest.json";
 
@@ -149,6 +149,7 @@ async function applyEnabledState() {
     await setStaticRulesetEnabled("ruleset_popup", false);
     await setStaticRulesetEnabled("ruleset_redirect", false);
     await setStaticRulesetEnabled("ruleset_antiadblock", false);
+    await setStaticRulesetEnabled("ruleset_adscript", false);
     return;
   }
   await setStaticRulesetEnabled("ruleset_main", state.enabled);
@@ -160,6 +161,8 @@ async function applyEnabledState() {
   await setStaticRulesetEnabled("ruleset_popup", state.enabled && state.popupBlock);
   await setStaticRulesetEnabled("ruleset_redirect", state.enabled && state.redirectBlock);
   await setStaticRulesetEnabled("ruleset_antiadblock", state.enabled && state.antiAdblockEnabled);
+  // v3.2: ad script patterns (Monetag, momrollback, etc)
+  await setStaticRulesetEnabled("ruleset_adscript", state.enabled);
   await applyWhitelistSessionRules(state);
 }
 
@@ -725,4 +728,4 @@ API.contextMenus.onClicked.addListener(async (info, tab) => {
   }, 60000);
 })();
 
-console.log("[NovaShield] background v3.1 aktif");
+console.log("[NovaShield] background v3.2 aktif");

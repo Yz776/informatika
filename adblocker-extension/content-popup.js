@@ -53,12 +53,27 @@
     /^https?:\/\/([^\/]*\.)?(bitcoin-free-giveaway|crypto-airdrop|metamask-secure|binance-secure-login|coinbase-verify)/i,
     /^https?:\/\/([^\/]*\.)?(microsoft-support-alert|windows-security-alert|apple-security-warning|virus-detected-remove|your-pc-is-infected)/i,
     /^https?:\/\/([^\/]*\.)?(norton-secure-update|mcafee-secure-update|kaspersky-secure-update|avast-secure-update)/i,
+    // v3.2: Monetag network (quge*.com pattern + monetag domains)
+    /^https?:\/\/quge\d+\.com/i,
+    /^https?:\/\/([^\/]*\.)?(monetag\.com|monetag-cdn\.com|monetag\.io)/i,
+    /^https?:\/\/([^\/]*\.)?(propellerads\.com|propeller-tracking\.com)/i,
+    // v3.2: momrollback and similar
+    /^https?:\/\/([^\/]*\.)?(momrollback\.com|momroll\.com|momroll\.net|rolfron\.com|rolback\.com)/i,
+    /^https?:\/\/([^\/]*\.)?(clickadu\.com|clickadz\.com|clickfriction\.com|eddomo\.com|popcpm\.com|popmonetizer\.net)/i,
+    /^https?:\/\/([^\/]*\.)?(perfectpointers\.com|pushpushgo\.com|pushnado\.com|push\.world|pushda\.com|pushads\.com|pushible\.com)/i,
+    /^https?:\/\/([^\/]*\.)?(adultadworld\.com|adultmoda\.com|mobadult\.com|clicksor\.com|clicksor\.net)/i,
+    // v3.2: Monetag tag.min.js pattern (NUMBER.com/NUMBER/tag.min.js)
+    /^https?:\/\/[^\/]*\/\d+\/tag\.min\.js/i,
+    // v3.2: momrollback UUID pattern (/XX/XX/XX/UUID.js)
+    /^https?:\/\/[^\/]*\/[a-f0-9]{2}\/[a-f0-9]{2}\/[a-f0-9]{2}\/[a-f0-9]{32}\.js/i,
     // Indonesian ad networks
     /^https?:\/\/([^\/]*\.)?(adstars\.co\.id|adplus\.id|ads\.tribunnews\.com|ads\.detik\.com|ads\.kompas\.com)/i,
     /^https?:\/\/([^\/]*\.)?(adserving\.id|adserver\.bisnis\.com|ads\.grid\.id|ads\.gridoto\.com|ads\.kontan\.co\.id)/i,
     // Generic /ad/ path patterns
     /\/ads\//i, /\/advert/i, /\/banner/i, /\/pagead\//i, /\/popunder\//i,
     /\/popup\//i, /\/redirect\//i, /\/clk\//i, /\/click\//i,
+    // v3.2: adsbygoogle + show_ads
+    /\/adsbygoogle\.js/i, /\/show_ads\.js/i, /\/tag\.min\.js/i,
   ];
 
   function isAdUrl(url) {

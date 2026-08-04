@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "NovaShield - Pemblokir Iklan",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "Pemblokir iklan modern dengan YouTube ad blocker, SponsorBlock, anti-adblock bypass, popup/redirect blocker, privacy protection, auto-update, dan aktivasi otomatis.",
   "author": "Ahsan Gresik",
   "homepage_url": "https://www.ahsangresik.me",
@@ -57,7 +57,8 @@
       {"id": "ruleset_https", "enabled": true, "path": "rules/https_upgrade.json"},
       {"id": "ruleset_popup", "enabled": true, "path": "rules/popup_rules.json"},
       {"id": "ruleset_redirect", "enabled": true, "path": "rules/redirect_rules.json"},
-      {"id": "ruleset_antiadblock", "enabled": true, "path": "rules/antiadblock_rules.json"}
+      {"id": "ruleset_antiadblock", "enabled": true, "path": "rules/antiadblock_rules.json"},
+      {"id": "ruleset_adscript", "enabled": true, "path": "rules/adscript_patterns.json"}
     ]
   },
   "content_scripts": [

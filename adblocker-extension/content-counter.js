@@ -73,6 +73,24 @@
     /adplus\.id/i, /ads\.kompas\.com/i, /ads\.tribunnews\.com/i, /ads\.detik\.com/i,
     /spotxchange\.com/i, /smartadserver\.com/i, /springserve\.com/i,
     /appsflyer\.com/i, /branch\.io/i, /onesignal\.com/i,
+    // v3.2: Monetag network
+    /quge\d+\.com/i, /monetag\.com/i, /monetag-cdn\.com/i, /monetag\.io/i,
+    /propeller-tracking\.com/i,
+    // v3.2: momrollback + similar
+    /momrollback\.com/i, /momroll\.com/i, /momroll\.net/i,
+    /rolfron\.com/i, /rolback\.com/i,
+    /clickadu\.com/i, /clickadz\.com/i, /clickfriction\.com/i, /eddomo\.com/i,
+    /popcpm\.com/i, /popmonetizer\.net/i,
+    /perfectpointers\.com/i, /pushpushgo\.com/i, /pushnado\.com/i,
+    /pushda\.com/i, /pushads\.com/i, /pushible\.com/i,
+    /adultadworld\.com/i, /adultmoda\.com/i, /mobadult\.com/i,
+    /clicksor\.com/i, /clicksor\.net/i,
+    // v3.2: Monetag tag.min.js pattern
+    /\/\d+\/tag\.min\.js/i,
+    // v3.2: momrollback UUID pattern
+    /\/[a-f0-9]{2}\/[a-f0-9]{2}\/[a-f0-9]{2}\/[a-f0-9]{32}\.js/i,
+    // v3.2: adsbygoogle + show_ads script
+    /\/adsbygoogle\.js/i, /\/show_ads\.js/i, /\/tag\.min\.js/i,
   ];
 
   function isAdUrl(url) {
