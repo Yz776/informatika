@@ -8,6 +8,7 @@
       activated: false, enabled: true,
       webrtcProtect: true, canvasProtect: true, audioProtect: true, fontProtect: true,
       popupBlock: true, redirectBlock: true, antiAdblockEnabled: true,
+      mlEnabled: true, contentFilter: true, strictRedirect: true,
     }, (data) => {
       const evt = new CustomEvent("__novashield_privacy_state", {
         detail: {
@@ -25,6 +26,7 @@
         detail: { activated: !!data.activated }
       }));
       // v3.1: broadcast full state to popup blocker & anti-adblock scripts
+      // v3.3: add mlEnabled, contentFilter, strictRedirect
       window.dispatchEvent(new CustomEvent("__novashield_state", {
         detail: {
           activated: !!data.activated,
@@ -32,6 +34,9 @@
           popupBlock: !!data.popupBlock,
           redirectBlock: !!data.redirectBlock,
           antiAdblock: !!data.antiAdblockEnabled,
+          mlEnabled: !!data.mlEnabled,
+          contentFilter: !!data.contentFilter,
+          strictRedirect: !!data.strictRedirect,
         }
       }));
     });

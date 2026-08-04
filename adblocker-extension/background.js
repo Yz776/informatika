@@ -1,10 +1,10 @@
 /* =====================================================================
- * NovaShield v3.2 - Background Service Worker
+ * NovaShield v3.3 - Background Service Worker
  * ===================================================================== */
 
 const API = (typeof browser !== "undefined") ? browser : chrome;
 
-const CURRENT_VERSION = "3.2.0";
+const CURRENT_VERSION = "3.3.0";
 const GITHUB_RELEASES_URL = "https://api.github.com/repos/Yz776/informatika/releases/latest";
 const GITHUB_LATEST_VERSION_URL = "https://raw.githubusercontent.com/Yz776/informatika/main/adblocker-extension/manifest.json";
 
@@ -42,6 +42,13 @@ const DEFAULT_STATE = {
   latestVersion: null,
   updateAvailable: false,
   version: CURRENT_VERSION,
+  // v3.3: ML heuristic + content filter + strict redirect
+  mlEnabled: true,
+  contentFilter: true,
+  strictRedirect: true,
+  gamblingBlock: true,
+  adultBlock: true,
+  scamBlock: true,
   whitelist: ["ahsangresik.me", "localhost", "127.0.0.1"],
   pausedSites: {},
   customHideRules: {},
@@ -150,6 +157,9 @@ async function applyEnabledState() {
     await setStaticRulesetEnabled("ruleset_redirect", false);
     await setStaticRulesetEnabled("ruleset_antiadblock", false);
     await setStaticRulesetEnabled("ruleset_adscript", false);
+    await setStaticRulesetEnabled("ruleset_gambling", false);
+    await setStaticRulesetEnabled("ruleset_adult", false);
+    await setStaticRulesetEnabled("ruleset_scam", false);
     return;
   }
   await setStaticRulesetEnabled("ruleset_main", state.enabled);
@@ -163,6 +173,10 @@ async function applyEnabledState() {
   await setStaticRulesetEnabled("ruleset_antiadblock", state.enabled && state.antiAdblockEnabled);
   // v3.2: ad script patterns (Monetag, momrollback, etc)
   await setStaticRulesetEnabled("ruleset_adscript", state.enabled);
+  // v3.3: gambling, adult, scam rulesets
+  await setStaticRulesetEnabled("ruleset_gambling", state.enabled && state.gamblingBlock);
+  await setStaticRulesetEnabled("ruleset_adult", state.enabled && state.adultBlock);
+  await setStaticRulesetEnabled("ruleset_scam", state.enabled && state.scamBlock);
   await applyWhitelistSessionRules(state);
 }
 
@@ -728,4 +742,4 @@ API.contextMenus.onClicked.addListener(async (info, tab) => {
   }, 60000);
 })();
 
-console.log("[NovaShield] background v3.2 aktif");
+console.log("[NovaShield] background v3.3 aktif");

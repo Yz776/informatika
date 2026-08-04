@@ -16,6 +16,7 @@
   let enabled = true;
   let popupBlock = true;
   let redirectBlock = true;
+  let strictRedirect = true; // v3.3: strict redirect blocking
 
   try { activated = localStorage.getItem("__novashield_activated") === "1"; } catch (e) {}
 
@@ -26,8 +27,132 @@
     if (typeof e.detail.enabled !== "undefined") enabled = !!e.detail.enabled;
     if (typeof e.detail.popupBlock !== "undefined") popupBlock = !!e.detail.popupBlock;
     if (typeof e.detail.redirectBlock !== "undefined") redirectBlock = !!e.detail.redirectBlock;
+    if (typeof e.detail.strictRedirect !== "undefined") strictRedirect = !!e.detail.strictRedirect;
   });
   window.dispatchEvent(new CustomEvent("__novashield_state_request"));
+
+  /* ================================================================== *
+   * v3.3: REDIRECT CHAIN DETECTION
+   * Track redirect history per-tab. If too many redirects in short time
+   * → suspicious, block further redirects
+   * ================================================================== */
+  const redirectHistory = [];
+  const REDIRECT_WINDOW_MS = 10000; // 10 seconds
+  const MAX_REDIRECTS_PER_WINDOW = 3;
+
+  function trackRedirect(url) {
+    const now = Date.now();
+    redirectHistory.push({ url, time: now });
+    // Clean old entries
+    while (redirectHistory.length > 0 && redirectHistory[0].time < now - REDIRECT_WINDOW_MS) {
+      redirectHistory.shift();
+    }
+    return redirectHistory.length;
+  }
+
+  function isRedirectChainSuspicious() {
+    return redirectHistory.length >= MAX_REDIRECTS_PER_WINDOW;
+  }
+
+  /* ================================================================== *
+   * v3.3: USER INTENT DETECTION
+   * If user explicitly clicked a link, allow redirect
+   * If redirect happened without user action (auto-redirect), block
+   * ================================================================== */
+  function isUserInitiatedNavigation() {
+    // Check navigation type
+    if (performance && performance.getEntriesByType) {
+      const entries = performance.getEntriesByType("navigation");
+      if (entries.length > 0 && entries[0].type === "navigate") {
+        // User navigated - check if there's a referrer (clicked link)
+        if (document.referrer) {
+          try {
+            const referrerHost = new URL(document.referrer).hostname;
+            // If referrer is same origin, user clicked internal link
+            if (referrerHost === window.location.hostname) return true;
+          } catch (e) {}
+        }
+      }
+    }
+    return false;
+  }
+
+  /* ================================================================== *
+   * v3.3: SUSPICIOUS REDIRECT PATTERNS
+   * Even if URL doesn't match ad pattern, block if redirect looks suspicious
+   * ================================================================== */
+  function isSuspiciousRedirect(url) {
+    if (!url) return false;
+    try {
+      const u = new URL(url, window.location.href);
+
+      // Suspicious TLDs
+      const suspiciousTlds = [
+        ".tk", ".ml", ".ga", ".cf", ".gq", ".top", ".click",
+        ".loan", ".work", ".men", ".date", ".review", ".party",
+        ".download", ".stream", ".science",
+      ];
+      for (const tld of suspiciousTlds) {
+        if (u.hostname.endsWith(tld)) return true;
+      }
+
+      // Suspicious subdomain pattern (random strings)
+      const parts = u.hostname.split(".");
+      if (parts.length > 3) {
+        // e.g. abc123.random.example.com
+        const subdomain = parts[0];
+        if (subdomain.length > 10 && /^[a-z0-9]+$/i.test(subdomain) &&
+            /\d/.test(subdomain) && /[a-z]/i.test(subdomain)) {
+          return true;
+        }
+      }
+
+      // Suspicious URL parameters (tracking, redirect chains)
+      const suspiciousParams = ["redirect", "redir", "url", "goto", "next", "dest", "destination", "continue"];
+      for (const param of suspiciousParams) {
+        if (u.searchParams.has(param)) {
+          const value = u.searchParams.get(param) || "";
+          if (value.startsWith("http") && !value.includes(u.hostname)) {
+            return true; // Redirect to different domain via param
+          }
+        }
+      }
+
+      // Very long URL (often tracking redirectors)
+      if (u.href.length > 500) return true;
+
+      // Many query parameters (tracking)
+      if (Array.from(u.searchParams.keys()).length > 10) return true;
+
+    } catch (e) {}
+    return false;
+  }
+
+  function shouldBlockRedirect(url) {
+    if (!activated || !enabled || !redirectBlock) return false;
+    if (!url) return false;
+
+    // Always block if URL matches ad pattern
+    if (isAdUrl(url)) return true;
+
+    // v3.3: Strict mode - block suspicious redirects
+    if (strictRedirect) {
+      // Track this redirect
+      const count = trackRedirect(url);
+      // If redirect chain is suspicious (too many redirects), block
+      if (isRedirectChainSuspicious()) {
+        console.log(`[NovaShield] Blocked redirect chain (${count} redirects in 10s)`);
+        return true;
+      }
+      // If URL itself looks suspicious (TLD, subdomain pattern, tracking params)
+      if (isSuspiciousRedirect(url)) {
+        console.log(`[NovaShield] Blocked suspicious redirect: ${url.substring(0, 80)}`);
+        return true;
+      }
+    }
+
+    return false;
+  }
 
   // Popup/ad URL patterns - check if a URL is an ad
   const AD_URL_PATTERNS = [
@@ -132,7 +257,7 @@
     const origAssign = loc.assign ? loc.assign.bind(loc) : null;
     if (origAssign) {
       loc.assign = function (url) {
-        if (activated && enabled && redirectBlock && isAdUrl(url)) {
+        if (shouldBlockRedirect(url)) {
           console.log("[NovaShield] Blocked redirect (assign):", String(url).substring(0, 100));
           notifyBlocked("redirect", url);
           return;
@@ -145,7 +270,7 @@
     const origReplace = loc.replace ? loc.replace.bind(loc) : null;
     if (origReplace) {
       loc.replace = function (url) {
-        if (activated && enabled && redirectBlock && isAdUrl(url)) {
+        if (shouldBlockRedirect(url)) {
           console.log("[NovaShield] Blocked redirect (replace):", String(url).substring(0, 100));
           notifyBlocked("redirect", url);
           return;
@@ -161,7 +286,7 @@
         Object.defineProperty(window.Location.prototype, "href", {
           get: origHrefDesc.get,
           set: function (url) {
-            if (activated && enabled && redirectBlock && isAdUrl(url)) {
+            if (shouldBlockRedirect(url)) {
               console.log("[NovaShield] Blocked redirect (href):", String(url).substring(0, 100));
               notifyBlocked("redirect", url);
               return;

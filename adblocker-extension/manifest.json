@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "NovaShield - Pemblokir Iklan",
-  "version": "3.2.0",
-  "description": "Pemblokir iklan modern dengan YouTube ad blocker, SponsorBlock, anti-adblock bypass, popup/redirect blocker, privacy protection, auto-update, dan aktivasi otomatis.",
+  "version": "3.3.0",
+  "description": "Pemblokir iklan dengan ML heuristic, strict redirect blocker, content filter (gambling/porn/scam), YouTube ad blocker, dan auto-update.",
   "author": "Ahsan Gresik",
   "homepage_url": "https://www.ahsangresik.me",
   "default_locale": "id",
@@ -25,7 +25,9 @@
   },
   "background": {
     "service_worker": "background.js",
-    "scripts": ["background.js"],
+    "scripts": [
+      "background.js"
+    ],
     "type": "module"
   },
   "options_ui": {
@@ -50,87 +52,209 @@
   ],
   "declarative_net_request": {
     "rule_resources": [
-      {"id": "ruleset_main", "enabled": true, "path": "rules/main_rules.json"},
-      {"id": "ruleset_trackers", "enabled": true, "path": "rules/tracker_rules.json"},
-      {"id": "ruleset_youtube", "enabled": true, "path": "rules/youtube_rules.json"},
-      {"id": "ruleset_malware", "enabled": true, "path": "rules/malware_rules.json"},
-      {"id": "ruleset_https", "enabled": true, "path": "rules/https_upgrade.json"},
-      {"id": "ruleset_popup", "enabled": true, "path": "rules/popup_rules.json"},
-      {"id": "ruleset_redirect", "enabled": true, "path": "rules/redirect_rules.json"},
-      {"id": "ruleset_antiadblock", "enabled": true, "path": "rules/antiadblock_rules.json"},
-      {"id": "ruleset_adscript", "enabled": true, "path": "rules/adscript_patterns.json"}
+      {
+        "id": "ruleset_main",
+        "enabled": true,
+        "path": "rules/main_rules.json"
+      },
+      {
+        "id": "ruleset_trackers",
+        "enabled": true,
+        "path": "rules/tracker_rules.json"
+      },
+      {
+        "id": "ruleset_youtube",
+        "enabled": true,
+        "path": "rules/youtube_rules.json"
+      },
+      {
+        "id": "ruleset_malware",
+        "enabled": true,
+        "path": "rules/malware_rules.json"
+      },
+      {
+        "id": "ruleset_https",
+        "enabled": true,
+        "path": "rules/https_upgrade.json"
+      },
+      {
+        "id": "ruleset_popup",
+        "enabled": true,
+        "path": "rules/popup_rules.json"
+      },
+      {
+        "id": "ruleset_redirect",
+        "enabled": true,
+        "path": "rules/redirect_rules.json"
+      },
+      {
+        "id": "ruleset_antiadblock",
+        "enabled": true,
+        "path": "rules/antiadblock_rules.json"
+      },
+      {
+        "id": "ruleset_adscript",
+        "enabled": true,
+        "path": "rules/adscript_patterns.json"
+      },
+      {
+        "id": "ruleset_gambling",
+        "enabled": true,
+        "path": "rules/gambling_rules.json"
+      },
+      {
+        "id": "ruleset_adult",
+        "enabled": true,
+        "path": "rules/adult_rules.json"
+      },
+      {
+        "id": "ruleset_scam",
+        "enabled": true,
+        "path": "rules/scam_rules.json"
+      }
     ]
   },
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
-      "js": ["content.js"],
-      "css": ["data/cosmetic.css"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content.js"
+      ],
+      "css": [
+        "data/cosmetic.css"
+      ],
       "run_at": "document_start",
       "all_frames": true
     },
     {
-      "matches": ["<all_urls>"],
-      "js": ["content-antiadblock.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content-antiadblock.js"
+      ],
       "run_at": "document_start",
       "all_frames": true,
       "world": "MAIN"
     },
     {
-      "matches": ["<all_urls>"],
-      "js": ["content-privacy.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content-privacy.js"
+      ],
       "run_at": "document_start",
       "all_frames": true,
       "world": "MAIN"
     },
     {
-      "matches": ["<all_urls>"],
-      "js": ["content-popup.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content-popup.js"
+      ],
       "run_at": "document_start",
       "all_frames": true,
       "world": "MAIN"
     },
     {
-      "matches": ["<all_urls>"],
-      "js": ["content-bridge.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content-ml.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content-bridge.js"
+      ],
       "run_at": "document_start",
       "all_frames": true
     },
     {
-      "matches": ["<all_urls>"],
-      "js": ["content-annoyance.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content-annoyance.js"
+      ],
       "run_at": "document_start",
       "all_frames": true
     },
     {
-      "matches": ["<all_urls>"],
-      "js": ["content-counter.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content-counter.js"
+      ],
       "run_at": "document_start",
       "all_frames": true
     },
     {
-      "matches": ["*://*.youtube.com/*", "*://*.youtu.be/*"],
-      "js": ["content-youtube.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content-filter.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
+    },
+    {
+      "matches": [
+        "*://*.youtube.com/*",
+        "*://*.youtu.be/*"
+      ],
+      "js": [
+        "content-youtube.js"
+      ],
       "run_at": "document_start",
       "all_frames": false
     },
     {
-      "matches": ["*://www.google.com/*", "*://www.google.co.id/*"],
-      "js": ["content-google-redirect.js"],
+      "matches": [
+        "*://www.google.com/*",
+        "*://www.google.co.id/*"
+      ],
+      "js": [
+        "content-google-redirect.js"
+      ],
       "run_at": "document_idle",
       "all_frames": false
     },
     {
-      "matches": ["<all_urls>"],
-      "js": ["content-activation.js"],
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content-activation.js"
+      ],
       "run_at": "document_idle",
       "all_frames": false
     }
   ],
   "web_accessible_resources": [
     {
-      "resources": ["data/cosmetic.css", "data/whitelist.json", "activation.html"],
-      "matches": ["<all_urls>"]
+      "resources": [
+        "data/cosmetic.css",
+        "data/whitelist.json",
+        "activation.html"
+      ],
+      "matches": [
+        "<all_urls>"
+      ]
     }
   ],
   "browser_specific_settings": {
