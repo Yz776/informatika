@@ -1,11 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+<!-- =====================================================================
+     sitemap.xml — Multi-Domain SEO dengan hreflang cross-domain
+     =====================================================================
+     Setiap URL punya 3 alternate links ke 3 domain:
+       - ahsangresik.me (canonical)
+       - erd7.eu.org (mirror)
+       - ahsann.is-a.dev (mirror)
+     Ini memberitahu Google bahwa 3 domain ini adalah versi yang sama,
+     sehingga backlink dari 3 domain saling membantu SEO.
+     ===================================================================== -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+
+  <!-- Homepage -->
   <url>
     <loc>https://ahsangresik.me/</loc>
     <xhtml:link rel="alternate" hreflang="id-ID" href="https://ahsangresik.me/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ahsangresik.me/" />
-    <lastmod>2026-08-03</lastmod>
-    <changefreq>weekly</changefreq>
+    <xhtml:link rel="alternate" href="https://erd7.eu.org/" />
+    <xhtml:link rel="alternate" href="https://ahsann.is-a.dev/" />
+    <lastmod>2026-08-04</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
       <image:loc>https://ahsangresik.me/tes.jpg</image:loc>
@@ -13,11 +29,15 @@
       <image:caption>Portofolio Mohammad Ahsan Al Ghoni dari Gresik, Indonesia</image:caption>
     </image:image>
   </url>
+
+  <!-- Project page -->
   <url>
     <loc>https://ahsangresik.me/project.html</loc>
     <xhtml:link rel="alternate" hreflang="id-ID" href="https://ahsangresik.me/project.html" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ahsangresik.me/project.html" />
-    <lastmod>2026-08-03</lastmod>
+    <xhtml:link rel="alternate" href="https://erd7.eu.org/project.html" />
+    <xhtml:link rel="alternate" href="https://ahsann.is-a.dev/project.html" />
+    <lastmod>2026-08-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
@@ -25,11 +45,15 @@
       <image:title>Proyek Mohammad Ahsan Al Ghoni — Catur Online, Al-Quran Digital, WotAnime, TTT</image:title>
     </image:image>
   </url>
+
+  <!-- Sertifikat page -->
   <url>
     <loc>https://ahsangresik.me/sertifikat.html</loc>
     <xhtml:link rel="alternate" hreflang="id-ID" href="https://ahsangresik.me/sertifikat.html" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://ahsangresik.me/sertifikat.html" />
-    <lastmod>2026-08-03</lastmod>
+    <xhtml:link rel="alternate" href="https://erd7.eu.org/sertifikat.html" />
+    <xhtml:link rel="alternate" href="https://ahsann.is-a.dev/sertifikat.html" />
+    <lastmod>2026-08-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
@@ -97,4 +121,32 @@
       <image:title>Sertifikat Pengenalan Internet of Things Digital Talent Scholarship 2026</image:title>
     </image:image>
   </url>
+
+  <!-- Download NovaShield page (BARU) -->
+  <url>
+    <loc>https://ahsangresik.me/download.html</loc>
+    <xhtml:link rel="alternate" hreflang="id-ID" href="https://ahsangresik.me/download.html" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://ahsangresik.me/download.html" />
+    <xhtml:link rel="alternate" href="https://erd7.eu.org/download.html" />
+    <xhtml:link rel="alternate" href="https://ahsann.is-a.dev/download.html" />
+    <lastmod>2026-08-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <image:image>
+      <image:loc>https://ahsangresik.me/adblocker-extension/icons/icon128.png</image:loc>
+      <image:title>NovaShield — Pemblokir Iklan Modern</image:title>
+      <image:caption>Extension Chrome & Firefox dengan ML heuristic dan YouTube ad blocker</image:caption>
+    </image:image>
+  </url>
+
+  <!-- NovaShield documentation -->
+  <url>
+    <loc>https://ahsangresik.me/adblocker-extension/README.md</loc>
+    <xhtml:link rel="alternate" href="https://erd7.eu.org/adblocker-extension/README.md" />
+    <xhtml:link rel="alternate" href="https://ahsann.is-a.dev/adblocker-extension/README.md" />
+    <lastmod>2026-08-04</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>

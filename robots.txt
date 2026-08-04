@@ -1,10 +1,21 @@
-# robots.txt — Portfolio Ahsan
-# Mengizinkan semua crawler, termasuk AI crawlers, untuk mengindeks portofolio publik.
+# =====================================================================
+# robots.txt — Portfolio Ahsan (Multi-Domain SEO Strategy)
+# =====================================================================
+# Domains:
+#   - ahsangresik.me (canonical - primary)
+#   - erd7.eu.org (mirror - secondary)
+#   - ahsann.is-a.dev (mirror - tertiary)
+#
+# Strategy:
+#   - All domains allow full crawl
+#   - Canonical set in HTML to ahsangresik.me to avoid duplicate content
+#   - Cross-domain sitemap references for discovery
+# =====================================================================
 
 User-agent: *
 Allow: /
 
-# AI crawlers welcome
+# AI crawlers welcome (untuk AI search engines)
 User-agent: GPTBot
 Allow: /
 
@@ -32,9 +43,28 @@ Allow: /
 User-agent: DuckDuckBot
 Allow: /
 
+User-agent: YandexBot
+Allow: /
+
+User-agent: Baiduspider
+Allow: /
+
+User-agent: facebookexternalhit
+Allow: /
+
+User-agent: Twitterbot
+Allow: /
+
+User-agent: LinkedInBot
+Allow: /
+
 # Crawl delay untuk fairness
 Crawl-delay: 1
 
-# Sitemap
+# =====================================================================
+# Sitemap references (cross-domain untuk SEO boost)
+# =====================================================================
 Sitemap: https://ahsangresik.me/sitemap.xml
-Sitemap: https://www.ahsangresik.me/sitemap.xml
+Sitemap: https://erd7.eu.org/sitemap.xml
+Sitemap: https://ahsann.is-a.dev/sitemap.xml
+Sitemap: https://ahsangresik.me/sitemap-index.xml

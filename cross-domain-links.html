@@ -1,0 +1,110 @@
+<!-- =====================================================================
+     cross-domain-links.html
+     Cross-Domain SEO Linking Component
+     =====================================================================
+     Komponen ini di-include di footer semua halaman untuk:
+       1. Memberi backlink ke 3 domain (saling membantu SEO)
+       2. Bookmark untuk user yang ingin akses via domain lain
+       3. Search engine discovery untuk 3 domain
+
+     Cara pakai: paste HTML ini sebelum </footer> atau </body>
+     ===================================================================== -->
+<div class="cross-domain-links" style="
+  margin-top: 32px;
+  padding: 20px;
+  background: rgba(0, 229, 255, 0.03);
+  border: 1px solid rgba(0, 229, 255, 0.1);
+  border-radius: 12px;
+  text-align: center;
+">
+  <div style="
+    font-size: 11px;
+    color: #8a85a8;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+    font-weight: 600;
+  ">🌐 Akses via Domain Lain</div>
+  <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+    <a href="https://ahsangresik.me/"
+       style="
+         display: inline-flex;
+         align-items: center;
+         gap: 6px;
+         padding: 8px 16px;
+         background: linear-gradient(135deg, rgba(0, 229, 255, 0.1), rgba(179, 136, 255, 0.05));
+         border: 1px solid rgba(0, 229, 255, 0.3);
+         border-radius: 8px;
+         color: #00e5ff;
+         text-decoration: none;
+         font-size: 12px;
+         font-weight: 600;
+         transition: all 0.2s;
+       "
+       onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(0, 229, 255, 0.2)';"
+       onmouseout="this.style.transform=''; this.style.boxShadow='';"
+       rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </svg>
+      ahsangresik.me
+    </a>
+    <a href="https://erd7.eu.org/"
+       style="
+         display: inline-flex;
+         align-items: center;
+         gap: 6px;
+         padding: 8px 16px;
+         background: linear-gradient(135deg, rgba(179, 136, 255, 0.1), rgba(255, 93, 177, 0.05));
+         border: 1px solid rgba(179, 136, 255, 0.3);
+         border-radius: 8px;
+         color: #b388ff;
+         text-decoration: none;
+         font-size: 12px;
+         font-weight: 600;
+         transition: all 0.2s;
+       "
+       onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(179, 136, 255, 0.2)';"
+       onmouseout="this.style.transform=''; this.style.boxShadow='';"
+       rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </svg>
+      erd7.eu.org
+    </a>
+    <a href="https://ahsann.is-a.dev/"
+       style="
+         display: inline-flex;
+         align-items: center;
+         gap: 6px;
+         padding: 8px 16px;
+         background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(0, 229, 255, 0.05));
+         border: 1px solid rgba(74, 222, 128, 0.3);
+         border-radius: 8px;
+         color: #4ade80;
+         text-decoration: none;
+         font-size: 12px;
+         font-weight: 600;
+         transition: all 0.2s;
+       "
+       onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 4px 12px rgba(74, 222, 128, 0.2)';"
+       onmouseout="this.style.transform=''; this.style.boxShadow='';"
+       rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <circle cx="12" cy="12" r="10"/>
+        <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </svg>
+      ahsann.is-a.dev
+    </a>
+  </div>
+  <div style="
+    margin-top: 12px;
+    font-size: 10px;
+    color: #5a547a;
+    line-height: 1.5;
+  ">
+    Tiga domain ini adalah mirror dari website yang sama. Pilih yang paling cepat diakses.
+  </div>
+</div>

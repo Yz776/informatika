@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- =====================================================================
+     sitemap-index.xml — Cross-Domain Sitemap Index
+     =====================================================================
+     Strategy: Sitemap index me-reference sitemap dari 3 domain.
+     Google akan crawl semua, boost SEO karena saling terhubung.
+     ===================================================================== -->
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <sitemap>
+    <loc>https://ahsangresik.me/sitemap.xml</loc>
+    <lastmod>2026-08-04</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://erd7.eu.org/sitemap.xml</loc>
+    <lastmod>2026-08-04</lastmod>
+  </sitemap>
+  <sitemap>
+    <loc>https://ahsann.is-a.dev/sitemap.xml</loc>
+    <lastmod>2026-08-04</lastmod>
+  </sitemap>
+</sitemapindex>

@@ -1,0 +1,189 @@
+<!-- =====================================================================
+     structured-data.ld.json
+     JSON-LD Structured Data untuk SEO (Schema.org)
+     =====================================================================
+     3 schema:
+       1. Person — info Ahsan
+       2. WebSite — info website dengan 3 domain
+       3. Organization — brand NovaShield
+     ===================================================================== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://ahsangresik.me/#person",
+  "name": "Mohammad Ahsan Al Ghoni",
+  "alternateName": "Ahsan Gresik",
+  "url": "https://ahsangresik.me/",
+  "image": "https://ahsangresik.me/tes.jpg",
+  "jobTitle": "Backend Developer & Network Engineer",
+  "description": "Pelajar dari Gresik yang membangun backend, game realtime, aplikasi edukasi, dan platform streaming. Fokus pada sistem yang cepat, rapi, dan benar-benar berjalan.",
+  "email": "mailto:contact@ahsangresik.me",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Gresik",
+    "addressRegion": "Jawa Timur",
+    "addressCountry": "ID"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -7.15667,
+    "longitude": 112.65472
+  },
+  "nationality": "Indonesia",
+  "knowsAbout": [
+    "Backend Development",
+    "Network Engineering",
+    "JavaScript",
+    "Go",
+    "Mikrotik",
+    "Cisco",
+    "Linux",
+    "Cloud Computing",
+    "Cyber Security",
+    "AI Integration",
+    "WebSocket",
+    "Real-time Applications"
+  ],
+  "knowsLanguage": ["Indonesian", "English", "Arabic"],
+  "sameAs": [
+    "https://ahsangresik.me/",
+    "https://erd7.eu.org/",
+    "https://ahsann.is-a.dev/",
+    "https://github.com/Yz776",
+    "https://www.ahsangresik.me/"
+  ],
+  "worksFor": {
+    "@type": "Organization",
+    "name": "NovaShield"
+  },
+  "alumniOf": {
+    "@type": "EducationalOrganization",
+    "name": "Digital Talent Scholarship"
+  },
+  "hasOccupation": {
+    "@type": "Occupation",
+    "name": "Backend Developer",
+    "occupationalCategory": "15-1252.00"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://ahsangresik.me/#website",
+  "name": "Portfolio Ahsan",
+  "alternateName": "Ahsan Gresik",
+  "url": "https://ahsangresik.me/",
+  "description": "Portofolio Mohammad Ahsan Al Ghoni — Backend Developer & Network Engineer dari Gresik",
+  "inLanguage": "id-ID",
+  "publisher": {
+    "@id": "https://ahsangresik.me/#person"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://ahsangresik.me/?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": "https://ahsangresik.me/#organization",
+  "name": "NovaShield",
+  "alternateName": "Ahsan Gresik Projects",
+  "url": "https://ahsangresik.me/",
+  "logo": "https://ahsangresik.me/adblocker-extension/icons/icon128.png",
+  "description": "Pemblokir iklan modern dengan ML heuristic, YouTube ad blocker, dan privacy protection.",
+  "foundingDate": "2026",
+  "founder": {
+    "@id": "https://ahsangresik.me/#person"
+  },
+  "sameAs": [
+    "https://ahsangresik.me/",
+    "https://erd7.eu.org/",
+    "https://ahsann.is-a.dev/",
+    "https://github.com/Yz776/informatika"
+  ],
+  "contactPoint": {
+    "@type": "ContactPoint",
+    "contactType": "customer support",
+    "url": "https://ahsangresik.me/#kontak",
+    "availableLanguage": ["Indonesian", "English"]
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "NovaShield",
+  "operatingSystem": "Chrome, Firefox, Edge, Brave",
+  "applicationCategory": "BrowserExtension",
+  "description": "Pemblokir iklan modern dengan ML heuristic, YouTube ad blocker, SponsorBlock, anti-adblock bypass, dan privacy protection.",
+  "url": "https://ahsangresik.me/download.html",
+  "downloadUrl": "https://github.com/Yz776/informatika/raw/main/adblocker-extension/releases/novashield-v3.5.0.zip",
+  "softwareVersion": "3.5.0",
+  "datePublished": "2026-08-04",
+  "dateModified": "2026-08-04",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5",
+    "ratingCount": "1",
+    "bestRating": "5",
+    "worstRating": "1"
+  },
+  "creator": {
+    "@id": "https://ahsangresik.me/#person"
+  },
+  "publisher": {
+    "@id": "https://ahsangresik.me/#organization"
+  }
+}
+</script>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Home",
+      "item": "https://ahsangresik.me/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Proyek",
+      "item": "https://ahsangresik.me/project.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Sertifikat",
+      "item": "https://ahsangresik.me/sertifikat.html"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "NovaShield",
+      "item": "https://ahsangresik.me/download.html"
+    }
+  ]
+}
