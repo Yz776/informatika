@@ -8,6 +8,21 @@
 </head>
 <body>
   <div class="popup">
+    <!-- Update available banner -->
+    <div id="updateBanner" class="update-banner" style="display: none;">
+      <div class="update-icon">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+      </div>
+      <div class="update-text">
+        <div class="update-title">Update Tersedia</div>
+        <div class="update-desc" id="updateDesc">Versi baru tersedia. Klik untuk update.</div>
+      </div>
+    </div>
+
     <!-- Activation required banner (1-click activate) -->
     <div id="activationBanner" class="activation-banner" style="display: none;">
       <div class="activation-icon">
@@ -128,6 +143,26 @@
           </div>
           <label class="switch small">
             <input type="checkbox" data-key="httpsUpgrade" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Popup Blocker</div>
+            <div class="toggle-desc">Blokir window.open() iklan + dialog scam</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="popupBlock" checked>
+            <span class="slider"></span>
+          </label>
+        </div>
+        <div class="toggle-row">
+          <div class="toggle-info">
+            <div class="toggle-title">Redirect Blocker</div>
+            <div class="toggle-desc">Blokir redirect ke domain iklan/scam</div>
+          </div>
+          <label class="switch small">
+            <input type="checkbox" data-key="redirectBlock" checked>
             <span class="slider"></span>
           </label>
         </div>

@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "NovaShield - Pemblokir Iklan",
-  "version": "3.0.0",
-  "description": "Pemblokir iklan modern dengan YouTube ad blocker, SponsorBlock, anti-adblock bypass, privacy protection, dan aktivasi otomatis.",
+  "version": "3.1.0",
+  "description": "Pemblokir iklan modern dengan YouTube ad blocker, SponsorBlock, anti-adblock bypass, popup/redirect blocker, privacy protection, auto-update, dan aktivasi otomatis.",
   "author": "Ahsan Gresik",
   "homepage_url": "https://www.ahsangresik.me",
   "default_locale": "id",
@@ -42,7 +42,8 @@
     "alarms",
     "contextMenus",
     "downloads",
-    "webNavigation"
+    "webNavigation",
+    "notifications"
   ],
   "host_permissions": [
     "<all_urls>"
@@ -53,7 +54,10 @@
       {"id": "ruleset_trackers", "enabled": true, "path": "rules/tracker_rules.json"},
       {"id": "ruleset_youtube", "enabled": true, "path": "rules/youtube_rules.json"},
       {"id": "ruleset_malware", "enabled": true, "path": "rules/malware_rules.json"},
-      {"id": "ruleset_https", "enabled": true, "path": "rules/https_upgrade.json"}
+      {"id": "ruleset_https", "enabled": true, "path": "rules/https_upgrade.json"},
+      {"id": "ruleset_popup", "enabled": true, "path": "rules/popup_rules.json"},
+      {"id": "ruleset_redirect", "enabled": true, "path": "rules/redirect_rules.json"},
+      {"id": "ruleset_antiadblock", "enabled": true, "path": "rules/antiadblock_rules.json"}
     ]
   },
   "content_scripts": [
@@ -74,6 +78,13 @@
     {
       "matches": ["<all_urls>"],
       "js": ["content-privacy.js"],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content-popup.js"],
       "run_at": "document_start",
       "all_frames": true,
       "world": "MAIN"

@@ -117,6 +117,22 @@ html, body {
 .author a { color: var(--text-mute); text-decoration: none; transition: color 0.2s; }
 .author a:hover { color: var(--accent); }
 
+/* Update banner */
+.update-banner {
+  display: flex; align-items: center; gap: 12px;
+  padding: 10px 16px;
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.12), rgba(0, 229, 255, 0.08));
+  border-bottom: 1px solid rgba(74, 222, 128, 0.3);
+  cursor: pointer;
+}
+.update-banner:hover {
+  background: linear-gradient(135deg, rgba(74, 222, 128, 0.2), rgba(0, 229, 255, 0.12));
+}
+.update-icon { color: var(--success); flex-shrink: 0; }
+.update-text { flex: 1; }
+.update-title { font-size: 12px; font-weight: 700; color: var(--success); }
+.update-desc { font-size: 11px; color: var(--text-dim); }
+
 /* Activation action button */
 .activation-action {
   padding: 0 16px 12px;

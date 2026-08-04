@@ -1,4 +1,4 @@
-/* NovaShield v3.0 - Popup Logic */
+/* NovaShield v3.1 - Popup Logic */
 const API = (typeof browser !== "undefined") ? browser : chrome;
 
 const els = {
@@ -16,6 +16,8 @@ const els = {
   activationBanner: document.getElementById("activationBanner"),
   activationAction: document.getElementById("activationAction"),
   activateBtn: document.getElementById("activateBtn"),
+  updateBanner: document.getElementById("updateBanner"),
+  updateDesc: document.getElementById("updateDesc"),
 };
 
 async function getActiveTab() {
@@ -91,6 +93,18 @@ async function render() {
   const resp = await sendMessage({ type: "GET_STATE", tabId, hostname });
   if (!resp || !resp.ok) return;
   const { state, tab: tabInfo } = resp;
+
+  // v3.1: Update banner (check if update available)
+  if (state.updateAvailable && state.latestVersion) {
+    els.updateBanner.style.display = "flex";
+    els.updateDesc.textContent = `v${state.latestVersion} tersedia (Anda: v${state.version || "3.1.0"})`;
+    els.updateBanner.onclick = async () => {
+      const r = await sendMessage({ type: "APPLY_UPDATE" });
+      showToast("Membuka halaman download...");
+    };
+  } else {
+    els.updateBanner.style.display = "none";
+  }
 
   // Activation gate - simplified 1-click flow
   if (!state.activated) {

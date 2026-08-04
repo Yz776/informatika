@@ -1,12 +1,13 @@
-/* NovaShield v2.1 - Bridge (ISOLATED -> MAIN state sync) + Element Zapper */
+/* NovaShield v3.1 - Bridge (ISOLATED -> MAIN state sync) + Element Zapper */
 (() => {
   const API = (typeof browser !== "undefined") ? browser : chrome;
 
-  // Push privacy state to MAIN world
+  // Push full state to MAIN world (privacy, popup, redirect, anti-adblock, etc.)
   function sendPrivacyState() {
     API.storage.local.get({
       activated: false, enabled: true,
       webrtcProtect: true, canvasProtect: true, audioProtect: true, fontProtect: true,
+      popupBlock: true, redirectBlock: true, antiAdblockEnabled: true,
     }, (data) => {
       const evt = new CustomEvent("__novashield_privacy_state", {
         detail: {
@@ -23,9 +24,20 @@
       window.dispatchEvent(new CustomEvent("__novashield_activation_changed", {
         detail: { activated: !!data.activated }
       }));
+      // v3.1: broadcast full state to popup blocker & anti-adblock scripts
+      window.dispatchEvent(new CustomEvent("__novashield_state", {
+        detail: {
+          activated: !!data.activated,
+          enabled: !!data.enabled,
+          popupBlock: !!data.popupBlock,
+          redirectBlock: !!data.redirectBlock,
+          antiAdblock: !!data.antiAdblockEnabled,
+        }
+      }));
     });
   }
   window.addEventListener("__novashield_privacy_request_state", sendPrivacyState);
+  window.addEventListener("__novashield_state_request", sendPrivacyState);
   setTimeout(sendPrivacyState, 100);
   API.storage.onChanged.addListener((changes, area) => {
     if (area === "local") sendPrivacyState();

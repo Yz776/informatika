@@ -1,8 +1,12 @@
 /* =====================================================================
- * NovaShield v3.0 - Background Service Worker
+ * NovaShield v3.1 - Background Service Worker
  * ===================================================================== */
 
 const API = (typeof browser !== "undefined") ? browser : chrome;
+
+const CURRENT_VERSION = "3.1.0";
+const GITHUB_RELEASES_URL = "https://api.github.com/repos/Yz776/informatika/releases/latest";
+const GITHUB_LATEST_VERSION_URL = "https://raw.githubusercontent.com/Yz776/informatika/main/adblocker-extension/manifest.json";
 
 const DEFAULT_STATE = {
   activated: false,
@@ -29,6 +33,15 @@ const DEFAULT_STATE = {
   fontProtect: true,
   httpsUpgrade: true,
   malwareBlock: true,
+  // v3.1: popup & redirect blocker
+  popupBlock: true,
+  redirectBlock: true,
+  // v3.1: auto-update
+  autoUpdateCheck: true,
+  lastUpdateCheck: 0,
+  latestVersion: null,
+  updateAvailable: false,
+  version: CURRENT_VERSION,
   whitelist: ["ahsangresik.me", "localhost", "127.0.0.1"],
   pausedSites: {},
   customHideRules: {},
@@ -133,6 +146,9 @@ async function applyEnabledState() {
     await setStaticRulesetEnabled("ruleset_youtube", false);
     await setStaticRulesetEnabled("ruleset_malware", false);
     await setStaticRulesetEnabled("ruleset_https", false);
+    await setStaticRulesetEnabled("ruleset_popup", false);
+    await setStaticRulesetEnabled("ruleset_redirect", false);
+    await setStaticRulesetEnabled("ruleset_antiadblock", false);
     return;
   }
   await setStaticRulesetEnabled("ruleset_main", state.enabled);
@@ -140,6 +156,10 @@ async function applyEnabledState() {
   await setStaticRulesetEnabled("ruleset_youtube", state.enabled && state.ytBlockEnabled);
   await setStaticRulesetEnabled("ruleset_malware", state.enabled && state.malwareBlock);
   await setStaticRulesetEnabled("ruleset_https", state.enabled && state.httpsUpgrade);
+  // v3.1: popup & redirect & anti-adblock rulesets
+  await setStaticRulesetEnabled("ruleset_popup", state.enabled && state.popupBlock);
+  await setStaticRulesetEnabled("ruleset_redirect", state.enabled && state.redirectBlock);
+  await setStaticRulesetEnabled("ruleset_antiadblock", state.enabled && state.antiAdblockEnabled);
   await applyWhitelistSessionRules(state);
 }
 
@@ -234,12 +254,75 @@ async function refreshEasyList() {
 }
 
 API.alarms.create("refresh-easylist", { periodInMinutes: 60 * 72 });
+API.alarms.create("check-updates", { periodInMinutes: 60 * 24 }); // check update tiap 24 jam
 API.alarms.onAlarm.addListener(async (alarm) => {
   if (alarm.name === "refresh-easylist") {
     const state = await getState();
     if (state.activated && state.enabled) await refreshEasyList();
+  } else if (alarm.name === "check-updates") {
+    await checkForUpdates();
   }
 });
+
+/* ===================================================================== *
+ * AUTO-UPDATE SYSTEM (v3.1)
+ * ===================================================================== */
+async function checkForUpdates() {
+  const state = await getState();
+  if (!state.autoUpdateCheck) return;
+  try {
+    const resp = await fetch(GITHUB_LATEST_VERSION_URL, { cache: "no-store" });
+    if (!resp.ok) return;
+    const manifest = await resp.json();
+    const latestVersion = manifest.version;
+    if (!latestVersion) return;
+    const updateAvailable = compareVersions(latestVersion, CURRENT_VERSION) > 0;
+    await setState({
+      latestVersion,
+      updateAvailable,
+      lastUpdateCheck: Date.now(),
+    });
+    if (updateAvailable) {
+      console.log(`[NovaShield] Update available: ${CURRENT_VERSION} -> ${latestVersion}`);
+      // Show notification
+      try {
+        API.notifications && API.notifications.create({
+          type: "basic",
+          iconUrl: "icons/icon128.png",
+          title: "NovaShield Update Available",
+          message: `Versi baru ${latestVersion} tersedia. Klik untuk update.`,
+        });
+      } catch (e) {}
+    }
+  } catch (e) {
+    console.warn("[NovaShield] checkForUpdates failed:", e);
+  }
+}
+
+function compareVersions(a, b) {
+  const partsA = a.split(".").map(Number);
+  const partsB = b.split(".").map(Number);
+  for (let i = 0; i < Math.max(partsA.length, partsB.length); i++) {
+    const va = partsA[i] || 0;
+    const vb = partsB[i] || 0;
+    if (va > vb) return 1;
+    if (va < vb) return -1;
+  }
+  return 0;
+}
+
+async function downloadAndApplyUpdate() {
+  try {
+    // For unpacked extension, we can't auto-update programmatically.
+    // Open the download page so user can download new version.
+    const state = await getState();
+    const downloadUrl = "https://github.com/Yz776/informatika/raw/main/adblocker-extension/releases/novashield-latest.zip";
+    await API.tabs.create({ url: "https://yz776.github.io/informatika/download.html" });
+    return { ok: true, message: "Opened download page" };
+  } catch (e) {
+    return { ok: false, error: String(e) };
+  }
+}
 
 /* ===================================================================== *
  * 4. Counter - DNR matched (Chrome) + content-counter.js (fallback)
@@ -501,6 +584,28 @@ API.runtime.onMessage.addListener((msg, sender, sendResponse) => {
           sendResponse({ ok: true, count: n });
           break;
         }
+        case "CHECK_UPDATES": {
+          await checkForUpdates();
+          const state = await getState();
+          sendResponse({
+            ok: true,
+            currentVersion: CURRENT_VERSION,
+            latestVersion: state.latestVersion,
+            updateAvailable: state.updateAvailable,
+            lastUpdateCheck: state.lastUpdateCheck,
+          });
+          break;
+        }
+        case "APPLY_UPDATE": {
+          const result = await downloadAndApplyUpdate();
+          sendResponse(result);
+          break;
+        }
+        case "SET_AUTO_UPDATE": {
+          await setState({ autoUpdateCheck: !!msg.enabled });
+          sendResponse({ ok: true });
+          break;
+        }
         case "ADD_CUSTOM_FILTER_LIST": {
           const state = await getState();
           const lists = [...(state.customFilterLists || [])];
@@ -600,6 +705,11 @@ API.contextMenus.onClicked.addListener(async (info, tab) => {
   if (state.activated) {
     const age = Date.now() - (state.lastEasyListUpdate || 0);
     if (age > 72 * 60 * 60 * 1000 || state.easyListRulesCount === 0) refreshEasyList();
+    // Check for updates on startup if not checked recently
+    const updateAge = Date.now() - (state.lastUpdateCheck || 0);
+    if (state.autoUpdateCheck && updateAge > 24 * 60 * 60 * 1000) {
+      checkForUpdates();
+    }
   }
   setInterval(async () => {
     const s = await getState();
@@ -615,4 +725,4 @@ API.contextMenus.onClicked.addListener(async (info, tab) => {
   }, 60000);
 })();
 
-console.log("[NovaShield] background v3.0 aktif");
+console.log("[NovaShield] background v3.1 aktif");

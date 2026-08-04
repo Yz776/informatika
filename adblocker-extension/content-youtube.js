@@ -1,6 +1,5 @@
 /* =====================================================================
- * NovaShield v2.1 - YouTube Ad Blocker (Advanced)
- * Multi-layer: ad-state observer + skip click + speed-up + seek + SponsorBlock
+ * NovaShield v3.1 - YouTube Ad Blocker (Advanced)
  * ===================================================================== */
 
 (() => {
@@ -46,16 +45,89 @@
     if (booted) return;
     booted = true;
     injectCSS();
+    interceptYtInitialData();
     setupAdStateObserver();
     setupVideoTorture();
     setupSkipButtonWatcher();
     setupSponsorBlock();
     attachYtNavigateListener();
-    console.info("[NovaShield][YT] v2.1 aktif");
+    console.info("[NovaShield][YT] v3.1 aktif");
   }
 
   if (!activated) return;
 
+  /* ================================================================== *
+   * NEW v3.1: Intercept ytInitialPlayerResponse to strip ad data
+   * ================================================================== */
+  function interceptYtInitialData() {
+    // Override ytInitialPlayerResponse getter/setter
+    // YouTube stores player response in this global variable
+    try {
+      let cached = window.ytInitialPlayerResponse;
+      Object.defineProperty(window, "ytInitialPlayerResponse", {
+        get() { return cached; },
+        set(value) {
+          cached = stripAdsFromPlayerResponse(value);
+          console.log("[NovaShield][YT] ytInitialPlayerResponse intercepted, ads stripped");
+        },
+        configurable: true,
+      });
+      // If already set, strip it
+      if (cached) {
+        cached = stripAdsFromPlayerResponse(cached);
+      }
+    } catch (e) {}
+
+    // Also override ytcfg.set to intercept ad configs
+    if (window.ytcfg && window.ytcfg.set) {
+      const origYtcfgSet = window.ytcfg.set.bind(window.ytcfg);
+      window.ytcfg.set = function (key, value) {
+        // Strip ad-related configs
+        if (key === "ADBLOCK_SIGNAL" || key === "ADOPT_SCREEN_DATA" ||
+            key === "PLAYER_VARS" && value && value.ad_tag) {
+          try {
+            if (value && typeof value === "object") {
+              delete value.ad_tag;
+              delete value.ad_flags;
+              delete value.ad3_module;
+            }
+          } catch (e) {}
+        }
+        return origYtcfgSet(key, value);
+      };
+    }
+  }
+
+  function stripAdsFromPlayerResponse(response) {
+    if (!response || typeof response !== "object") return response;
+    try {
+      // Strip ads from response
+      if (response.adPlacements) {
+        response.adPlacements = [];
+        console.log("[NovaShield][YT] Stripped adPlacements");
+      }
+      if (response.adSlots) {
+        response.adSlots = [];
+        console.log("[NovaShield][YT] Stripped adSlots");
+      }
+      if (response.playerAds) {
+        response.playerAds = [];
+        console.log("[NovaShield][YT] Stripped playerAds");
+      }
+      if (response.auxiliaryUi && response.auxiliaryUi.messageRenderers) {
+        response.auxiliaryUi.messageRenderers = {};
+      }
+      // Deep strip
+      if (response.streamingData && response.streamingData.adaptiveFormats) {
+        // Keep video formats, but remove ad-related
+      }
+    } catch (e) {}
+    return response;
+  }
+
+  /* ================================================================== *
+   * CSS injection
+   * ================================================================== */
   const css = `
     .ytp-ad-overlay-container, .ytp-ad-module, .ytp-ad-player-overlay,
     .ytp-ad-player-overlay-flyout-cta, .ytp-ad-image-overlay,
@@ -69,7 +141,8 @@
     ytd-search-pyv-renderer, ytd-merch-shelf-renderer, ytd-mealbar-promo-renderer,
     ytd-primetime-promo-renderer, ytd-promo-video-renderer,
     ytd-banner-promo-renderer, #masthead-ad, #feedmodule-ads,
-    ytd-thumbnail-overlay-time-status-renderer[overlay-style="DEFAULT"] {
+    ytd-thumbnail-overlay-time-status-renderer[overlay-style="DEFAULT"],
+    ytd-player-legacy-desktop-watch-attr-renderer {
       display: none !important; visibility: hidden !important;
       opacity: 0 !important; pointer-events: none !important;
       height: 0 !important; width: 0 !important;
@@ -84,12 +157,18 @@
       position: static !important; z-index: 99999 !important;
       height: auto !important; width: auto !important;
     }
+    /* v3.1: Hide ad-based prompts and surveys */
+    ytd-popup-container tp-yt-paper-dialog,
+    ytd-enagement-message-section-renderer,
+    yt-mealbar-promo-renderer {
+      display: none !important;
+    }
   `;
 
   function injectCSS() {
-    if (document.getElementById("__novashield_yt_css_v2")) return;
+    if (document.getElementById("__novashield_yt_css_v3")) return;
     const s = document.createElement("style");
-    s.id = "__novashield_yt_css_v2";
+    s.id = "__novashield_yt_css_v3";
     s.textContent = css;
     (document.head || document.documentElement).appendChild(s);
   }
@@ -120,8 +199,8 @@
     function attach() {
       const player = getPlayer();
       if (!player) { setTimeout(attach, 200); return; }
-      if (player.__adbgObserved) return;
-      player.__adbgObserved = true;
+      if (player.__novashieldObserved) return;
+      player.__novashieldObserved = true;
       const obs = new MutationObserver(() => {
         const isAd = detectAdState();
         if (isAd !== isCurrentlyAd) {
@@ -154,6 +233,12 @@
     if (features.ytSpeedUp) tortureVideo();
     if (features.ytAutoSkip) tryClickSkip();
     forceSeekToEnd();
+    // Notify counter
+    try {
+      window.dispatchEvent(new CustomEvent("__novashield_blocked_request", {
+        detail: { type: "youtube_ad", url: "youtube_ad_segment" }
+      }));
+    } catch (e) {}
   }
 
   function onAdEnd() {
@@ -208,8 +293,8 @@
 
   function setupVideoTorture() {
     const video = getVideo();
-    if (!video || video.__adbgRatePatched) return;
-    video.__adbgRatePatched = true;
+    if (!video || video.__novashieldRatePatched) return;
+    video.__novashieldRatePatched = true;
     const desc = Object.getOwnPropertyDescriptor(HTMLMediaElement.prototype, "playbackRate");
     if (desc && desc.set) {
       Object.defineProperty(video, "playbackRate", {
@@ -233,6 +318,9 @@
       ".ytp-ad-skip-button-modern", ".ytp-ad-skip-button", ".ytp-skip-ad-button",
       "button.ytp-skip-ad-button", ".ytp-ad-skip-button-container button",
       "[id^='skip-button']", "button[aria-label*='Skip']", "button[aria-label*='Lewati']",
+      // v3.1: additional skip button selectors
+      ".ytp-skip-ad__skip-button", "button[data-tooltip='Skip Ads']",
+      ".ytp-ad-skip-button-icon", ".ytp-ad-skip-button-text",
     ];
     for (const sel of candidates) {
       const btn = document.querySelector(sel);
@@ -247,15 +335,15 @@
     function attach() {
       const player = getPlayer();
       if (!player) { setTimeout(attach, 500); return; }
-      if (player.__adbgSkipObserved) return;
-      player.__adbgSkipObserved = true;
+      if (player.__novashieldSkipObserved) return;
+      player.__novashieldSkipObserved = true;
       const obs = new MutationObserver(() => {
         if (isCurrentlyAd && features.ytAutoSkip) tryClickSkip();
       });
       obs.observe(player, { childList: true, subtree: true, attributes: true, attributeFilter: ["class", "style"] });
       setInterval(() => {
         if (isCurrentlyAd && features.ytAutoSkip) tryClickSkip();
-      }, 200);
+      }, 100); // v3.1: faster polling (100ms vs 200ms)
     }
     attach();
     setInterval(attach, 2000);
@@ -276,7 +364,7 @@
   async function fetchSponsorSegments(videoId) {
     try {
       const resp = await fetch(
-        `https://sponsor.ajay.app/api/skipSegments?videoID=${encodeURIComponent(videoId)}&categories=["sponsor","intro","outro","selfpromo","interaction","preview"]`,
+        `https://sponsor.ajay.app/api/skipSegments?videoID=${encodeURIComponent(videoId)}&categories=["sponsor","intro","outro","selfpromo","interaction","preview","music_offtopic","filler"]`,
         { cache: "no-store" }
       );
       if (!resp.ok) return [];
@@ -342,8 +430,8 @@
   }
 
   function setupSponsorBlock() {
-    setInterval(checkVideoChange, 1000);
-    setInterval(skipSponsorSegments, 200);
+    setInterval(checkVideoChange, 500); // v3.1: faster check
+    setInterval(skipSponsorSegments, 100); // v3.1: faster skip
   }
 
   function attachYtNavigateListener() {
@@ -353,6 +441,8 @@
         setupAdStateObserver();
         setupVideoTorture();
         setupSkipButtonWatcher();
+        // v3.1: re-intercept ytInitialPlayerResponse on navigation
+        interceptYtInitialData();
       }, 300);
     });
     document.addEventListener("yt-page-data-updated", () => {
