@@ -64,11 +64,15 @@
   <link rel="apple-touch-icon" href="tes.jpg">
   <link rel="mask-icon" href="tes.jpg" color="#6aa7ff">
   <link rel="manifest" href="site.webmanifest">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Portfolio Ahsan">
   <meta name="application-name" content="AhsanID">
   <meta name="format-detection" content="telephone=no">
+
+  <!-- Content Security Policy: allow Cloudflare + CDN + inline scripts -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdnjs.cloudflare.com https://cdn.tailwindcss.com https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com https://www.ahsangresik.me; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://www.ahsangresik.me https://static.cloudflareinsights.com https://www.google-analytics.com https://*.ahsangresik.me; frame-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
 
   <!-- Performance hints -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
