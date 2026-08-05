@@ -1,10 +1,14 @@
 /* =====================================================================
- * NovaShield v3.6 - Background (uBlock-inspired engines)
+ * NovaShield v3.7 - Background (IP Masker + Enhanced Security)
  * ===================================================================== */
+
+// Import proxy engine (v3.7)
+importScripts("data/proxy-engine.js");
+const { enableProxy, disableProxy, getProxyStatus } = NovaShieldProxy || {};
 
 const API = (typeof browser !== "undefined") ? browser : chrome;
 
-const CURRENT_VERSION = "3.6.0";
+const CURRENT_VERSION = "3.7.0";
 const GITHUB_RELEASES_URL = "https://api.github.com/repos/Yz776/informatika/releases/latest";
 const GITHUB_LATEST_VERSION_URL = "https://raw.githubusercontent.com/Yz776/informatika/main/adblocker-extension/manifest.json";
 
@@ -57,6 +61,19 @@ const DEFAULT_STATE = {
     "mlEnabled", "contentFilter", "strictRedirect",
     "webrtcProtect", "canvasProtect", "audioProtect",
   ],
+  // v3.7: IP Masker (proxy 78.154.103.38:11560)
+  ipMaskerEnabled: false,  // default OFF (user must enable explicitly)
+  proxyHost: "78.154.103.38",
+  proxyPort: 11560,
+  // v3.7: Enhanced user privacy
+  gpcEnabled: true,        // Global Privacy Control
+  dntEnabled: true,        // Do Not Track
+  referrerStrip: true,     // Strip cross-origin referrer
+  sensorBlock: true,       // Block sensor APIs (accelerometer, etc.)
+  // v3.7: Enhanced activation security
+  activationSecure: true,  // Use signed tokens
+  activationToken1: null,  // Split storage (obfuscated)
+  activationToken2: null,
   whitelist: ["ahsangresik.me", "localhost", "127.0.0.1"],
   pausedSites: {},
   customHideRules: {},
@@ -633,8 +650,37 @@ API.runtime.onMessage.addListener((msg, sender, sendResponse) => {
           if (["trackersEnabled", "ytBlockEnabled", "malwareBlock", "httpsUpgrade"].includes(msg.key)) {
             await applyEnabledState();
           }
+          // v3.7: IP Masker toggle
+          if (msg.key === "ipMaskerEnabled") {
+            if (msg.value) {
+              const ok = await enableProxy();
+              if (!ok) {
+                // Revert if proxy failed
+                await setState({ ipMaskerEnabled: false });
+                sendResponse({ ok: false, error: "Proxy setup failed" });
+                break;
+              }
+            } else {
+              await disableProxy();
+            }
+          }
           broadcastToTabs({ type: "STATE_CHANGED", ...patch });
           sendResponse({ ok: true });
+          break;
+        }
+        case "GET_PROXY_STATUS": {
+          const status = await getProxyStatus();
+          sendResponse({ ok: true, status });
+          break;
+        }
+        case "GET_PROXY_INFO": {
+          const state = await getState();
+          sendResponse({
+            ok: true,
+            host: state.proxyHost,
+            port: state.proxyPort,
+            enabled: state.ipMaskerEnabled,
+          });
           break;
         }
         case "TOGGLE_WHITELIST_DOMAIN": {
@@ -833,6 +879,15 @@ API.contextMenus.onClicked.addListener(async (info, tab) => {
     if (state.autoUpdateCheck && updateAge > 24 * 60 * 60 * 1000) {
       checkForUpdates();
     }
+    // v3.7: Restore proxy state on startup
+    if (state.ipMaskerEnabled) {
+      console.log("[NovaShield] Restoring proxy on startup");
+      const ok = await enableProxy();
+      if (!ok) {
+        await setState({ ipMaskerEnabled: false });
+        console.warn("[NovaShield] Proxy restore failed, disabled");
+      }
+    }
   }
   setInterval(async () => {
     const s = await getState();
@@ -848,4 +903,4 @@ API.contextMenus.onClicked.addListener(async (info, tab) => {
   }, 60000);
 })();
 
-console.log("[NovaShield] background v3.6 aktif (uBlock-inspired engines)");
+console.log("[NovaShield] background v3.7 aktif (IP Masker + Enhanced Security)");

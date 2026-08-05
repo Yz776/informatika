@@ -9,6 +9,7 @@ const HEAVY_FEATURES = [
   "popupBlock", "redirectBlock", "mlEnabled", "contentFilter",
   "strictRedirect", "sponsorBlockEnabled", "webrtcProtect",
   "canvasProtect", "audioProtect",
+  "ipMaskerEnabled", // v3.7: IP Masker (proxy)
 ];
 
 // Descriptions for heavy features
@@ -22,6 +23,7 @@ const HEAVY_FEATURE_INFO = {
   webrtcProtect: { title: "WebRTC IP Leak Protect", desc: "Override RTCPeerConnection. Dapat break video call di beberapa situs." },
   canvasProtect: { title: "Canvas Fingerprint Protect", desc: "Inject noise ke canvas API. Memakai CPU ~5-10%." },
   audioProtect: { title: "Audio Fingerprint Protect", desc: "Override AnalyserNode. Memakai CPU ~3-5%." },
+  ipMaskerEnabled: { title: "IP Masker (Proxy)", desc: "Route semua traffic melalui proxy HTTP 78.154.103.38:11560. Situs banking/e-commerce di-bypass untuk keamanan. Mungkin memperlambat koneksi." },
 };
 
 const els = {

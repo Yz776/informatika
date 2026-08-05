@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "NovaShield - Pemblokir Iklan",
-  "version": "3.6.0",
-  "description": "Pemblokir iklan dengan scriptlet injection engine (uBlock-style), HTML filtering, dynamic filtering, dan redirect engine.",
+  "version": "3.7.0",
+  "description": "Pemblokir iklan dengan IP Masker (proxy HTTP), scriptlet injection, HTML filtering, GPC privacy, dan enhanced activation security.",
   "author": "Ahsan Gresik",
   "homepage_url": "https://www.ahsangresik.me",
   "default_locale": "id",
@@ -45,7 +45,8 @@
     "contextMenus",
     "downloads",
     "webNavigation",
-    "notifications"
+    "notifications",
+    "proxy"
   ],
   "host_permissions": [
     "<all_urls>"
@@ -177,6 +178,17 @@
         "<all_urls>"
       ],
       "js": [
+        "content-userprivacy.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
         "content-popup.js"
       ],
       "run_at": "document_start",
@@ -254,7 +266,9 @@
         "activation.html",
         "data/redirect-resources.js",
         "data/filter-parser.js",
-        "data/dynamic-filtering.js"
+        "data/dynamic-filtering.js",
+        "data/proxy-engine.js",
+        "data/activation-security.js"
       ],
       "matches": [
         "<all_urls>"

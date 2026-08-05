@@ -9,6 +9,9 @@
       webrtcProtect: true, canvasProtect: true, audioProtect: true, fontProtect: true,
       popupBlock: true, redirectBlock: true, antiAdblockEnabled: true,
       mlEnabled: true, contentFilter: true, strictRedirect: true,
+      // v3.7: user privacy
+      gpcEnabled: true, dntEnabled: true, referrerStrip: true, sensorBlock: true,
+      ipMaskerEnabled: false,
     }, (data) => {
       const evt = new CustomEvent("__novashield_privacy_state", {
         detail: {
@@ -27,6 +30,7 @@
       }));
       // v3.1: broadcast full state to popup blocker & anti-adblock scripts
       // v3.3: add mlEnabled, contentFilter, strictRedirect
+      // v3.7: add gpcEnabled, dntEnabled, referrerStrip, sensorBlock, ipMaskerEnabled
       window.dispatchEvent(new CustomEvent("__novashield_state", {
         detail: {
           activated: !!data.activated,
@@ -37,6 +41,12 @@
           mlEnabled: !!data.mlEnabled,
           contentFilter: !!data.contentFilter,
           strictRedirect: !!data.strictRedirect,
+          // v3.7
+          gpcEnabled: !!data.gpcEnabled,
+          dntEnabled: !!data.dntEnabled,
+          referrerStrip: !!data.referrerStrip,
+          sensorBlock: !!data.sensorBlock,
+          ipMaskerEnabled: !!data.ipMaskerEnabled,
         }
       }));
     });
