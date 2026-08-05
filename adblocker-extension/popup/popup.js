@@ -35,6 +35,7 @@ const els = {
   statusBadge: document.getElementById("statusBadge"),
   activationBanner: document.getElementById("activationBanner"),
   activateBtn: document.getElementById("activateBtn"),
+  activateManualBtn: document.getElementById("activateManualBtn"),
   updateBanner: document.getElementById("updateBanner"),
   updateVersion: document.getElementById("updateVersion"),
   updateDesc: document.getElementById("updateDesc"),
@@ -179,8 +180,22 @@ async function render() {
     els.activateBtn.onclick = async () => {
       els.activateBtn.disabled = true;
       els.activateBtn.innerHTML = "Membuka...";
-      await API.tabs.create({ url: "https://www.ahsangresik.me#aktifasi" });
+      await API.tabs.create({ url: "https://ahsangresik.me#aktifasi" });
       setTimeout(() => window.close(), 1500);
+    };
+    // v3.8.3: Manual activation (no website needed - direct message to background)
+    els.activateManualBtn.onclick = async () => {
+      els.activateManualBtn.disabled = true;
+      els.activateManualBtn.innerHTML = "Aktivasi...";
+      const resp = await sendMessage({ type: "ACTIVATE" });
+      if (resp && resp.ok && resp.activated) {
+        showToast("NovaShield berhasil diaktivasi!");
+        setTimeout(() => window.close(), 1500);
+      } else {
+        showToast("Gagal aktivasi, coba tombol Web");
+        els.activateManualBtn.disabled = false;
+        els.activateManualBtn.innerHTML = "Aktivasi Cepat";
+      }
     };
     return;
   } else {

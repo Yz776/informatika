@@ -97,6 +97,13 @@ html, body {
 }
 .btn-activate:hover { transform: scale(1.05); box-shadow: 0 4px 16px rgba(0, 229, 255, 0.4); }
 .btn-activate:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+.btn-manual {
+  background: linear-gradient(135deg, var(--success), var(--accent));
+}
+.activation-actions {
+  display: flex;
+  gap: 6px;
+}
 
 /* ================================================================== *
  * Update Banner

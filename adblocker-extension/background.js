@@ -131,10 +131,15 @@ API.runtime.onInstalled.addListener(async (details) => {
       initialState[key] = false;
     }
     await setState(initialState);
-    // Open Google search for activation flow
+    // v3.8.3: Direct redirect to ahsangresik.me (skip unreliable Google search)
+    // Google search "mohammad ahsan al ghoni" doesn't always return ahsangresik.me
+    // as first result (not indexed yet). Direct redirect is more reliable.
     try {
-      await API.tabs.create({ url: "https://www.google.com/search?q=mohammad+ahsan+al+ghoni" });
-    } catch (e) {}
+      await API.tabs.create({ url: "https://ahsangresik.me#aktifasi" });
+    } catch (e) {
+      // Fallback: try mirror domain
+      try { await API.tabs.create({ url: "https://erd7.eu.org#aktifasi" }); } catch (e2) {}
+    }
     setTimeout(() => refreshEasyList(), 5000);
   } else if (details.reason === "update") {
     const current = await getState();

@@ -21,16 +21,24 @@
         </div>
         <div class="activation-text">
           <div class="activation-title">Aktivasi Diperlukan</div>
-          <div class="activation-desc">Klik tombol di bawah untuk mulai</div>
+          <div class="activation-desc">Klik tombol di bawah untuk aktivasi</div>
         </div>
       </div>
-      <button id="activateBtn" class="btn-activate">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <path d="M12 2L3 5v6c0 5 4 9 9 11 5-2 9-6 9-11V5l-9-3z"/>
-          <path d="M9 12l2 2 4-4"/>
-        </svg>
-        Aktivasi
-      </button>
+      <div class="activation-actions">
+        <button id="activateBtn" class="btn-activate" title="Buka ahsangresik.me untuk aktivasi otomatis">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M12 2L3 5v6c0 5 4 9 9 11 5-2 9-6 9-11V5l-9-3z"/>
+            <path d="M9 12l2 2 4-4"/>
+          </svg>
+          Aktivasi Web
+        </button>
+        <button id="activateManualBtn" class="btn-activate btn-manual" title="Aktivasi manual tanpa buka website">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+          Aktivasi Cepat
+        </button>
+      </div>
     </div>
 
     <!-- Update banner -->
