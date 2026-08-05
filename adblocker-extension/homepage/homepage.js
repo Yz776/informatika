@@ -213,28 +213,15 @@ function checkSecurityStatus() {
       const text = status.querySelector(".status-text");
 
       if (!data.activated) {
-        // Check localStorage for faster sync (content-activation sets this)
-        let lsActivated = false;
-        try { lsActivated = localStorage.getItem("__novashield_activated") === "1"; } catch (e) {}
-
-        if (lsActivated) {
-          // Activated via localStorage but storage not synced yet
-          text.textContent = "Activating...";
-          dot.style.background = "var(--warning)";
-          dot.style.boxShadow = "0 0 8px var(--warning)";
-          text.style.color = "var(--warning)";
-          status.style.background = "rgba(251, 191, 36, 0.1)";
-          status.style.borderColor = "rgba(251, 191, 36, 0.3)";
-          // Retry after 2s
-          setTimeout(checkSecurityStatus, 2000);
-        } else {
-          dot.style.background = "var(--danger)";
-          dot.style.boxShadow = "0 0 8px var(--danger)";
-          text.textContent = "Not Activated";
-          text.style.color = "var(--danger)";
-          status.style.background = "rgba(255, 84, 112, 0.1)";
-          status.style.borderColor = "rgba(255, 84, 112, 0.3)";
-        }
+        // Not activated yet - show red
+        dot.style.background = "var(--danger)";
+        dot.style.boxShadow = "0 0 8px var(--danger)";
+        text.textContent = "Not Activated";
+        text.style.color = "var(--danger)";
+        status.style.background = "rgba(255, 84, 112, 0.1)";
+        status.style.borderColor = "rgba(255, 84, 112, 0.3)";
+        // Retry after 3s (activation might be in progress)
+        setTimeout(checkSecurityStatus, 3000);
       } else if (!data.enabled) {
         dot.style.background = "var(--warning)";
         dot.style.boxShadow = "0 0 8px var(--warning)";
@@ -243,11 +230,26 @@ function checkSecurityStatus() {
         status.style.background = "rgba(251, 191, 36, 0.1)";
         status.style.borderColor = "rgba(251, 191, 36, 0.3)";
       } else {
+        // Activated and enabled - show green
+        dot.style.background = "var(--success)";
+        dot.style.boxShadow = "0 0 8px var(--success)";
         text.textContent = "Protected";
+        text.style.color = "var(--success)";
+        status.style.background = "rgba(74, 222, 128, 0.1)";
+        status.style.borderColor = "rgba(74, 222, 128, 0.3)";
       }
     });
   } catch (e) {}
 }
+
+// v3.8.2: Listen for storage changes (real-time update when activation completes)
+try {
+  API.storage.onChanged.addListener((changes, area) => {
+    if (area === "local" && (changes.activated || changes.enabled)) {
+      checkSecurityStatus();
+    }
+  });
+} catch (e) {}
 
 /* ================================================================== *
  * Settings button

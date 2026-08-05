@@ -1,20 +1,17 @@
 /* =====================================================================
- * NovaShield v3.8 - Google Search Auto-Redirect (FIXED)
+ * NovaShield v3.8.2 - Google Search Auto-Redirect (BULLETPROOF)
  * ---------------------------------------------------------------------
- * Saat new install, extension membuka Google search "mohammad ahsan al ghoni".
- * Script ini auto-click hasil organic pertama yang mengarah ke salah satu
- * domain resmi: ahsangresik.me, erd7.eu.org, atau ahsann.is-a.dev.
- *
- * FIXES v3.8:
- *   - Fix syntax error: "h3 aref^='http']" -> "h3 a[href^='http']"
- *   - Prioritize domain ahsangresik.me/erd7/ahsann dalam hasil pencarian
- *   - Fallback: klik result pertama jika tidak ada domain match
- *   - Better selector coverage (Google 2025 layout)
+ * FIXES:
+ *   - Match ALL Google domains (not just .com and .co.id)
+ *   - Run at document_start (not document_idle)
+ *   - Use location.href instead of link.click() (Google blocks clicks)
+ *   - Better selector coverage (Google 2025)
+ *   - Retry with exponential backoff
  * ===================================================================== */
 
 (() => {
-  // Only run on Google search results pages
-  if (!location.hostname.includes("google.")) return;
+  // Match ALL Google search domains
+  if (!location.hostname.match(/google\.[a-z.]{2,}$/i)) return;
   if (!location.pathname.startsWith("/search")) return;
 
   // Check if this is the activation search
@@ -22,30 +19,37 @@
   const query = params.get("q") || "";
   if (!query.toLowerCase().includes("mohammad ahsan al ghoni")) return;
 
-  console.log("[NovaShield] Activation search detected, auto-clicking first result...");
+  console.log("[NovaShield][Google] Activation search detected on:", location.hostname);
 
-  // Official domains (priority order)
   const OFFICIAL_DOMAINS = [
     "ahsangresik.me",
     "erd7.eu.org",
     "ahsann.is-a.dev",
-    "www.ahsangresik.me",
-    "www.erd7.eu.org",
-    "www.ahsann.is-a.dev",
   ];
 
   function isOfficialDomain(url) {
     try {
       const u = new URL(url);
-      const host = u.hostname.toLowerCase();
-      return OFFICIAL_DOMAINS.some((d) => host === d || host.endsWith("." + d));
+      const host = u.hostname.toLowerCase().replace(/^www\./, "");
+      return OFFICIAL_DOMAINS.includes(host);
     } catch (e) {
       return false;
     }
   }
 
-  function findFirstOrganicResult() {
-    // Modern Google selectors (2025)
+  function extractUrl(href) {
+    if (!href) return null;
+    // Handle Google redirect links (/url?q=...)
+    if (href.startsWith("/url?q=") || href.includes("/url?q=")) {
+      const match = href.match(/[?&]q=([^&]+)/);
+      if (match) return decodeURIComponent(match[1]);
+    }
+    if (href.startsWith("http")) return href;
+    return null;
+  }
+
+  function findBestResult() {
+    // Comprehensive selectors (Google 2025 layout)
     const selectors = [
       "#search .g h3 a",
       "#search h3 a",
@@ -54,82 +58,118 @@
       ".yuRUbf h3 a",
       ".yuRUbf a",
       "#search a h3",
-      "h3 a[href^='http']",  // FIXED: was "h3 aref^='http']"
+      "h3 a[href^='http']",
       "a[data-jsarwt='1']",
-      "a[href^='/url?q=']",  // Google redirect links
+      "a[href^='/url?q=']",
+      "div[data-ved] a h3",
+      "//a[contains(@href,'ahsangresik')]",
     ];
 
     const allResults = [];
+    const seen = new Set();
+
     for (const sel of selectors) {
       try {
         const links = document.querySelectorAll(sel);
         for (const link of links) {
-          const href = link.href || link.getAttribute("href") || "";
-          if (!href) continue;
-          // Skip google internal links
-          if (href.includes("google.com") || href.includes("google.co.")) continue;
-          // Handle Google redirect links (/url?q=...)
-          let finalUrl = href;
-          if (href.startsWith("/url?q=")) {
-            const match = href.match(/[?&]q=([^&]+)/);
-            if (match) finalUrl = decodeURIComponent(match[1]);
-          }
-          if (finalUrl.startsWith("http")) {
-            allResults.push({ link, url: finalUrl });
-          }
+          const rawHref = link.href || link.getAttribute("href") || "";
+          const url = extractUrl(rawHref);
+          if (!url || seen.has(url)) continue;
+          // Skip google internal
+          if (url.includes("google.") && !url.includes("ahsangresik")) continue;
+          seen.add(url);
+          allResults.push({ link, url, element: link });
         }
       } catch (e) {}
     }
 
     if (allResults.length === 0) return null;
 
-    // Priority 1: Find result matching official domains
+    // Priority 1: Official domains
     for (const result of allResults) {
       if (isOfficialDomain(result.url)) {
-        console.log("[NovaShield] Found official domain result:", result.url);
-        return result.link;
+        console.log("[NovaShield][Google] Found official domain:", result.url);
+        return result;
       }
     }
 
-    // Priority 2: Find result containing "ahsan" or "gresik" in URL
+    // Priority 2: URL contains ahsan/gresik/erd7
     for (const result of allResults) {
       const lower = result.url.toLowerCase();
       if (lower.includes("ahsan") || lower.includes("gresik") || lower.includes("erd7")) {
-        console.log("[NovaShield] Found ahsan-related result:", result.url);
-        return result.link;
+        console.log("[NovaShield][Google] Found related domain:", result.url);
+        return result;
       }
     }
 
-    // Priority 3: Fallback to first organic result
-    console.log("[NovaShield] Fallback to first result:", allResults[0].url);
-    return allResults[0].link;
+    // Priority 3: First result
+    console.log("[NovaShield][Google] Fallback to first result:", allResults[0].url);
+    return allResults[0];
   }
 
-  function attemptClick() {
-    const link = findFirstOrganicResult();
-    if (link) {
-      console.log("[NovaShield] Clicking result:", link.href);
-      // Set a flag so content-activation.js on the destination knows this is an activation flow
-      try { sessionStorage.setItem("__novashield_activation_flow", "1"); } catch (e) {}
-      // Click to navigate
-      link.click();
+  function navigateToResult() {
+    const result = findBestResult();
+    if (!result) return false;
+
+    console.log("[NovaShield][Google] Navigating to:", result.url);
+
+    // Method 1: location.href (most reliable, bypasses Google's click interception)
+    try {
+      window.location.href = result.url;
       return true;
-    }
+    } catch (e) {}
+
+    // Method 2: location.assign
+    try {
+      window.location.assign(result.url);
+      return true;
+    } catch (e) {}
+
+    // Method 3: location.replace (no history entry)
+    try {
+      window.location.replace(result.url);
+      return true;
+    } catch (e) {}
+
+    // Method 4: Fallback to click (may not work due to Google CSP)
+    try {
+      result.element.click();
+      return true;
+    } catch (e) {}
+
+    // Method 5: Open in same tab via window.open
+    try {
+      window.open(result.url, "_self");
+      return true;
+    } catch (e) {}
+
     return false;
   }
 
-  // Try multiple times since Google renders dynamically
+  // Retry with exponential backoff
+  // Google renders results via JS, so we need to wait
   let attempts = 0;
-  const interval = setInterval(() => {
-    attempts++;
-    if (attemptClick() || attempts > 30) {
-      clearInterval(interval);
-    }
-  }, 200);
+  const maxAttempts = 25;
+  const delays = [100, 300, 500, 800, 1200, 1500, 2000, 2500, 3000, 3500, 4000, 4500, 5000];
 
-  // Also try immediately
-  setTimeout(attemptClick, 500);
-  setTimeout(attemptClick, 1000);
-  setTimeout(attemptClick, 2000);
-  setTimeout(attemptClick, 3500);
+  function tryNavigate() {
+    if (attempts >= maxAttempts) {
+      console.log("[NovaShield][Google] Max attempts reached, giving up");
+      return;
+    }
+    attempts++;
+    console.log(`[NovaShield][Google] Attempt ${attempts}/${maxAttempts}`);
+
+    if (navigateToResult()) {
+      console.log("[NovaShield][Google] Navigation triggered");
+      return;
+    }
+
+    // Schedule next attempt
+    const delay = delays[Math.min(attempts - 1, delays.length - 1)];
+    setTimeout(tryNavigate, delay);
+  }
+
+  // Start immediately
+  tryNavigate();
 })();
