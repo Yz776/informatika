@@ -6,7 +6,7 @@
   let enabled = true, webrtcProtect = true, canvasProtect = true,
       audioProtect = true, fontProtect = true, activated = false;
 
-  try { activated = localStorage.getItem("__novashield_activated") === "1"; } catch (e) {}
+  /* activation removed in v4.0 */
 
   window.addEventListener("__novashield_privacy_state", (e) => {
     if (e.detail) {
@@ -16,13 +16,13 @@
       if (typeof e.detail.canvas !== "undefined") canvasProtect = !!e.detail.canvas;
       if (typeof e.detail.audio !== "undefined") audioProtect = !!e.detail.audio;
       if (typeof e.detail.font !== "undefined") fontProtect = !!e.detail.font;
-      if (activated && enabled) applyAll();
+      if (enabled) applyAll();
     }
   });
   window.dispatchEvent(new CustomEvent("__novashield_privacy_request_state"));
 
   function applyAll() {
-    if (!activated || !enabled) return;
+    if (!enabled) return;
     protectWebRTC();
     protectCanvas();
     protectAudio();

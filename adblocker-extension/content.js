@@ -2,13 +2,13 @@
 (() => {
   const API = (typeof browser !== "undefined") ? browser : chrome;
   let enabled = true, cosmeticEnabled = true, activated = false;
-  try { activated = localStorage.getItem("__novashield_activated") === "1"; } catch (e) {}
+  /* activation removed in v4.0 */
 
   API.storage.local.get({ enabled: true, cosmeticEnabled: true, activated: false }, (data) => {
     enabled = !!data.enabled;
     cosmeticEnabled = !!data.cosmeticEnabled;
     activated = !!data.activated;
-    try { localStorage.setItem("__novashield_activated", activated ? "1" : "0"); } catch (e) {}
+    /* v4.0: activation localStorage removed */
     if (activated && enabled && cosmeticEnabled) runCosmeticSweep();
   });
 
@@ -16,7 +16,7 @@
     if (!msg || msg.type !== "STATE_CHANGED") return;
     if (typeof msg.activated === "boolean") {
       activated = msg.activated;
-      try { localStorage.setItem("__novashield_activated", activated ? "1" : "0"); } catch (e) {}
+      /* v4.0: activation localStorage removed */
     }
     if (typeof msg.enabled === "boolean") enabled = msg.enabled;
     if (typeof msg.cosmetic === "boolean") cosmeticEnabled = msg.cosmetic;
@@ -89,7 +89,7 @@
   ].join(",");
 
   function runAntiAdblockCleanup() {
-    if (!activated || !enabled) return;
+    if (!enabled) return;
     try {
       document.querySelectorAll(ANTI_ADBLOCK_SELECTORS).forEach((n) => { try { n.remove(); } catch (e) {} });
       [document.documentElement, document.body].forEach((el) => {
@@ -117,7 +117,7 @@
   function attachAntiAdblockObserver() {
     if (!document.body) { setTimeout(attachAntiAdblockObserver, 50); return; }
     const obs = new MutationObserver((mutations) => {
-      if (!activated || !enabled) return;
+      if (!enabled) return;
       for (const m of mutations) {
         if (m.addedNodes && m.addedNodes.length > 0) { scheduleCleanup(); break; }
       }

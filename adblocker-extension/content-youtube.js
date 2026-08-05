@@ -10,7 +10,7 @@
     ytSpeedUp: true, sponsorBlockEnabled: true,
   };
 
-  try { activated = localStorage.getItem("__novashield_activated") === "1"; } catch (e) {}
+  /* activation removed in v4.0 */
 
   API.storage.local.get({
     activated: false, enabled: true, ytBlockEnabled: true, ytAutoSkip: true,
@@ -22,16 +22,16 @@
       ytAutoSkip: !!data.ytAutoSkip, ytSpeedUp: !!data.ytSpeedUp,
       sponsorBlockEnabled: !!data.sponsorBlockEnabled,
     };
-    try { localStorage.setItem("__novashield_activated", activated ? "1" : "0"); } catch (e) {}
-    if (activated && features.enabled) boot();
+    /* v4.0: activation localStorage removed */
+    if (features.enabled) boot();
   });
 
   API.runtime.onMessage.addListener((msg) => {
     if (!msg || msg.type !== "STATE_CHANGED") return;
     if (typeof msg.activated === "boolean") {
       activated = msg.activated;
-      try { localStorage.setItem("__novashield_activated", activated ? "1" : "0"); } catch (e) {}
-      if (activated && features.enabled) boot();
+      /* v4.0: activation localStorage removed */
+      if (features.enabled) boot();
     }
     if (typeof msg.enabled === "boolean") features.enabled = msg.enabled;
     if (typeof msg.ytBlockEnabled === "boolean") features.ytBlockEnabled = msg.ytBlockEnabled;
@@ -54,7 +54,7 @@
     console.info("[NovaShield][YT] v3.1 aktif");
   }
 
-  if (!activated) return;
+  // v4.0: always run
 
   /* ================================================================== *
    * NEW v3.1: Intercept ytInitialPlayerResponse to strip ad data

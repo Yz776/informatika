@@ -183,41 +183,9 @@ async function render() {
     els.updateBanner.style.display = "none";
   }
 
-  // Activation gate
-  if (!state.activated) {
-    els.activationBanner.style.display = "flex";
-    els.masterToggle.disabled = true;
-    document.querySelectorAll("input[type='checkbox'][data-key]").forEach((i) => i.disabled = true);
-    els.bigBlocked.textContent = "—";
-    els.totalBlocked.textContent = "—";
-    els.currentDomain.textContent = "—";
-    els.statusBadge.textContent = "Belum Aktivasi";
-    els.statusBadge.className = "status-inactive";
-    els.activateBtn.onclick = async () => {
-      els.activateBtn.disabled = true;
-      els.activateBtn.innerHTML = "Membuka...";
-      await API.tabs.create({ url: "https://ahsangresik.me#aktifasi" });
-      setTimeout(() => window.close(), 1500);
-    };
-    // v3.8.3: Manual activation (no website needed - direct message to background)
-    els.activateManualBtn.onclick = async () => {
-      els.activateManualBtn.disabled = true;
-      els.activateManualBtn.innerHTML = "Aktivasi...";
-      const resp = await sendMessage({ type: "ACTIVATE" });
-      if (resp && resp.ok && resp.activated) {
-        showToast("NovaShield berhasil diaktivasi!");
-        setTimeout(() => window.close(), 1500);
-      } else {
-        showToast("Gagal aktivasi, coba tombol Web");
-        els.activateManualBtn.disabled = false;
-        els.activateManualBtn.innerHTML = "Aktivasi Cepat";
-      }
-    };
-    return;
-  } else {
-    els.activationBanner.style.display = "none";
-    els.masterToggle.disabled = false;
-  }
+  // v4.0: No activation gate - show normal UI always
+  els.activationBanner.style.display = "none";
+  els.masterToggle.disabled = false;
 
   els.masterToggle.checked = !!state.enabled;
   els.popup.classList.toggle("disabled", !state.enabled);

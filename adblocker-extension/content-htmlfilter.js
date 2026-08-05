@@ -18,8 +18,7 @@
   if (window.__novashieldHTMLFilter) return;
   window.__novashieldHTMLFilter = true;
 
-  let activated = false;
-  try { activated = localStorage.getItem("__novashield_activated") === "1"; } catch (e) {}
+  const activated = true; // v4.0: always activated
 
   window.addEventListener("__novashield_activation_changed", (e) => {
     activated = !!(e.detail && e.detail.activated);
@@ -84,7 +83,7 @@
    * Remove HTML elements matching selectors BEFORE they execute
    * ================================================================== */
   function removeAdElements(root) {
-    if (!activated) return;
+    // v4.0: always run
     const hostname = getCurrentHostname();
     if (!hostname) return;
 
@@ -125,7 +124,7 @@
     const origWriteln = document.writeln.bind(document);
 
     function filterAndWrite(text) {
-      if (!activated) return origWrite(text);
+      // v4.0: always run
       // Check if the markup contains ad scripts
       if (typeof text === "string") {
         const hasAd = /adsbygoogle|googlesyndication|doubleclick|pagead|adsystem/i.test(text);
@@ -139,7 +138,7 @@
 
     document.write = filterAndWrite;
     document.writeln = function (text) {
-      if (!activated) return origWriteln(text);
+      // v4.0: always run
       if (typeof text === "string") {
         const hasAd = /adsbygoogle|googlesyndication|doubleclick|pagead|adsystem/i.test(text);
         if (hasAd) {
@@ -211,7 +210,7 @@
    * Start HTML filtering
    * ================================================================== */
   function startHTMLFiltering() {
-    if (!activated) return;
+    // v4.0: always run
 
     // Intercept document.write immediately (before any script runs)
     interceptDocumentWrite();

@@ -30,8 +30,7 @@
   if (window.__novashieldScriptlets) return;
   window.__novashieldScriptlets = true;
 
-  let activated = false;
-  try { activated = localStorage.getItem("__novashield_activated") === "1"; } catch (e) {}
+  const activated = true; // v4.0: always activated
 
   window.addEventListener("__novashield_activation_changed", (e) => {
     activated = !!(e.detail && e.detail.activated);
@@ -464,7 +463,7 @@
    * These are equivalent to uBO's default scriptlet injection
    * ================================================================== */
   function applyAll() {
-    if (!activated) return;
+    // v4.0: always run
 
     // 1. Spoof common adblock detector constants
     setConstant("canRunAds", true);

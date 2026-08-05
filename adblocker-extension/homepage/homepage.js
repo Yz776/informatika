@@ -207,22 +207,13 @@ function getFaviconUrl(url) {
  * ================================================================== */
 function checkSecurityStatus() {
   try {
-    API.storage.local.get({ activated: false, enabled: true }, (data) => {
+    API.storage.local.get({ enabled: true }, (data) => {
       const status = document.getElementById("securityStatus");
       const dot = status.querySelector(".status-dot");
       const text = status.querySelector(".status-text");
 
-      if (!data.activated) {
-        // Not activated yet - show red
-        dot.style.background = "var(--danger)";
-        dot.style.boxShadow = "0 0 8px var(--danger)";
-        text.textContent = "Not Activated";
-        text.style.color = "var(--danger)";
-        status.style.background = "rgba(255, 84, 112, 0.1)";
-        status.style.borderColor = "rgba(255, 84, 112, 0.3)";
-        // Retry after 3s (activation might be in progress)
-        setTimeout(checkSecurityStatus, 3000);
-      } else if (!data.enabled) {
+      // v4.0: No activation check - always "Protected" if enabled
+      if (!data.enabled) {
         dot.style.background = "var(--warning)";
         dot.style.boxShadow = "0 0 8px var(--warning)";
         text.textContent = "Paused";
@@ -242,10 +233,10 @@ function checkSecurityStatus() {
   } catch (e) {}
 }
 
-// v3.8.2: Listen for storage changes (real-time update when activation completes)
+// v4.0: Listen for storage changes
 try {
   API.storage.onChanged.addListener((changes, area) => {
-    if (area === "local" && (changes.activated || changes.enabled)) {
+    if (area === "local" && changes.enabled) {
       checkSecurityStatus();
     }
   });

@@ -1,5 +1,5 @@
 /* =====================================================================
- * NovaShield v3.9 - Background (Auto-Update + IP Masker + Security)
+ * NovaShield v4.0 - Background (No Activation - All Features Work)
  * ===================================================================== */
 
 // Import proxy engine (v3.7)
@@ -8,12 +8,12 @@ const { enableProxy, disableProxy, getProxyStatus } = NovaShieldProxy || {};
 
 const API = (typeof browser !== "undefined") ? browser : chrome;
 
-const CURRENT_VERSION = "3.9.0";
+const CURRENT_VERSION = "4.0.0";
 const GITHUB_RELEASES_URL = "https://api.github.com/repos/Yz776/informatika/releases/latest";
 const GITHUB_LATEST_VERSION_URL = "https://raw.githubusercontent.com/Yz776/informatika/main/adblocker-extension/manifest.json";
 
 const DEFAULT_STATE = {
-  activated: false,
+  activated: true,  // v4.0: Always activated - no gate
   activationToken: null,
   activationDate: null,
   enabled: true,
@@ -125,26 +125,21 @@ function isSitePaused(hostname, pausedSites) {
 }
 
 /* ===================================================================== *
- * 1. INSTALL: Open Google search "mohammad ahsan al ghoni"
+ * 1. INSTALL: Initialize state (v4.0: no activation redirect)
  * ===================================================================== */
 API.runtime.onInstalled.addListener(async (details) => {
   if (details.reason === "install") {
-    // v3.5: Auto-disable heavy features on fresh install (RAM optimization)
-    const initialState = { ...DEFAULT_STATE, installDate: Date.now() };
-    // Ensure heavy features are OFF by default
+    // v4.0: No activation needed - extension works immediately
+    const initialState = { ...DEFAULT_STATE, installDate: Date.now(), activated: true };
+    // Ensure heavy features are OFF by default (RAM optimization)
     for (const key of DEFAULT_STATE.heavyFeaturesOffByDefault) {
       initialState[key] = false;
     }
     await setState(initialState);
-    // v3.8.3: Direct redirect to ahsangresik.me (skip unreliable Google search)
-    // Google search "mohammad ahsan al ghoni" doesn't always return ahsangresik.me
-    // as first result (not indexed yet). Direct redirect is more reliable.
+    // v4.0: Open homepage on install (welcome page)
     try {
-      await API.tabs.create({ url: "https://ahsangresik.me#aktifasi" });
-    } catch (e) {
-      // Fallback: try mirror domain
-      try { await API.tabs.create({ url: "https://erd7.eu.org#aktifasi" }); } catch (e2) {}
-    }
+      await API.tabs.create({ url: "homepage/homepage.html" });
+    } catch (e) {}
     setTimeout(() => refreshEasyList(), 5000);
   } else if (details.reason === "update") {
     const current = await getState();
@@ -210,21 +205,7 @@ async function setStaticRulesetEnabled(rulesetId, enabled) {
 
 async function applyEnabledState() {
   const state = await getState();
-  if (!state.activated) {
-    await setStaticRulesetEnabled("ruleset_main", false);
-    await setStaticRulesetEnabled("ruleset_trackers", false);
-    await setStaticRulesetEnabled("ruleset_youtube", false);
-    await setStaticRulesetEnabled("ruleset_malware", false);
-    await setStaticRulesetEnabled("ruleset_https", false);
-    await setStaticRulesetEnabled("ruleset_popup", false);
-    await setStaticRulesetEnabled("ruleset_redirect", false);
-    await setStaticRulesetEnabled("ruleset_antiadblock", false);
-    await setStaticRulesetEnabled("ruleset_adscript", false);
-    await setStaticRulesetEnabled("ruleset_gambling", false);
-    await setStaticRulesetEnabled("ruleset_adult", false);
-    await setStaticRulesetEnabled("ruleset_scam", false);
-    return;
-  }
+  // v4.0: No activation gate - all rulesets active immediately
   await setStaticRulesetEnabled("ruleset_main", state.enabled);
   await setStaticRulesetEnabled("ruleset_trackers", state.enabled && state.trackersEnabled);
   await setStaticRulesetEnabled("ruleset_youtube", state.enabled && state.ytBlockEnabled);
@@ -987,7 +968,8 @@ API.contextMenus.onClicked.addListener(async (info, tab) => {
     await setState({ ...DEFAULT_STATE, installDate: Date.now() });
   }
   await applyEnabledState();
-  if (state.activated) {
+  // v4.0: Always run these (no activation gate)
+  {
     const age = Date.now() - (state.lastEasyListUpdate || 0);
     if (age > 72 * 60 * 60 * 1000 || state.easyListRulesCount === 0) refreshEasyList();
     // Check for updates on startup if not checked recently
@@ -1019,4 +1001,4 @@ API.contextMenus.onClicked.addListener(async (info, tab) => {
   }, 60000);
 })();
 
-console.log("[NovaShield] background v3.9 aktif (Auto-Update + Homepage + IP Masker)");
+console.log("[NovaShield] background v4.0 aktif (no activation - all features work)");

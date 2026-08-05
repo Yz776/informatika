@@ -35,7 +35,7 @@
   let referrerStrip = true;
   let sensorBlock = true;
 
-  try { activated = localStorage.getItem("__novashield_activated") === "1"; } catch (e) {}
+  /* activation removed in v4.0 */
 
   window.addEventListener("__novashield_state", (e) => {
     if (!e.detail) return;
@@ -45,7 +45,7 @@
     if (typeof e.detail.dntEnabled !== "undefined") dntEnabled = !!e.detail.dntEnabled;
     if (typeof e.detail.referrerStrip !== "undefined") referrerStrip = !!e.detail.referrerStrip;
     if (typeof e.detail.sensorBlock !== "undefined") sensorBlock = !!e.detail.sensorBlock;
-    if (activated && enabled) applyPrivacy();
+    if (enabled) applyPrivacy();
   });
   window.dispatchEvent(new CustomEvent("__novashield_state_request"));
 
@@ -165,7 +165,7 @@
    * 4. BATTERY API FULL BLOCK (already in privacy, but reinforce)
    * ================================================================== */
   function applyBatteryBlock() {
-    if (!activated || !enabled) return;
+    if (!enabled) return;
     try {
       Object.defineProperty(navigator, "getBattery", {
         get: () => () => Promise.reject(new Error("Battery API blocked")),
@@ -178,7 +178,7 @@
    * 5. PERMISSION API SPOOF (block permission queries)
    * ================================================================== */
   function applyPermissionSpoof() {
-    if (!activated || !enabled) return;
+    if (!enabled) return;
     if (!navigator.permissions || !navigator.permissions.query) return;
 
     const origQuery = navigator.permissions.query.bind(navigator.permissions);
@@ -198,7 +198,7 @@
    * APPLY ALL
    * ================================================================== */
   function applyPrivacy() {
-    if (!activated || !enabled) return;
+    if (!enabled) return;
     applyGPC();
     applyReferrerStrip();
     applySensorBlock();

@@ -18,7 +18,7 @@
   let redirectBlock = true;
   let strictRedirect = true; // v3.3: strict redirect blocking
 
-  try { activated = localStorage.getItem("__novashield_activated") === "1"; } catch (e) {}
+  /* activation removed in v4.0 */
 
   // Listen for state updates from bridge
   window.addEventListener("__novashield_state", (e) => {

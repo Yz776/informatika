@@ -6,18 +6,11 @@
   if (window.__novashieldBypassInstalled) return;
   window.__novashieldBypassInstalled = true;
 
-  let activated = false;
-  try { activated = localStorage.getItem("__novashield_activated") === "1"; } catch (e) {}
+  const activated = true; // v4.0: always activated
 
   window.addEventListener("__novashield_activation_changed", (e) => {
-    activated = !!(e.detail && e.detail.activated);
-    if (activated) applyAll();
+    if (e.detail && e.detail.activated) applyAll();
   });
-
-  if (!activated) {
-    console.info("[NovaShield] Anti-adblock standby (not activated)");
-    return;
-  }
 
   function applyAll() {
     /* 1. Spoof detector globals */
