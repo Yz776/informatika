@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "NovaShield - Pemblokir Iklan",
-  "version": "3.5.0",
-  "description": "Pemblokir iklan hemat RAM dengan UI glassmorphism, auto-manage heavy features, ML heuristic, content filter, dan YouTube ad blocker.",
+  "version": "3.6.0",
+  "description": "Pemblokir iklan dengan scriptlet injection engine (uBlock-style), HTML filtering, dynamic filtering, dan redirect engine.",
   "author": "Ahsan Gresik",
   "homepage_url": "https://www.ahsangresik.me",
   "default_locale": "id",
@@ -133,6 +133,28 @@
         "<all_urls>"
       ],
       "js": [
+        "content-scriptlets.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content-htmlfilter.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true,
+      "world": "MAIN"
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
         "content-antiadblock.js"
       ],
       "run_at": "document_start",
@@ -229,7 +251,10 @@
       "resources": [
         "data/cosmetic.css",
         "data/whitelist.json",
-        "activation.html"
+        "activation.html",
+        "data/redirect-resources.js",
+        "data/filter-parser.js",
+        "data/dynamic-filtering.js"
       ],
       "matches": [
         "<all_urls>"

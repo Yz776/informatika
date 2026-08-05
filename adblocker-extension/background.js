@@ -1,10 +1,10 @@
 /* =====================================================================
- * NovaShield v3.5 - Background Service Worker (RAM-optimized + auto-manage)
+ * NovaShield v3.6 - Background (uBlock-inspired engines)
  * ===================================================================== */
 
 const API = (typeof browser !== "undefined") ? browser : chrome;
 
-const CURRENT_VERSION = "3.5.0";
+const CURRENT_VERSION = "3.6.0";
 const GITHUB_RELEASES_URL = "https://api.github.com/repos/Yz776/informatika/releases/latest";
 const GITHUB_LATEST_VERSION_URL = "https://raw.githubusercontent.com/Yz776/informatika/main/adblocker-extension/manifest.json";
 
@@ -254,35 +254,108 @@ const MAX_DYNAMIC_RULES = 4500;
 const RESOURCE_TYPES = ["script", "image", "sub_frame", "xmlhttprequest", "object",
   "object_subrequest", "media", "ping", "websocket", "font", "other"];
 
+/* ===================================================================== *
+ * v3.6: Advanced Filter Parser (uBlock-inspired)
+ * Support: @@exceptions, $domain, $third-party, $important, $redirect,
+ *          $script, $image, $sub_frame, $xmlhttprequest, etc.
+ * ===================================================================== */
+const RESOURCE_TYPE_MAP = {
+  "script": "script", "image": "image", "stylesheet": "stylesheet",
+  "sub_frame": "sub_frame", "object": "object", "xmlhttprequest": "xmlhttprequest",
+  "media": "media", "font": "font", "ping": "ping", "websocket": "websocket",
+  "other": "other", "popup": "popup",
+};
+
+function parseFilterOptions(optsStr) {
+  const opts = optsStr.split(",").map((s) => s.trim());
+  const result = {
+    types: [], domains: [], excludeDomains: [],
+    thirdParty: null, important: false, redirect: null,
+  };
+  for (const opt of opts) {
+    if (!opt) continue;
+    const negated = opt.startsWith("~");
+    const clean = negated ? opt.slice(1) : opt;
+    if (RESOURCE_TYPE_MAP[clean]) {
+      if (!negated) result.types.push(RESOURCE_TYPE_MAP[clean]);
+    } else if (clean === "third-party") {
+      result.thirdParty = !negated;
+    } else if (clean === "important") {
+      result.important = true;
+    } else if (clean.startsWith("redirect=")) {
+      result.redirect = clean.slice(9);
+    } else if (clean.startsWith("domain=")) {
+      const ds = clean.slice(7).split("|");
+      for (const d of ds) {
+        if (d.startsWith("~")) result.excludeDomains.push(d.slice(1));
+        else result.domains.push(d);
+      }
+    }
+  }
+  return result;
+}
+
 function parseEasyListToDNR(text) {
   const lines = text.split("\n");
   const rules = [];
   const seen = new Set();
   let rid = 1;
+
   for (let raw of lines) {
     const line = raw.trim();
     if (!line || line.startsWith("!") || line.startsWith("[")) continue;
-    if (line.includes("##") || line.includes("#@#") || line.includes("#?#")) continue;
-    if (line.startsWith("@@")) continue;
-    let uf = line, opts = [];
-    const di = line.indexOf("$");
+    // Skip cosmetic/scriptlet/HTML filters (handled by content scripts)
+    if (line.includes("##") || line.includes("#@#") || line.includes("#?#") ||
+        line.includes("##+js(") || line.includes("##^")) continue;
+
+    // Exception rules (allowlist)
+    const isException = line.startsWith("@@");
+    const cleanLine = isException ? line.slice(2) : line;
+
+    let urlFilter = cleanLine;
+    let parsedOpts = { types: [], domains: [], excludeDomains: [], thirdParty: null, important: false, redirect: null };
+
+    const di = cleanLine.indexOf("$");
     if (di !== -1) {
-      uf = line.substring(0, di);
-      opts = line.substring(di + 1).split(",").map(s => s.trim());
+      urlFilter = cleanLine.substring(0, di);
+      parsedOpts = parseFilterOptions(cleanLine.substring(di + 1));
     }
-    const bad = opts.some(o =>
-      o === "document" || o === "elemhide" || o === "generichide" ||
-      o === "genericblock" || o === "urlblock" || o === "specifichide" ||
-      o.startsWith("rewrite=") || o.startsWith("csp=") ||
-      o.startsWith("replace=") || o.startsWith("permissions=")
-    );
-    if (bad || !uf.startsWith("||")) continue;
-    if (seen.has(uf)) continue;
-    seen.add(uf);
+
+    // Skip unsupported options
+    const badOpts = cleanLine.includes("document") || cleanLine.includes("elemhide") ||
+                    cleanLine.includes("generichide") || cleanLine.includes("genericblock") ||
+                    cleanLine.includes("urlblock") || cleanLine.includes("specifichide") ||
+                    cleanLine.includes("rewrite=") || cleanLine.includes("csp=") ||
+                    cleanLine.includes("replace=") || cleanLine.includes("permissions=");
+
+    if (badOpts || !urlFilter.startsWith("||")) continue;
+    if (seen.has(urlFilter + (isException ? "@@" : ""))) continue;
+    seen.add(urlFilter + (isException ? "@@" : ""));
     if (rules.length >= MAX_DYNAMIC_RULES) break;
+
+    // Build DNR rule
+    const condition = { urlFilter };
+    if (parsedOpts.types.length > 0) {
+      condition.resourceTypes = parsedOpts.types;
+    } else {
+      condition.resourceTypes = RESOURCE_TYPES;
+    }
+    if (parsedOpts.domains.length > 0) condition.initiatorDomains = parsedOpts.domains;
+    if (parsedOpts.excludeDomains.length > 0) condition.excludedInitiatorDomains = parsedOpts.excludeDomains;
+    if (parsedOpts.thirdParty === true) condition.domainType = "thirdParty";
+    else if (parsedOpts.thirdParty === false) condition.domainType = "firstParty";
+
+    const action = isException
+      ? { type: "allow" }
+      : parsedOpts.redirect
+        ? { type: "redirect", redirect: { extensionPath: "/data/redirect-resources.js" } }
+        : { type: "block" };
+
     rules.push({
-      id: rid++, priority: 1, action: { type: "block" },
-      condition: { urlFilter: uf, resourceTypes: RESOURCE_TYPES }
+      id: rid++,
+      priority: parsedOpts.important ? 100 : (isException ? 50 : 1),
+      action,
+      condition,
     });
   }
   return rules;
@@ -775,4 +848,4 @@ API.contextMenus.onClicked.addListener(async (info, tab) => {
   }, 60000);
 })();
 
-console.log("[NovaShield] background v3.5 aktif (auto-manage heavy features)");
+console.log("[NovaShield] background v3.6 aktif (uBlock-inspired engines)");
