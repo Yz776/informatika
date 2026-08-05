@@ -158,10 +158,26 @@ async function render() {
   if (state.updateAvailable && state.latestVersion) {
     els.updateBanner.style.display = "flex";
     els.updateVersion.textContent = state.latestVersion;
-    els.updateDesc.textContent = `Anda: v${state.version || "3.5.0"}`;
+    if (state.updateDownloaded) {
+      els.updateDesc.textContent = "Didownload! Klik untuk apply";
+    } else {
+      els.updateDesc.textContent = `Anda: v${state.version || "3.9.0"}`;
+    }
     els.updateBanner.onclick = async () => {
-      await sendMessage({ type: "APPLY_UPDATE" });
-      showToast("Membuka halaman download...");
+      if (state.updateDownloaded) {
+        await sendMessage({ type: "APPLY_UPDATE" });
+        showToast("Buka chrome://extensions untuk reload");
+      } else {
+        showToast("Mendownload update...");
+        const resp = await sendMessage({ type: "AUTO_UPDATE_NOW" });
+        if (resp && resp.downloaded) {
+          showToast("Update didownload! Klik banner lagi untuk apply");
+        } else if (resp && resp.ok) {
+          showToast("Sudah versi terbaru");
+        } else {
+          showToast("Gagal download, coba manual");
+        }
+      }
     };
   } else {
     els.updateBanner.style.display = "none";

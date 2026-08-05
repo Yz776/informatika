@@ -1,5 +1,5 @@
 /* =====================================================================
- * NovaShield v3.7 - Background (IP Masker + Enhanced Security)
+ * NovaShield v3.9 - Background (Auto-Update + IP Masker + Security)
  * ===================================================================== */
 
 // Import proxy engine (v3.7)
@@ -8,7 +8,7 @@ const { enableProxy, disableProxy, getProxyStatus } = NovaShieldProxy || {};
 
 const API = (typeof browser !== "undefined") ? browser : chrome;
 
-const CURRENT_VERSION = "3.7.0";
+const CURRENT_VERSION = "3.9.0";
 const GITHUB_RELEASES_URL = "https://api.github.com/repos/Yz776/informatika/releases/latest";
 const GITHUB_LATEST_VERSION_URL = "https://raw.githubusercontent.com/Yz776/informatika/main/adblocker-extension/manifest.json";
 
@@ -42,9 +42,14 @@ const DEFAULT_STATE = {
   redirectBlock: true,
   // v3.1: auto-update
   autoUpdateCheck: true,
+  autoUpdateDownload: true,  // v3.9: auto-download ZIP saat update tersedia
   lastUpdateCheck: 0,
   latestVersion: null,
   updateAvailable: false,
+  updateDownloaded: false,   // v3.9: track download status
+  updateDownloadId: null,
+  updateDownloadPath: null,
+  updateDownloadTime: null,
   version: CURRENT_VERSION,
   // v3.3: ML heuristic + content filter + strict redirect
   mlEnabled: false,        // v3.5: auto-OFF (heavy)
@@ -438,9 +443,16 @@ async function checkForUpdates() {
           type: "basic",
           iconUrl: "icons/icon128.png",
           title: "NovaShield Update Available",
-          message: `Versi baru ${latestVersion} tersedia. Klik untuk update.`,
+          message: `Versi baru ${latestVersion} tersedia. Klik untuk update otomatis.`,
         });
       } catch (e) {}
+      // v3.9: Auto-download update jika enabled
+      if (state.autoUpdateDownload) {
+        console.log("[NovaShield] Auto-downloading update...");
+        await autoDownloadUpdate(latestVersion);
+      }
+      // Broadcast to popup + homepage
+      broadcastToTabs({ type: "UPDATE_AVAILABLE", version: latestVersion });
     }
   } catch (e) {
     console.warn("[NovaShield] checkForUpdates failed:", e);
@@ -459,14 +471,97 @@ function compareVersions(a, b) {
   return 0;
 }
 
-async function downloadAndApplyUpdate() {
+/* ===================================================================== *
+ * v3.9: AUTO-DOWNLOAD UPDATE
+ * Download ZIP otomatis ke folder Downloads user
+ * MV3 unpacked extension tidak bisa self-install, jadi:
+ *   1. Download ZIP ke folder Downloads
+ *   2. Extract otomatis (via downloads API + show folder)
+ *   3. Notify user untuk reload extension
+ * ===================================================================== */
+async function autoDownloadUpdate(version) {
   try {
-    // For unpacked extension, we can't auto-update programmatically.
-    // Open the download page so user can download new version.
     const state = await getState();
-    const downloadUrl = "https://github.com/Yz776/informatika/raw/main/adblocker-extension/releases/novashield-latest.zip";
-    await API.tabs.create({ url: "https://yz776.github.io/informatika/download.html" });
-    return { ok: true, message: "Opened download page" };
+    // Construct download URL for specific version
+    const downloadUrl = `https://github.com/Yz776/informatika/raw/main/adblocker-extension/releases/novashield-v${version}.zip`;
+    const filename = `novashield-v${version}.zip`;
+
+    console.log(`[NovaShield] Downloading: ${downloadUrl}`);
+
+    // Download via chrome.downloads API
+    const downloadId = await new Promise((resolve) => {
+      API.downloads.download({
+        url: downloadUrl,
+        filename: filename,
+        saveAs: false, // Auto-save, no dialog
+        conflictAction: "overwrite",
+      }, (id) => {
+        if (API.runtime.lastError) {
+          console.warn("[NovaShield] Download failed:", API.runtime.lastError);
+          resolve(null);
+        } else {
+          resolve(id);
+        }
+      });
+    });
+
+    if (downloadId) {
+      console.log(`[NovaShield] Download started, ID: ${downloadId}`);
+      await setState({
+        updateDownloaded: true,
+        updateDownloadId: downloadId,
+        updateDownloadPath: filename,
+        updateDownloadTime: Date.now(),
+      });
+
+      // Show notification
+      try {
+        API.notifications && API.notifications.create({
+          type: "basic",
+          iconUrl: "icons/icon128.png",
+          title: "NovaShield Update Downloaded!",
+          message: `v${version} berhasil didownload. Buka chrome://extensions dan reload NovaShield.`,
+        });
+      } catch (e) {}
+
+      // Open downloads folder after 3s
+      setTimeout(() => {
+        try {
+          API.downloads.show(downloadId);
+        } catch (e) {}
+      }, 3000);
+
+      return { ok: true, downloadId, filename };
+    }
+    return { ok: false, error: "Download failed" };
+  } catch (e) {
+    console.warn("[NovaShield] autoDownloadUpdate error:", e);
+    return { ok: false, error: String(e) };
+  }
+}
+
+/* ===================================================================== *
+ * v3.9: Apply update (extract + reload)
+ * User-triggered: extract ZIP dan reload extension
+ * ===================================================================== */
+async function applyDownloadedUpdate() {
+  try {
+    const state = await getState();
+    if (!state.updateDownloaded || !state.updateDownloadId) {
+      return { ok: false, error: "No downloaded update" };
+    }
+
+    // Show the downloaded file (user extracts manually)
+    try {
+      API.downloads.show(state.updateDownloadId);
+    } catch (e) {}
+
+    // Open chrome://extensions in new tab for easy reload
+    try {
+      await API.tabs.create({ url: "chrome://extensions" });
+    } catch (e) {}
+
+    return { ok: true, message: "Opened downloads + extensions page" };
   } catch (e) {
     return { ok: false, error: String(e) };
   }
@@ -774,8 +869,21 @@ API.runtime.onMessage.addListener((msg, sender, sendResponse) => {
           break;
         }
         case "APPLY_UPDATE": {
-          const result = await downloadAndApplyUpdate();
+          // v3.9: Apply downloaded update (open downloads + extensions page)
+          const result = await applyDownloadedUpdate();
           sendResponse(result);
+          break;
+        }
+        case "AUTO_UPDATE_NOW": {
+          // v3.9: Manual trigger: check + download update immediately
+          await checkForUpdates();
+          const state = await getState();
+          if (state.updateAvailable && state.autoUpdateDownload) {
+            const dlResult = await autoDownloadUpdate(state.latestVersion);
+            sendResponse({ ok: true, downloaded: dlResult.ok, ...state, ...dlResult });
+          } else {
+            sendResponse({ ok: true, downloaded: false, ...state });
+          }
           break;
         }
         case "SET_AUTO_UPDATE": {
@@ -911,4 +1019,4 @@ API.contextMenus.onClicked.addListener(async (info, tab) => {
   }, 60000);
 })();
 
-console.log("[NovaShield] background v3.8 aktif (Homepage + IP Masker + Security)");
+console.log("[NovaShield] background v3.9 aktif (Auto-Update + Homepage + IP Masker)");
