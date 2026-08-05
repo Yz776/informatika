@@ -74,6 +74,9 @@ const DEFAULT_STATE = {
   activationSecure: true,  // Use signed tokens
   activationToken1: null,  // Split storage (obfuscated)
   activationToken2: null,
+  // v3.8: Homepage override
+  homepageEnabled: true,   // Show NovaShield homepage on new tab
+  homepageShortcuts: null, // Custom shortcuts (null = default)
   whitelist: ["ahsangresik.me", "localhost", "127.0.0.1"],
   pausedSites: {},
   customHideRules: {},
@@ -903,4 +906,4 @@ API.contextMenus.onClicked.addListener(async (info, tab) => {
   }, 60000);
 })();
 
-console.log("[NovaShield] background v3.7 aktif (IP Masker + Enhanced Security)");
+console.log("[NovaShield] background v3.8 aktif (Homepage + IP Masker + Security)");

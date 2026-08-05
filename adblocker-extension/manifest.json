@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "NovaShield - Pemblokir Iklan",
-  "version": "3.7.0",
-  "description": "Pemblokir iklan dengan IP Masker (proxy HTTP), scriptlet injection, HTML filtering, GPC privacy, dan enhanced activation security.",
+  "version": "3.8.0",
+  "description": "Pemblokir iklan dengan homepage modern, IP Masker, scriptlet injection, HTML filtering, GPC privacy, dan enhanced activation security.",
   "author": "Ahsan Gresik",
   "homepage_url": "https://www.ahsangresik.me",
   "default_locale": "id",
@@ -268,7 +268,10 @@
         "data/filter-parser.js",
         "data/dynamic-filtering.js",
         "data/proxy-engine.js",
-        "data/activation-security.js"
+        "data/activation-security.js",
+        "homepage/homepage.html",
+        "homepage/homepage.css",
+        "homepage/homepage.js"
       ],
       "matches": [
         "<all_urls>"
@@ -280,5 +283,8 @@
       "id": "novashield@ahsangresik.me",
       "strict_min_version": "115.0"
     }
+  },
+  "chrome_url_overrides": {
+    "newtab": "homepage/homepage.html"
   }
 }
