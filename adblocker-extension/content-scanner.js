@@ -19,7 +19,7 @@
 
   // State (cached, updated via storage events)
   let state = {
-    activated: false,
+    activated: true,
     enabled: true,
     mlEnabled: true,
     contentFilter: true,
@@ -50,11 +50,11 @@
   }
 
   // Try to read activation from localStorage (sync, fast)
-  try { state.activated = localStorage.getItem("__novashield_activated") === "1"; } catch (e) {}
+  /* v4.0: always activated */
 
   API.storage.local.get(state, (data) => {
     state = { ...state, ...data };
-    try { localStorage.setItem("__novashield_activated", state.activated ? "1" : "0"); } catch (e) {}
+    /* v4.0: always activated */
     init();
   });
 
@@ -164,7 +164,7 @@
 
   // Resource error detection (failed ad loads)
   document.addEventListener("error", (e) => {
-    if (!state.activated || !state.enabled) return;
+    if (!state.enabled) return;
     const target = e.target;
     if (!target || !target.tagName) return;
     const tag = target.tagName.toLowerCase();
@@ -183,7 +183,7 @@
   let scannedElements = new WeakSet(); // track already-scanned
 
   function scanElementForML(el) {
-    if (!state.activated || !state.enabled || !state.mlEnabled) return;
+    if (!state.enabled || !state.mlEnabled) return;
     if (!el || !el.tagName || scannedElements.has(el)) return;
     scannedElements.add(el);
 
@@ -216,7 +216,7 @@
   }
 
   function scanAll() {
-    if (!state.activated || !state.enabled) return;
+    if (!state.enabled) return;
     // Limit query: only scan ad-like elements (not all divs)
     const elements = document.querySelectorAll(AD_ELEMENT_SELECTOR);
     let count = 0;
@@ -231,7 +231,7 @@
    * CONTENT FILTER (gambling/porn/scam in ad elements)
    * ================================================================== */
   function filterAdContent() {
-    if (!state.activated || !state.enabled || !state.contentFilter) return;
+    if (!state.enabled || !state.contentFilter) return;
     if (getUserIntent()) return; // User navigated directly, allow
 
     const adElements = document.querySelectorAll(AD_ELEMENT_SELECTOR);
@@ -263,7 +263,7 @@
   }
 
   function adaptivePoll() {
-    if (!state.activated || !state.enabled) {
+    if (!state.enabled) {
       pollTimeout = setTimeout(adaptivePoll, 5000);
       return;
     }
@@ -288,7 +288,7 @@
     mutationPending = true;
     setTimeout(() => {
       mutationPending = false;
-      if (state.activated && state.enabled && isTabVisible) {
+      if (state.enabled && isTabVisible) {
         scanAll();
         filterAdContent();
       }
@@ -296,7 +296,7 @@
   }
 
   function init() {
-    if (!state.activated || !state.enabled) return;
+    if (!state.enabled) return;
 
     // Initial scan
     if (document.readyState === "loading") {

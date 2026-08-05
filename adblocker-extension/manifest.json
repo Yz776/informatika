@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
   "name": "NovaShield - Pemblokir Iklan",
-  "version": "4.0.0",
-  "description": "Pemblokir iklan modern tanpa aktivasi - langsung berfungsi. Dengan ML heuristic, YouTube ad blocker, IP Masker, privacy protection, dan auto-update.",
+  "version": "4.1.0",
+  "description": "Pemblokir iklan dengan smart auto-protection, data privacy guard, ML heuristic, YouTube ad blocker, dan auto-update.",
   "author": "Ahsan Gresik",
   "homepage_url": "https://www.ahsangresik.me",
   "default_locale": "id",
@@ -235,6 +235,16 @@
       ],
       "run_at": "document_start",
       "all_frames": false
+    },
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "js": [
+        "content-smartprotect.js"
+      ],
+      "run_at": "document_start",
+      "all_frames": true
     }
   ],
   "web_accessible_resources": [

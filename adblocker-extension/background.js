@@ -8,7 +8,7 @@ const { enableProxy, disableProxy, getProxyStatus } = NovaShieldProxy || {};
 
 const API = (typeof browser !== "undefined") ? browser : chrome;
 
-const CURRENT_VERSION = "4.0.0";
+const CURRENT_VERSION = "4.1.0";
 const GITHUB_RELEASES_URL = "https://api.github.com/repos/Yz776/informatika/releases/latest";
 const GITHUB_LATEST_VERSION_URL = "https://raw.githubusercontent.com/Yz776/informatika/main/adblocker-extension/manifest.json";
 
@@ -609,11 +609,9 @@ function incrementTabCount(tabId, reqUrl) {
       tabBlockedDomains[tabId][host] = (tabBlockedDomains[tabId][host] || 0) + 1;
     } catch (e) {}
   }
-  // Async persist
   persistCounters(tabId);
   updateBadgeForTab(tabId);
-}
-
+};
 let persistTimer = null;
 let pendingPersistTabIds = new Set();
 function persistCounters(tabId) {
@@ -725,6 +723,16 @@ API.runtime.onMessage.addListener((msg, sender, sendResponse) => {
           await setState({ enabled: !!msg.enabled });
           await applyEnabledState();
           broadcastToTabs({ type: "STATE_CHANGED", enabled: !!msg.enabled });
+          sendResponse({ ok: true });
+          break;
+        }
+        case "SMART_PROTECT_ENABLE": {
+          // v4.1: Auto-enable ML + content filter for suspicious site
+          console.log("[NovaShield] Smart protect enabled for:", msg.hostname);
+          const patch = { mlEnabled: true, contentFilter: true, strictRedirect: true };
+          await setState(patch);
+          await applyEnabledState();
+          broadcastToTabs({ type: "STATE_CHANGED", ...patch, smartProtect: true });
           sendResponse({ ok: true });
           break;
         }
@@ -1001,4 +1009,4 @@ API.contextMenus.onClicked.addListener(async (info, tab) => {
   }, 60000);
 })();
 
-console.log("[NovaShield] background v4.0 aktif (no activation - all features work)");
+console.log("[NovaShield] background v4.1 aktif (smart protection + privacy guard + counter fix)");
