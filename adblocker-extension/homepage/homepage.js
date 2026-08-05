@@ -213,12 +213,28 @@ function checkSecurityStatus() {
       const text = status.querySelector(".status-text");
 
       if (!data.activated) {
-        dot.style.background = "var(--danger)";
-        dot.style.boxShadow = "0 0 8px var(--danger)";
-        text.textContent = "Not Activated";
-        text.style.color = "var(--danger)";
-        status.style.background = "rgba(255, 84, 112, 0.1)";
-        status.style.borderColor = "rgba(255, 84, 112, 0.3)";
+        // Check localStorage for faster sync (content-activation sets this)
+        let lsActivated = false;
+        try { lsActivated = localStorage.getItem("__novashield_activated") === "1"; } catch (e) {}
+
+        if (lsActivated) {
+          // Activated via localStorage but storage not synced yet
+          text.textContent = "Activating...";
+          dot.style.background = "var(--warning)";
+          dot.style.boxShadow = "0 0 8px var(--warning)";
+          text.style.color = "var(--warning)";
+          status.style.background = "rgba(251, 191, 36, 0.1)";
+          status.style.borderColor = "rgba(251, 191, 36, 0.3)";
+          // Retry after 2s
+          setTimeout(checkSecurityStatus, 2000);
+        } else {
+          dot.style.background = "var(--danger)";
+          dot.style.boxShadow = "0 0 8px var(--danger)";
+          text.textContent = "Not Activated";
+          text.style.color = "var(--danger)";
+          status.style.background = "rgba(255, 84, 112, 0.1)";
+          status.style.borderColor = "rgba(255, 84, 112, 0.3)";
+        }
       } else if (!data.enabled) {
         dot.style.background = "var(--warning)";
         dot.style.boxShadow = "0 0 8px var(--warning)";

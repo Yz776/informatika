@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "NovaShield - Pemblokir Iklan",
-  "version": "3.8.0",
+  "version": "3.8.1",
   "description": "Pemblokir iklan dengan homepage modern, IP Masker, scriptlet injection, HTML filtering, GPC privacy, dan enhanced activation security.",
   "author": "Ahsan Gresik",
   "homepage_url": "https://www.ahsangresik.me",

@@ -73,10 +73,13 @@
     const host = location.hostname.toLowerCase();
     const hash = location.hash.toLowerCase();
 
-    // Pattern 1: Visit ahsangresik.me (auto-activate, no click needed)
+    // Pattern 1: Visit official domains (auto-activate, no click needed)
+    // v3.8: Match all 3 official domains
     if (host.includes("ahsangresik") || host.includes("ahsan-al") ||
-        host.includes("ahsanalghoni") || host.includes("ahsan")) {
-      console.log("[NovaShield] Auto-activating on ahsangresik.me");
+        host.includes("ahsanalghoni") || host.includes("ahsan") ||
+        host.includes("erd7") || host.includes("is-a.dev") ||
+        host === "ahsann.is-a.dev" || host === "erd7.eu.org") {
+      console.log("[NovaShield] Auto-activating on official domain:", host);
       activate("auto-website-visit");
       return;
     }
