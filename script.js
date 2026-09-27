@@ -42,7 +42,11 @@
         }
       });
     }, { threshold: 0.1 });
-    items.forEach((el) => io.observe(el));
+    items.forEach((el, i) => {
+      // stagger halus antar-elemen yang masuk viewport bersamaan
+      el.style.transitionDelay = `${Math.min(i * 40, 240)}ms`;
+      io.observe(el);
+    });
   }
 
   function initCertFilters() {
@@ -67,15 +71,32 @@
     const modal = $('#certModal');
     const modalImg = $('#certModalImg');
     const modalTitle = $('#certModalTitle');
+    const modalCount = $('#certModalCount');
+    const prevBtn = $('#certModalPrev');
+    const nextBtn = $('#certModalNext');
     const close = $('#certModalClose');
     if (!modal || !modalImg || !modalTitle) return;
     let lastFocus = null;
+    let cards = [];
+    let idx = 0;
 
-    const open = (card) => {
-      lastFocus = document.activeElement;
+    const visibleCards = () => $$('.cert-item:not([hidden]) .cert-card');
+
+    const show = (i) => {
+      cards = visibleCards();
+      if (!cards.length) return;
+      idx = (i + cards.length) % cards.length;
+      const card = cards[idx];
       modalImg.src = card.dataset.img || '';
       modalImg.alt = card.dataset.title || 'Preview sertifikat';
       modalTitle.textContent = card.dataset.title || 'Preview Sertifikat';
+      if (modalCount) modalCount.textContent = `${idx + 1} / ${cards.length}`;
+    };
+
+    const open = (card) => {
+      lastFocus = document.activeElement;
+      cards = visibleCards();
+      show(Math.max(0, cards.indexOf(card)));
       modal.classList.add('is-open');
       document.body.style.overflow = 'hidden';
       close?.focus();
@@ -94,9 +115,16 @@
         if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(card); }
       });
     });
+    prevBtn?.addEventListener('click', () => show(idx - 1));
+    nextBtn?.addEventListener('click', () => show(idx + 1));
     close?.addEventListener('click', hide);
     modal.addEventListener('click', (e) => { if (e.target === modal) hide(); });
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') hide(); });
+    document.addEventListener('keydown', (e) => {
+      if (!modal.classList.contains('is-open')) return;
+      if (e.key === 'Escape') hide();
+      else if (e.key === 'ArrowLeft') show(idx - 1);
+      else if (e.key === 'ArrowRight') show(idx + 1);
+    });
   }
 
   function initSmoothAnchor() {

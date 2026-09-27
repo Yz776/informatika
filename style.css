@@ -48,6 +48,9 @@
     --band-muted: #6e6857;
     --band-hover: #e0dccd;
   }
+
+  /* gambar dokumen/foto sedikit diredam agar tidak menyilaukan di tema gelap */
+  .cert-card img, .byline img { filter: brightness(0.92); }
 }
 
 *, *::before, *::after { box-sizing: border-box; }
@@ -217,6 +220,30 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .nav-links a:hover::after,
 .nav-links a[aria-current="page"]::after { right: 0; }
 
+/* nomor halaman kecil di nav */
+.nav-links a .n {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+  vertical-align: 0.3em;
+  margin-right: 5px;
+}
+
+/* CTA kontak ber-border */
+.nav-links a.nav-cta {
+  border: 1px solid var(--ink);
+  padding: 9px 16px;
+  border-radius: 2px;
+  transition: background 0.18s ease, color 0.18s ease;
+}
+.nav-links a.nav-cta::after { content: none; }
+.nav-links a.nav-cta:hover { background: var(--ink); color: var(--paper); }
+
+/* anchor tidak terselubung nav sticky */
+[id] { scroll-margin-top: 84px; }
+
 .menu-btn {
   display: none;
   width: 44px; height: 44px;
@@ -349,6 +376,18 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .terminal .t-prompt { color: var(--accent); }
 .terminal .t-out { color: var(--band-muted); }
 .terminal em { font-style: normal; color: var(--paper); border-bottom: 1px solid var(--accent); }
+.t-cursor {
+  display: inline-block;
+  width: 0.55em;
+  height: 1em;
+  margin-left: 3px;
+  background: var(--accent);
+  vertical-align: -0.15em;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .t-cursor { animation: t-blink 1.1s steps(2, start) infinite; }
+  @keyframes t-blink { 50% { opacity: 0; } }
+}
 
 /* ---------- Baris statistik ---------- */
 
@@ -643,6 +682,18 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-size: 1.05rem;
 }
 
+.page-meta {
+  margin-top: 28px;
+  padding-left: 14px;
+  border-left: 2px solid var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  line-height: 1.9;
+}
+
 /* ---------- Filter + galeri sertifikat ---------- */
 
 .filters {
@@ -750,6 +801,22 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .modal-close:hover { color: var(--accent); }
 .modal-box img { width: 100%; }
 
+.modal-tools { display: flex; align-items: center; gap: 4px; }
+.modal-nav {
+  width: 40px; height: 40px;
+  font-size: 1.05rem;
+  line-height: 1;
+  transition: color 0.15s ease;
+}
+.modal-nav:hover { color: var(--accent); }
+.modal-count {
+  min-width: 56px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
 /* ---------- Footer ---------- */
 
 .footer {
@@ -854,6 +921,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
     border-top: 1px solid var(--line);
   }
   .nav-links a::after { content: none; }
+  .nav-links a.nav-cta { border: 0; border-top: 1px solid var(--line); padding: 16px var(--gut); }
 
   .stats-band-inner { grid-template-columns: 1fr 1fr; }
   .tech-grid { grid-template-columns: 1fr; }

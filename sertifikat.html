@@ -43,6 +43,7 @@
   <meta name="twitter:image:alt" content="Galeri sertifikat Ahsan Al Ghoni">
 
   <!-- PWA / Icons -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <link rel="icon" type="image/jpeg" href="tes.jpg">
   <link rel="apple-touch-icon" href="tes.jpg">
   <link rel="manifest" href="site.webmanifest">
@@ -103,10 +104,10 @@
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
         </button>
     <div class="nav-links" id="navLinks">
-      <a href="index.html">Beranda</a>
-      <a href="project.html">Proyek</a>
-      <a class="active" href="sertifikat.html" aria-current="page">Sertifikat</a>
-      <a href="#kontak">Kontak</a>
+      <a href="index.html"><span class="n">01</span>Beranda</a>
+      <a href="project.html"><span class="n">02</span>Proyek</a>
+      <a class="active" href="sertifikat.html" aria-current="page"><span class="n">03</span>Sertifikat</a>
+      <a class="nav-cta" href="#kontak"><span class="n">04</span>Kontak</a>
     </div>
   </div>
 </nav>
@@ -119,6 +120,7 @@
       </nav>
       <h1>Sertifikat yang saya kumpulkan <em>sambil membangun project.</em></h1>
       <p class="lead">Sertifikat ini bukan sekadar pajangan. Materi dari kelas AI, JavaScript, cloud, Linux, networking, security, dan IoT saya pakai langsung ketika membangun project publik seperti Catur Online, Al-Quran Digital, dan WotAnime.</p>
+      <p class="page-meta">16 sertifikat &middot; Dicoding 4 &middot; ID-Networkers 5 &middot; Digitalent Kominfo 7</p>
     </div>
   </header>
 
@@ -286,7 +288,12 @@
   <div class="modal-box">
     <div class="modal-head">
       <div class="modal-title" id="certModalTitle">Preview Sertifikat</div>
-      <button class="modal-close" id="certModalClose" type="button" aria-label="Tutup preview">✕</button>
+      <div class="modal-tools">
+        <button class="modal-nav" id="certModalPrev" type="button" aria-label="Sertifikat sebelumnya">&larr;</button>
+        <span class="modal-count" id="certModalCount" aria-live="polite">1 / 16</span>
+        <button class="modal-nav" id="certModalNext" type="button" aria-label="Sertifikat berikutnya">&rarr;</button>
+        <button class="modal-close" id="certModalClose" type="button" aria-label="Tutup preview">✕</button>
+      </div>
     </div>
     <img id="certModalImg" src="" alt="Preview sertifikat">
   </div>

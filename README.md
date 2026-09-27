@@ -56,6 +56,7 @@ index.html            — Beranda (Hero + Factsheet + Stats + Tentang + Karya + 
 project.html          — Daftar proyek lengkap (baris editorial)
 sertifikat.html       — Galeri 16 sertifikat dengan filter & modal preview
 style.css             — Satu-satunya stylesheet (design system "Technical Paper", light + dark)
+favicon.svg           — Ikon "A" geometric (fallback tes.jpg untuk apple-touch-icon)
 script.js             — Interaksi inti: nav mobile, reveal, filter sertifikat, modal
 sitemap.xml           — Sitemap SEO (image sitemap included)
 robots.txt            — Direktif crawler
