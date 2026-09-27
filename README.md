@@ -5,7 +5,9 @@ backend, game realtime, aplikasi edukasi, dan platform streaming web publik.
 
 ## ✨ Highlight
 
-- **UI "Technical Paper"** — terang, editorial, tanpa gradien/ornamen
+- **UI "Technical Paper"** — editorial, disiplin, tanpa gradien/ornamen
+- **Dark mode otomatis** — palet gelap hangat mengikuti `prefers-color-scheme` device
+- **Section AI-assisted workflow** — cara Ahsan bekerja sama dengan AI sehari-hari
 - **SEO komprehensif**: meta lengkap, JSON-LD (Person, WebSite, ProfilePage, BreadcrumbList, ItemList, FAQPage)
 - **Mobile-first & responsif** dari layar kecil sampai monitor besar
 - **Aksesibilitas**: skip link, ARIA, focus-visible, prefers-reduced-motion
@@ -43,15 +45,17 @@ backend, game realtime, aplikasi edukasi, dan platform streaming web publik.
 - **Font**: Space Grotesk (display + body), IBM Plex Mono (label, meta, terminal)
 - **Struktur**: hairline rules (garis 1px) sebagai pembatas section, kartu & baris
 - **Radius**: 2px; **Shadows**: tidak ada — hierarki dibangun lewat garis & tipografi
+- **Dark mode**: via `prefers-color-scheme` — kertas gelap hangat `#171510`, tinta terang,
+  aksen oranye lebih terang; band kontak & terminal ikut terbalik (invert) otomatis
 - **Motion**: reveal halus sekali jalan, hormat `prefers-reduced-motion`
 
 ## 📁 Struktur File
 
 ```
-index.html            — Beranda (Hero + Factsheet + Stats + Tentang + Karya + Tech + Kontak)
+index.html            — Beranda (Hero + Factsheet + Stats + Tentang + Karya + Tech + AI + Kontak)
 project.html          — Daftar proyek lengkap (baris editorial)
 sertifikat.html       — Galeri 16 sertifikat dengan filter & modal preview
-style.css             — Satu-satunya stylesheet (design system "Technical Paper")
+style.css             — Satu-satunya stylesheet (design system "Technical Paper", light + dark)
 script.js             — Interaksi inti: nav mobile, reveal, filter sertifikat, modal
 sitemap.xml           — Sitemap SEO (image sitemap included)
 robots.txt            — Direktif crawler
