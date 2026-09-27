@@ -6,11 +6,17 @@
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait-primary",
-  "background_color": "#050810",
-  "theme_color": "#050810",
+  "background_color": "#f7f5f0",
+  "theme_color": "#f7f5f0",
   "lang": "id-ID",
   "dir": "ltr",
-  "categories": ["portfolio", "developer", "personal", "education", "productivity"],
+  "categories": [
+    "portfolio",
+    "developer",
+    "personal",
+    "education",
+    "productivity"
+  ],
   "icons": [
     {
       "src": "tes.jpg",

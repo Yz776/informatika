@@ -5,8 +5,8 @@ backend, game realtime, aplikasi edukasi, dan platform streaming web publik.
 
 ## ✨ Highlight
 
-- **UI premium dark-mode** dengan animasi halus dan micro-interactions
-- **SEO komprehensif**: meta lengkap, multi-schema JSON-LD (Person, WebSite, ProfilePage, BreadcrumbList, ItemList, FAQPage, ProfessionalService)
+- **UI "Technical Paper"** — terang, editorial, tanpa gradien/ornamen
+- **SEO komprehensif**: meta lengkap, JSON-LD (Person, WebSite, ProfilePage, BreadcrumbList, ItemList, FAQPage)
 - **Mobile-first & responsif** dari layar kecil sampai monitor besar
 - **Aksesibilitas**: skip link, ARIA, focus-visible, prefers-reduced-motion
 - **PWA-ready** dengan manifest & theme color
@@ -15,7 +15,7 @@ backend, game realtime, aplikasi edukasi, dan platform streaming web publik.
 ## 🛠 Tech Stack
 
 - HTML5 semantik + ARIA
-- CSS3 modern (grid, custom properties, backdrop-filter, mask-image)
+- CSS3 modern (grid, custom properties)
 - Vanilla JavaScript (no dependencies)
 - Schema.org JSON-LD untuk SEO
 - PWA-ready (site.webmanifest)
@@ -35,50 +35,31 @@ backend, game realtime, aplikasi edukasi, dan platform streaming web publik.
 - **ID-Networkers** (5 sertifikat) — Mikrotik, Jaringan Komputer, Cisco, Linux, Cyber Security
 - **Digitalent Kominfo** (7 sertifikat) — Data Privacy, AI Security, Cloud Computing, Ethical Hacker, IoT
 
+## 🎨 Design System — "Technical Paper"
+
+- **Background**: kertas hangat `#f7f5f0` (alt `#efece3`), tanpa gradien & tanpa ornamen
+- **Teks**: tinta pekat `#191712`, muted `#6f6a5e`
+- **Aksen**: satu warna saja — oranye bakar `#b5470e`
+- **Font**: Space Grotesk (display + body), IBM Plex Mono (label, meta, terminal)
+- **Struktur**: hairline rules (garis 1px) sebagai pembatas section, kartu & baris
+- **Radius**: 2px; **Shadows**: tidak ada — hierarki dibangun lewat garis & tipografi
+- **Motion**: reveal halus sekali jalan, hormat `prefers-reduced-motion`
+
 ## 📁 Struktur File
 
 ```
-index.html            — Beranda (Hero + About + Stats + Featured + Tech Stack + Contact)
-project.html          — Daftar proyek lengkap
+index.html            — Beranda (Hero + Factsheet + Stats + Tentang + Karya + Tech + Kontak)
+project.html          — Daftar proyek lengkap (baris editorial)
 sertifikat.html       — Galeri 16 sertifikat dengan filter & modal preview
-style.css             — Stylesheet utama (premium dark theme)
-domain-variants.css   — Variasi, animasi dekoratif, spotlight, micro-interactions
-script.js             — Logika UI, SEO dinamis, modal, filter, scroll behavior
+style.css             — Satu-satunya stylesheet (design system "Technical Paper")
+script.js             — Interaksi inti: nav mobile, reveal, filter sertifikat, modal
 sitemap.xml           — Sitemap SEO (image sitemap included)
-robots.txt            — Direktif crawler (AI-friendly)
+robots.txt            — Direktif crawler
 site.webmanifest      — PWA manifest
 tes.jpg               — Foto profil
 sertifikat-1..16.jpg  — 16 gambar sertifikat
 wotanime-v1.1.apk     — APK WotAnime untuk download
 ```
-
-## 🎨 Design System
-
-- **Background**: gradient dark `#04060d → #080d1a → #050810` + aurora + grid pattern + grain
-- **Primary**: `#6aa7ff` (blue), `#67e8f9` (cyan), `#b69cff` (violet)
-- **Font**: Inter (body), Syne (headings), JetBrains Mono (terminal), Sora (accent)
-- **Radius**: 22px (cards), 34px (panels), 999px (pills)
-- **Shadows**: soft + glow + accent-tinted hover states
-
-## 🔍 SEO Features
-
-- ✅ Meta tags lengkap (description, keywords, robots, geo, author, rating)
-- ✅ Open Graph dengan image dimensions & secure_url
-- ✅ Twitter Card dengan label1/label2
-- ✅ Canonical URL & hreflang (id-ID, x-default)
-- ✅ Multi-schema JSON-LD: Person, WebSite, ProfilePage, CollectionPage, BreadcrumbList, ItemList, FAQPage, ProfessionalService
-- ✅ Semantic HTML5 (header, main, section, article, aside, nav, footer)
-- ✅ Image sitemap di sitemap.xml
-- ✅ robots.txt AI-friendly (GPTBot, ClaudeBot, PerplexityBot, dst)
-- ✅ PWA manifest dengan shortcuts
-
-## 📱 Responsive Breakpoints
-
-- **Desktop**: ≥1200px (max-width 1180px)
-- **Large**: 981px–1199px
-- **Tablet**: ≤980px (grid 2 kolom)
-- **Mobile**: ≤720px (grid 1 kolom, hamburger menu)
-- **Small**: ≤420px (compact spacing)
 
 ## 🚢 Deployment
 
