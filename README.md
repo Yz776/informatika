@@ -46,7 +46,7 @@ backend, game realtime, aplikasi edukasi, dan platform streaming web publik.
 - **Struktur**: hairline rules (garis 1px) sebagai pembatas section, kartu & baris
 - **Radius**: 2px; **Shadows**: tidak ada — hierarki dibangun lewat garis & tipografi
 - **Dark mode**: via `prefers-color-scheme` — kertas gelap hangat `#171510`, tinta terang,
-  aksen oranye lebih terang; band kontak & terminal ikut terbalik (invert) otomatis
+  aksen oranye lebih terang; blok terminal di factsheet ikut ter-invert otomatis
 - **Motion**: reveal halus sekali jalan, hormat `prefers-reduced-motion`
 
 ## 📁 Struktur File

@@ -558,20 +558,16 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ---------- Kontak ---------- */
 
-.contact-band {
-  background: var(--ink);
-  color: var(--paper);
-}
-.contact-inner { padding-block: clamp(56px, 8vw, 96px); }
-.contact-band .kicker { color: var(--band-muted); }
-.contact-band .h2 { color: var(--paper); max-width: 26ch; }
-.contact-lead { color: var(--band-muted); max-width: 56ch; margin-top: 16px; }
+/* Sekarang section biasa — warna mengikuti halaman, bukan band terbalik */
+.contact-inner { padding-block: 0; }
+.contact-band .h2 { max-width: 26ch; }
+.contact-lead { color: var(--ink-2); max-width: 56ch; margin-top: 16px; }
 
 .channel-list {
   list-style: none;
   margin: clamp(32px, 4.5vw, 48px) 0 0;
   padding: 0;
-  border-top: 1px solid var(--band-line);
+  border-top: 1px solid var(--line);
 }
 .channel {
   display: grid;
@@ -579,11 +575,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   align-items: center;
   gap: 18px;
   padding: 17px 6px;
-  border-bottom: 1px solid var(--band-line);
+  border-bottom: 1px solid var(--line);
   text-decoration: none;
   transition: background 0.15s ease, padding 0.18s ease;
 }
-.channel:hover { background: var(--band-hover); padding-left: 16px; padding-right: 2px; }
+.channel:hover { background: var(--paper-2); padding-left: 16px; padding-right: 2px; }
 .channel > svg { color: var(--accent); }
 
 .channel-id b { display: block; font-size: 1.02rem; font-weight: 600; }
@@ -592,16 +588,16 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   margin-top: 2px;
   font-family: var(--font-mono);
   font-size: 0.78rem;
-  color: var(--band-muted);
+  color: var(--muted);
 }
 
 .channel-arrow {
   font-size: 1.15rem;
   line-height: 1;
-  color: var(--band-muted);
+  color: var(--muted);
   transition: transform 0.18s ease, color 0.15s ease;
 }
-.channel:hover .channel-arrow { transform: translateX(4px); color: var(--paper); }
+.channel:hover .channel-arrow { transform: translateX(4px); color: var(--accent); }
 
 .contact-note {
   margin-top: 20px;
@@ -610,7 +606,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   font-weight: 500;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--band-muted);
+  color: var(--muted);
 }
 
 /* ---------- Hero halaman dalam ---------- */
