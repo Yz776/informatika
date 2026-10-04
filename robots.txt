@@ -1,10 +1,9 @@
 # =====================================================================
-# robots.txt — Portfolio Ahsan (ahsangresik.me, domain primer)
+# robots.txt — Portfolio Ahsan (ahsann.is-a.dev, mirror deploy)
 # =====================================================================
 # Sitemap harus berada di host yang sama dengan robots.txt ini, dan
-# XML tidak bisa di-rewrite lewat JS — jadi tiap domain mirror
-# (erd7.eu.org, ahsann.is-a.dev) memakai robots.txt dengan baris
-# Sitemap milik hostnya sendiri (branch deploy per-domain).
+# XML tidak bisa di-rewrite lewat JS — jadi mirror ahsann.is-a.dev
+# memakai robots.txt dengan baris Sitemap milik hostnya sendiri.
 # =====================================================================
 
 User-agent: *
@@ -55,5 +54,5 @@ Allow: /
 
 Crawl-delay: 1
 
-Sitemap: https://ahsangresik.me/sitemap.xml
+Sitemap: https://ahsann.is-a.dev/sitemap.xml
 
