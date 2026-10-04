@@ -52,14 +52,14 @@ backend, game realtime, aplikasi edukasi, dan platform streaming web publik.
 ## 📁 Struktur File
 
 ```
-index.html            — Beranda (Hero + Factsheet + Stats + Tentang + Karya + Tech + AI + Kontak)
+index.html            — Beranda (Hero + Factsheet + Stats + Tentang + Karya + Tech + AI + FAQ + Kontak)
 project.html          — Daftar proyek lengkap (baris editorial)
 sertifikat.html       — Galeri 16 sertifikat dengan filter & modal preview
 style.css             — Satu-satunya stylesheet (design system "Technical Paper", light + dark)
 favicon.svg           — Ikon "A" geometric (fallback tes.jpg untuk apple-touch-icon)
 script.js             — Interaksi inti: nav mobile, reveal, filter sertifikat, modal
-sitemap.xml           — Sitemap SEO (image sitemap included)
-robots.txt            — Direktif crawler
+sitemap.xml           — Sitemap primer (image sitemap, tanpa alternate lintas-domain)
+robots.txt            — Direktif crawler + AI crawlers
 site.webmanifest      — PWA manifest
 tes.jpg               — Foto profil
 sertifikat-1..16.jpg  — 16 gambar sertifikat

@@ -1,15 +1,10 @@
 # =====================================================================
-# robots.txt — Portfolio Ahsan (Multi-Domain SEO Strategy)
+# robots.txt — Portfolio Ahsan
 # =====================================================================
-# Domains:
-#   - ahsangresik.me (canonical - primary)
-#   - erd7.eu.org (mirror - secondary)
-#   - ahsann.is-a.dev (mirror - tertiary)
-#
-# Strategy:
-#   - All domains allow full crawl
-#   - Canonical set in HTML to ahsangresik.me to avoid duplicate content
-#   - Cross-domain sitemap references for discovery
+# Domain: ahsangresik.me (primer), erd7.eu.org & ahsann.is-a.dev (mirror).
+# Semua domain boleh di-crawl penuh. Setiap host menetapkan canonical
+# mandiri lewat script.js, jadi mirror tidak lagi diperlakukan sebagai
+# duplikat dari domain primer.
 # =====================================================================
 
 User-agent: *
@@ -58,13 +53,6 @@ Allow: /
 User-agent: LinkedInBot
 Allow: /
 
-# Crawl delay untuk fairness
 Crawl-delay: 1
 
-# =====================================================================
-# Sitemap references (cross-domain untuk SEO boost)
-# =====================================================================
 Sitemap: https://ahsangresik.me/sitemap.xml
-Sitemap: https://erd7.eu.org/sitemap.xml
-Sitemap: https://ahsann.is-a.dev/sitemap.xml
-Sitemap: https://ahsangresik.me/sitemap-index.xml
