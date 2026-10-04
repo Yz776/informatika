@@ -1,23 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- =====================================================================
-     sitemap.xml — ahsangresik.me (domain primer)
+     sitemap.xml — erd7.eu.org (mirror deploy)
      =====================================================================
      Sitemap wajib memuat URL absolut milik host itu sendiri, dan XML
-     tidak bisa di-rewrite lewat JS. Untuk mirror (erd7.eu.org,
-     ahsann.is-a.dev), baris <loc> di bawah diganti dengan URL host
-     masing-masing (branch deploy per-domain).
+     tidak bisa di-rewrite lewat JS — jadi mirror erd7.eu.org memakai
+     sitemap dengan URL hostnya sendiri (branch deploy per-domain).
      ===================================================================== -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <!-- Homepage -->
   <url>
-    <loc>https://ahsangresik.me/</loc>
+    <loc>https://erd7.eu.org/</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
     <image:image>
-      <image:loc>https://ahsangresik.me/tes.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/tes.jpg</image:loc>
       <image:title>Mohammad Ahsan Al Ghoni — Backend Developer & Network Engineer</image:title>
       <image:caption>Portofolio Mohammad Ahsan Al Ghoni dari Gresik, Indonesia</image:caption>
     </image:image>
@@ -25,84 +24,84 @@
 
   <!-- Project page -->
   <url>
-    <loc>https://ahsangresik.me/project.html</loc>
+    <loc>https://erd7.eu.org/project.html</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
     <image:image>
-      <image:loc>https://ahsangresik.me/tes.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/tes.jpg</image:loc>
       <image:title>Proyek Mohammad Ahsan Al Ghoni — Catur Online, Al-Quran Digital, WotAnime, TTT</image:title>
     </image:image>
   </url>
 
   <!-- Sertifikat page -->
   <url>
-    <loc>https://ahsangresik.me/sertifikat.html</loc>
+    <loc>https://erd7.eu.org/sertifikat.html</loc>
     <lastmod>2026-10-04</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
     <image:image>
-      <image:loc>https://ahsangresik.me/sertifikat-1.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/sertifikat-1.jpg</image:loc>
       <image:title>Sertifikat Belajar Dasar AI Dicoding</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://ahsangresik.me/sertifikat-2.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/sertifikat-2.jpg</image:loc>
       <image:title>Sertifikat Cloud dan Generative AI di AWS Dicoding</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://ahsangresik.me/sertifikat-3.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/sertifikat-3.jpg</image:loc>
       <image:title>Sertifikat Belajar Dasar JavaScript Dicoding</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://ahsangresik.me/sertifikat-4.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/sertifikat-4.jpg</image:loc>
       <image:title>Sertifikat Back-End Pemula dengan JavaScript Dicoding</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://ahsangresik.me/sertifikat-5.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/sertifikat-5.jpg</image:loc>
       <image:title>Sertifikat Mikrotik Dasar ID-Networkers</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://ahsangresik.me/sertifikat-6.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/sertifikat-6.jpg</image:loc>
       <image:title>Sertifikat Jaringan Komputer Dasar ID-Networkers</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://ahsangresik.me/sertifikat-7.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/sertifikat-7.jpg</image:loc>
       <image:title>Sertifikat Cisco Networking Dasar ID-Networkers</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://ahsangresik.me/sertifikat-8.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/sertifikat-8.jpg</image:loc>
       <image:title>Sertifikat Belajar Linux dari Nol ID-Networkers</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://ahsangresik.me/sertifikat-9.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/sertifikat-9.jpg</image:loc>
       <image:title>Sertifikat Cyber Security Dasar ID-Networkers</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://ahsangresik.me/sertifikat-10.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/sertifikat-10.jpg</image:loc>
       <image:title>Sertifikat Menjaga Data Pribadi Digitalent Kominfo</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://ahsangresik.me/sertifikat-11.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/sertifikat-11.jpg</image:loc>
       <image:title>Sertifikat Dasar Keamanan AI Digitalent Kominfo</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://ahsangresik.me/sertifikat-12.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/sertifikat-12.jpg</image:loc>
       <image:title>Sertifikat Introduction to Cloud Computing Digitalent Kominfo</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://ahsangresik.me/sertifikat-13.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/sertifikat-13.jpg</image:loc>
       <image:title>Sertifikat Ethical Hacker For Dummies Digitalent Kominfo</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://ahsangresik.me/sertifikat-14.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/sertifikat-14.jpg</image:loc>
       <image:title>Sertifikat Lindungi Data Pribadi Digitalent Kominfo</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://ahsangresik.me/sertifikat-15.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/sertifikat-15.jpg</image:loc>
       <image:title>Sertifikat Keamanan Siber Micro Skill Digital Talent Scholarship 2026</image:title>
     </image:image>
     <image:image>
-      <image:loc>https://ahsangresik.me/sertifikat-16.jpg</image:loc>
+      <image:loc>https://erd7.eu.org/sertifikat-16.jpg</image:loc>
       <image:title>Sertifikat Pengenalan Internet of Things Digital Talent Scholarship 2026</image:title>
     </image:image>
   </url>
