@@ -142,9 +142,13 @@
   }
 
   /* Identitas per-host: setiap domain mirror (ahsangresik.me, erd7.eu.org,
-     ahsann.is-a.dev) berkanonis mandiri supaya tidak dinilai duplikat konten. */
+     ahsann.is-a.dev) berkanonis mandiri supaya tidak dinilai duplikat konten.
+     Catatan: rewrite ini berjalan saat render (JS). Untuk sinyal tanpa JS
+     (sitemap, robots), tiap host memakai berkas dari branch deploy masing-
+     masing, atau sitemap XML diambil oleh crawler tanpa eksekusi JS. */
   function applyHostIdentity() {
-    const self = `${location.origin}${location.pathname}`;
+    const origin = location.origin;
+    const self = `${origin}${location.pathname}`;
     const set = (sel, attr, val) => {
       const el = document.querySelector(sel);
       if (el) el.setAttribute(attr, val);
@@ -153,7 +157,7 @@
     set('meta[property="og:url"]', 'content', self);
     $$('link[rel="alternate"][hreflang]').forEach((l) => { l.href = self; });
     $$('script[type="application/ld+json"]').forEach((sc) => {
-      sc.textContent = sc.textContent.split('https://ahsangresik.me').join(location.origin);
+      sc.textContent = sc.textContent.split('https://ahsangresik.me').join(origin);
     });
   }
 

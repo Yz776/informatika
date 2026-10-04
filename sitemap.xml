@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- =====================================================================
-     sitemap.xml — URL primer ahsangresik.me
+     sitemap.xml — ahsangresik.me (domain primer)
      =====================================================================
-     Mirror (erd7.eu.org, ahsann.is-a.dev) melayani file yang sama, tetapi
-     canonical/og:url/hreflang/JSON-LD ditulis ulang per-host oleh script.js,
-     jadi tiap domain berkanonis mandiri — bukan duplicate alternates.
+     Sitemap wajib memuat URL absolut milik host itu sendiri, dan XML
+     tidak bisa di-rewrite lewat JS. Untuk mirror (erd7.eu.org,
+     ahsann.is-a.dev), baris <loc> di bawah diganti dengan URL host
+     masing-masing (branch deploy per-domain).
      ===================================================================== -->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
-        xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 
   <!-- Homepage -->
